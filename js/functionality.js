@@ -13,9 +13,9 @@ function buildList() {
 
     let thoughtStr = "";
     for (let i = 0; i < thoughtObj.length; i++) {
-        thoughtStr = thoughtStr + "<li class='list-group-item'><label>Thought: " + thoughtObj[i].automaticThought
+        thoughtStr = thoughtStr + "<li class='list-group-item'><label> " + (i + 1) + ". Thought: " + thoughtObj[i].automaticThought
             + "</label><hr/><label><u>Cognitive Distortion</u></label><p>" + thoughtObj[i].cognitiveDistortion + "</p><hr/><label><u>Rational Thought</u></label><p>" +
-            thoughtObj[i].rationalThought + "</p><button class='form-control btn btn-danger' onClick='deleteThought(" + i + ")'>Delete</button></li>";
+            thoughtObj[i].rationalThought + "</p><button class='form-control btn btn-danger' onClick='deleteThought(" + i + ")'>Delete Thought " + (i + 1) + "</button></li>";
     }
 
     document.getElementById("thoughtTarget").innerHTML = thoughtStr;
@@ -91,6 +91,91 @@ function deleteThought(num) {
     buildList();
 
 }
+
+
+
+
+function downloadData() {
+    let tempData = [];
+    if (localStorage.getItem("thoughtObj")) {
+        tempData = JSON.parse(localStorage.getItem("thoughtObj"));
+    }
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([JSON.stringify(tempData, null, 2)], {
+        type: 'application/json'
+    }));
+    a.setAttribute("download", "cognitiveDistortion.json");
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+}
+
+
+/*START UPLOAD DATA */
+//START FILE READER
+const fileReader = new FileReader();
+let file;
+function handleOnChange(event) {
+    if (event.target.files[0]) {
+        file = event.target.files[0];
+        console.log("event.target.files[0]: " + JSON.stringify(event.target.files[0]));
+        document.querySelector("#fileUpload").classList.remove("hide");
+        //  document.querySelector("#fileMerge").classList.remove("hide");
+        //  globalAlert("alert-warning", `File selected. Select if you want to merge  with current data or not.`);
+    } else {
+        document.querySelector("#fileUpload").classList.add("hide");
+        // document.querySelector("#fileMerge").classList.add("hide");
+    }
+};
+function handleOnSubmit(event, type, merge) {
+    event.preventDefault();
+
+    if (file) {
+        fileReader.onload = function (event) {
+            const tempObj = event.target.result;
+            if (type === "json") {
+
+
+
+
+                localStorage.setItem("thoughtObj", tempObj);
+                thoughtObj = tempObj;
+
+
+
+
+
+            }
+            else {
+                console.log("That wasn't json.")
+            }
+        };
+        fileReader.readAsText(file);
+    }
+    document.querySelector("input[type='file']").value = "";
+    document.querySelector("#fileUpload").classList.add("hide");
+
+    // toggleEdit();
+
+    // globalAlert("alert-success", "Your file was uploaded. The next word should be one you uploaded.");
+
+
+
+
+
+
+
+};
+
+
+
+
+
+
+
+
+
+
 
 
 
