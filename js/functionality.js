@@ -201,12 +201,6 @@ function globalAlert(alertLevel, message) {
 
 
 
-function clearData() {
-    localStorage.removeItem("thoughtObj");
-    document.getElementById("thoughtTarget").innerHTML = "";
-    globalAlert("alert-success", "Your data was removed.");
-    return false;
-}
 
 function toggle(what) {
 
@@ -222,6 +216,13 @@ function toggle(what) {
 }
 
 
+function clearData() {
+    localStorage.removeItem("thoughtObj");
+    document.getElementById("thoughtTarget").innerHTML = "";
+    globalAlert("alert-success", "Your data was removed.");
+    toggle("default");
+    return false;
+}
 
 
 if (localStorage.getItem("thoughtObj")) {
