@@ -121,7 +121,7 @@ function handleOnChange(event) {
         console.log("event.target.files[0]: " + JSON.stringify(event.target.files[0]));
         document.querySelector("#fileUpload").classList.remove("hide");
         //  document.querySelector("#fileMerge").classList.remove("hide");
-        //  globalAlert("alert-warning", `File selected. Select if you want to merge  with current data or not.`);
+        globalAlert("alert-warning", `File selected. click the "Upload New Data" button.`);
     } else {
         document.querySelector("#fileUpload").classList.add("hide");
         // document.querySelector("#fileMerge").classList.add("hide");
@@ -135,7 +135,14 @@ function handleOnSubmit(event, type, merge) {
             const tempObj = event.target.result;
             if (type === "json") {
 
+                let ck = JSON.parse(tempObj)
 
+                if (ck[0].automaticThought === undefined) {
+                    console.log("tempObj[0].automaticThought: " + ck[0].automaticThought)
+
+                    globalAlert("alert-danger", "This data does not have the correct keys and values.");
+                    return false;
+                }
 
 
                 localStorage.setItem("thoughtObj", tempObj);
@@ -143,6 +150,7 @@ function handleOnSubmit(event, type, merge) {
 
 
                 buildList();
+                globalAlert("alert-success", "Your file was uploaded.");
                 return false;
 
 
@@ -161,7 +169,7 @@ function handleOnSubmit(event, type, merge) {
 
     // toggleEdit();
 
-    // globalAlert("alert-success", "Your file was uploaded. The next word should be one you uploaded.");
+
 
 
 
@@ -173,7 +181,22 @@ function handleOnSubmit(event, type, merge) {
 
 
 
+//START GLOBAL ALERT
+function globalAlert(alertLevel, message) {
 
+    document.getElementById("globalAlert").classList.remove("hide");
+    document.getElementById("globalAlert").classList.add(alertLevel);
+    document.getElementById("globalAlert").classList.add("animated");
+    document.getElementById("globalAlert").innerHTML = message;
+
+    setTimeout(function () {
+        document.getElementById("globalAlert").classList.add("hide");
+        document.getElementById("globalAlert").classList.remove(alertLevel);
+    }, 5000);
+
+}
+
+/*START GLOBAL TOGGLE FUNCTION*/
 
 
 
