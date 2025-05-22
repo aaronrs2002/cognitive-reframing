@@ -15,7 +15,7 @@ function buildList() {
     for (let i = 0; i < thoughtObj.length; i++) {
         thoughtStr = thoughtStr + "<li class='list-group-item'><label> " + (i + 1) + ". Thought: " + thoughtObj[i].automaticThought
             + "</label><hr/><label><u>Cognitive Distortion</u></label><p>" + thoughtObj[i].cognitiveDistortion + "</p><hr/><label><u>Rational Thought</u></label><p>" +
-            thoughtObj[i].rationalThought + "</p><button class='form-control btn btn-danger' onClick='deleteThought(" + i + ")'>Delete Thought " + (i + 1) + "</button></li>";
+            thoughtObj[i].rationalThought + "</p><button class='form-control btn btn-danger' onClick='deleteThought(" + i + ")'> <i class='fas fa-trash'></i> Delete Thought " + (i + 1) + "</button></li>";
     }
 
     document.getElementById("thoughtTarget").innerHTML = thoughtStr;
@@ -89,6 +89,7 @@ function deleteThought(num) {
     localStorage.setItem("thoughtObj", JSON.stringify(thoughtObj));
 
     buildList();
+
 
 }
 
@@ -200,7 +201,25 @@ function globalAlert(alertLevel, message) {
 
 
 
+function clearData() {
+    localStorage.removeItem("thoughtObj");
+    document.getElementById("thoughtTarget").innerHTML = "";
+    globalAlert("alert-success", "Your data was removed.");
+    return false;
+}
 
+function toggle(what) {
+
+    [].forEach.call(document.querySelectorAll("[data-toggle]"), (e) => {
+        e.classList.add("hide");
+        if (e.dataset.toggle === what) {
+            e.classList.remove("hide");
+        }
+    });
+
+
+
+}
 
 
 
