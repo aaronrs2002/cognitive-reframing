@@ -139,7 +139,11 @@ function handleOnSubmit(event, type, merge) {
 
 
                 localStorage.setItem("thoughtObj", tempObj);
-                thoughtObj = tempObj;
+                thoughtObj = JSON.parse(tempObj);
+
+
+                buildList();
+                return false;
 
 
 
@@ -158,7 +162,6 @@ function handleOnSubmit(event, type, merge) {
     // toggleEdit();
 
     // globalAlert("alert-success", "Your file was uploaded. The next word should be one you uploaded.");
-
 
 
 
