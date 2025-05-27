@@ -8,13 +8,77 @@ if (localStorage.getItem("thoughtObj")) {
 }
 
 
+const timestamp = () => {
+
+    const date = new Date();
+    let day = date.getDate();
+    let month = Number(date.getMonth()) + 1;
+    const year = date.getFullYear();
+    let hours = date.getHours();
+    let hoursOriginal = hours;
+    let minutes = date.getMinutes();
+    let seconds = date.getSeconds();
+
+
+
+    if (month < 10) {
+        month = "0" + month;
+    }
+    if (day < 10) {
+        day = "0" + day;
+    }
+    if (hours > 12) {
+        hours = hours - 12;
+    }
+    if (hours < 10) {
+        hours = "0" + hours;
+    }
+    if (minutes < 10) {
+        minutes = "0" + minutes;
+    }
+    if (seconds < 10) {
+        seconds = "0" + seconds;
+    }
+
+    if (hoursOriginal > 11) {
+        hours = "PM-" + hours;
+
+    } else {
+        hours = "AM-" + hours;
+    }
+    return (year + "-" + month + "-" + day + "_" + hours + ":" + minutes + ":" + seconds);
+}
+
+
+
+
 
 function buildList() {
 
+
+
+
     let thoughtStr = "";
     for (let i = 0; i < thoughtObj.length; i++) {
+
+
+        let thoughtDateTime;
+        console.log("thoughtObj[i].thoughtDateTime: " + thoughtObj[i].thoughtDateTime);
+        try {
+            if (thoughtObj[i].thoughtDateTime !== undefined) {
+                thoughtDateTime = thoughtObj[i].thoughtDateTime;
+            } else {
+                thoughtDateTime = timestamp();
+            }
+
+        } catch (error) {
+
+            console.log("Error: " + error)
+
+        }
+
         thoughtStr = thoughtStr + "<li class='list-group-item'><label> " + (i + 1) + ". Thought: " + thoughtObj[i].automaticThought
-            + "</label><hr/><label><u>Cognitive Distortion</u></label><p>" + thoughtObj[i].cognitiveDistortion + "</p><hr/><label><u>Rational Thought</u></label><p>" +
+            + "</label><br/><i>Date Time: " + thoughtDateTime + "</i><hr/><label><u>Cognitive Distortion</u></label><p>" + thoughtObj[i].cognitiveDistortion + "</p><hr/><label><u>Rational Thought</u></label><p>" +
             thoughtObj[i].rationalThought + "</p><button class='form-control btn btn-danger' onClick='deleteThought(" + i + ")'> <i class='fas fa-trash'></i> Delete Thought " + (i + 1) + "</button></li>";
     }
 
@@ -61,7 +125,8 @@ function submitTought() {
     thoughtObj = [...thoughtObj, {
         automaticThought,
         cognitiveDistortion,
-        rationalThought
+        rationalThought,
+        thoughtDateTime: timestamp()
     }];
 
     localStorage.setItem("thoughtObj", JSON.stringify(thoughtObj));
