@@ -12,12 +12,61 @@
     <link rel="stylesheet" href="https://aaronrs2002.github.io/black-jack/css/animate.min.css" />
     <link href="https://aaronrs2002.github.io/black-jack/css/shared.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-    <title>CBT</title>
+    <title>I have thoughts</title>
 </head>
 
 <body class="wLogo">
+
+
+
+
+
+
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark" id="top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#top" target="_blank">Open Source</a>
+            <button class="navbar-toggler collapsed" onClick="toggleMobileNav('mobileNav')">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="navbar-collapse collapse">
+                <ul class="navbar-nav me-auto mb-2 ml-5 mb-sm-0" id="navLinkTarget">
+
+
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+
+
     <div class="container">
-        <div class="row">
+        <div class="row hide py-5" id="journal" data-section="Journal">
+            <div class="col-md-12">
+                <h3>Journal Title</h3>
+                <input type="text" class="form-control" id="journalTitle" placeholder="Journal Title" />
+            </div>
+            <div class="col-md-12">
+                <h3>Journal Thought</h3>
+                <textarea rows="10" class="form-control" id="journalInput" placeholder="Journal Thought"></textarea>
+            </div>
+            <div class="col-md-12">
+                <button class="form-control btn btn-success" onClick="submitJournalThought()">Submit Thought</button>
+                <hr />
+            </div>
+            <h3>Journal Entries:</h3>
+            <ul class="list-group" id="journalSubmissionsTarget"></ul>
+        </div>
+
+
+
+
+
+
+
+
+
+        <div class="row py-5" id="thoughtProcess" data-section="CBT Thought Process">
             <div class="col-md-12">
                 <h1>CBT Thought Process</h1>
 
@@ -46,63 +95,70 @@
                 <ul id="thoughtTarget" class="list-group"></ul>
             </div>
 
-            <div class="col-md-12">
-                <div class="card">
-
-                    <div class="card-body">
-
-                        <div class="col-md-12">
-
-                            <button class="btn btn-info form-control" onClick="downloadData()">Download All
-                                Thoughts</button>
-                        </div>
 
 
+        </div>
 
-                        <div class="col-md-12 py-2">
+        <div class="col-md-12">
+            <div class="card">
 
-                            <button class="btn btn-danger form-control" onClick="toggle('clearData')"
-                                data-toggle="default">Clear Local
-                                Data</button>
-                            <div data-toggle="clearData" class="hide">
-                                <div>
-                                    <p>Are you sure you want to delete all your CBT thoughts?</p>
-                                </div>
-                                <button class="btn btn-secondary p-2" onClick="toggle('default')">No</button>
-                                <button class="btn btn-danger p-2" onClick="clearData()">Yes</button>
+                <div class="card-body">
+
+                    <div class="col-md-12">
+
+                        <button class="btn btn-info form-control" onClick="downloadData()">Download All
+                            Thoughts</button>
+                    </div>
+
+
+
+                    <div class="col-md-12 py-2">
+
+                        <button class="btn btn-danger form-control" onClick="toggle('clearData')"
+                            data-toggle="default">Clear
+                            Local
+                            Data</button>
+                        <div data-toggle="clearData" class="hide">
+                            <div>
+                                <p>Are you sure you want to delete all your CBT thoughts?</p>
                             </div>
+                            <button class="btn btn-secondary p-2" onClick="toggle('default')">No</button>
+                            <button class="btn btn-danger p-2" onClick="clearData()">Yes</button>
                         </div>
+                    </div>
 
 
 
-                        <div class="col-md-12 py-2">
-                            <div class="d-grid gap-2">
+                    <div class="col-md-12 py-2">
+                        <div class="d-grid gap-2">
 
 
 
-                                <label class="custom-file-upload btn btn-light">
-                                    <input type="file" name="importFile" accept=".json"
-                                        onChange="javascript:handleOnChange(event)" />
-                                    <i class="fa fa-cloud-upload"></i> Select a "cognitiveDistortion.json" file to
-                                    upload
-                                </label>
-
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="d-grid gap-2  py-2">
-                                <button id="fileUpload" class="btn btn-danger hide"
-                                    onClick="javascript:handleOnSubmit(event, 'json','default')"><i
-                                        class="fas fa-file-upload"></i>
-                                    Upload New Data</button>
-                            </div>
+                            <label class="custom-file-upload btn btn-light">
+                                <input type="file" name="importFile" accept=".json"
+                                    onChange="javascript:handleOnChange(event)" />
+                                <i class="fa fa-cloud-upload"></i> Select a "iHaveThoughts.json" file to
+                                upload
+                            </label>
 
                         </div>
                     </div>
+                    <div class="col-md-12">
+                        <div class="d-grid gap-2  py-2">
+                            <button id="fileUpload" class="btn btn-danger hide"
+                                onClick="javascript:handleOnSubmit(event, 'json','default')"><i
+                                    class="fas fa-file-upload"></i>
+                                Upload New Data</button>
+                        </div>
+
+                    </div>
                 </div>
             </div>
-
         </div>
+
+
+
+
     </div>
     <div class="hide alert fadeInUp" role="alert" id="globalAlert"></div>
 </body>

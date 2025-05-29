@@ -8,3 +8,23 @@ input[type='file'] {
     font-size: .75rem;
     line-height: inherit;
 }
+
+/*START NAV*/
+
+nav img.companyLogo {
+    max-width: 75px;
+}
+
+#navLinkTarget {
+    margin-left: 3.5rem;
+}
+
+nav img {
+    width: 85px;
+    height: auto;
+    cursor: pointer;
+    margin-left: -14px;
+    margin-top: -28px;
+    position: absolute;
+    z-index: 9;
+}

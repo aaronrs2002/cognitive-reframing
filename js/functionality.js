@@ -2,7 +2,8 @@
 
 
 
-let thoughtObj = []
+let thoughtObj = [];
+let journalObj = [];
 if (localStorage.getItem("thoughtObj")) {
     thoughtObj = JSON.parse(localStorage.getItem("thoughtObj"));
 }
@@ -162,19 +163,189 @@ function deleteThought(num) {
 
 
 function downloadData() {
-    let tempData = [];
+    let tempData = [{ thoughtObj: [], journalObj: [] }];
     if (localStorage.getItem("thoughtObj")) {
-        tempData = JSON.parse(localStorage.getItem("thoughtObj"));
+        tempData[0].thoughtObj = JSON.parse(localStorage.getItem("thoughtObj"));
+    }
+
+    if (localStorage.getItem("journalObj")) {
+        tempData[0].journalObj = JSON.parse(localStorage.getItem("journalObj"));
     }
     const a = document.createElement("a");
     a.href = URL.createObjectURL(new Blob([JSON.stringify(tempData, null, 2)], {
         type: 'application/json'
     }));
-    a.setAttribute("download", "cognitiveDistortion.json");
+    a.setAttribute("download", "iHaveThoughts.json");
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
 }
+
+
+if (localStorage.getItem("thoughtObj")) {
+    buildList();
+}
+
+
+
+/****START JOURNAL */
+
+
+
+
+function buildJournalList() {
+
+
+    let journalStr = "";
+    for (let i = 0; i < journalObj.length; i++) {
+
+
+        let journalDateTime;
+        console.log("journalObj[i].thoughtDateTime: " + journalObj[i].journalSubmission);
+        try {
+            if (journalObj[i].journalDateTime !== undefined) {
+                journalDateTime = journalObj[i].journalDateTime;
+            } else {
+                journalDateTime = timestamp();
+            }
+
+        } catch (error) {
+
+            console.log("Error: " + error)
+
+        }
+
+        /*
+                journalTitleSubmission,
+        journalSubmission,
+        journalDateTime: timestamp()
+        */
+
+        journalStr = journalStr + "<li class='list-group-item'><label> " + (i + 1) + ". Journal Title: " + journalObj[i].journalTitleSubmission
+            + "</label><br/><p>" + journalObj[i].journalSubmission
+            + "</p><i>Date Time: " + journalDateTime + "</i><hr/><button class='form-control btn btn-danger' onClick='deleteJournal(" + i + ")'> <i class='fas fa-trash'></i> Delete Journal " + (i + 1) + "</button></li>";
+    }
+
+    document.getElementById("journalSubmissionsTarget").innerHTML = journalStr;
+
+}
+
+
+
+
+function submitJournalThought() {
+    [].forEach.call(document.querySelectorAll("textarea"), (e) => {
+        e.classList.remove("error");
+    })
+
+    let journalSubmission = "";
+    try {
+        journalSubmission = document.getElementById("journalInput").value;
+    } catch (error) {
+        console.log("journalInput Error: " + error);
+        document.getElementById("journalInput").classList.add("error");
+        return false
+    }
+
+    let journalTitleSubmission = "";
+    try {
+        journalTitleSubmission = document.getElementById("journalTitle").value;
+    } catch (error) {
+        console.log("journalInputTitle Error: " + error);
+        document.getElementById("journalTitle").classList.add("error");
+        return false
+    }
+
+
+
+    journalObj = [...journalObj, {
+        journalTitleSubmission,
+        journalSubmission,
+        journalDateTime: timestamp()
+    }];
+
+    localStorage.setItem("journalObj", JSON.stringify(journalObj));
+
+    buildJournalList()
+
+}
+
+
+if (localStorage.getItem("journalObj")) {
+    journalObj = JSON.parse(localStorage.getItem("journalObj"));
+    buildJournalList();
+}
+
+
+
+
+function deleteJournal(num) {
+
+    let tempObj = [];
+    for (let i = 0; i < journalObj.length; i++) {
+        if (num !== i) {
+            tempObj.push(journalObj[i])
+        }
+    }
+    journalObj = tempObj;
+    localStorage.setItem("journalObj", JSON.stringify(journalObj));
+
+    buildJournalList();
+
+
+}
+
+
+
+/*START NAV JS*/
+const toggleMobileNav = (whichElem) => {
+
+    if (whichElem === "mobileNav") {//navbar-collapse collapse
+        if (document.querySelector(".collapse.navbar-collapse")) {
+            document.querySelector(".navbar-collapse").classList.remove("collapse");
+            document.querySelector(".navbar-collapse").classList.add("show");
+        } else {
+            document.querySelector(".navbar-collapse").classList.remove("show");
+            document.querySelector(".navbar-collapse").classList.add("collapse");
+        }
+
+    }
+
+
+}
+
+
+
+
+
+let navData = [{ name: "CBT Thought Process", address: "#top" }, { name: "Journal", address: "#top" }];
+let navLinkHTML = "";
+for (let i = 0; i < navData.length; i++) {
+    let active = "";
+    if (i === 0) {
+        active = "active";
+    }
+    navLinkHTML = navLinkHTML + `<li class='nav-item'> <a class='nav-link ${active}' data-selected='${navData[i].name}' href="${navData[i].address} " onClick="toggleSection('${navData[i].name}')"><u>${navData[i].name}</u></a></li>`;
+}
+document.getElementById("navLinkTarget").innerHTML = navLinkHTML;
+
+
+function toggleSection(whatSection) {
+
+    [].forEach.call(document.querySelectorAll("[data-section]"), (e) => {
+        e.classList.add("hide");
+    })
+    document.querySelector("[data-section='" + whatSection + "']").classList.remove("hide");
+    toggleMobileNav("mobileNav");
+
+
+    [].forEach.call(document.querySelectorAll("[data-selected]"), (e) => {
+        e.classList.remove("active");
+    });
+
+    document.querySelector("[data-selected='" + whatSection + "']").classList.add("active");
+}
+
 
 
 /*START UPLOAD DATA */
@@ -198,25 +369,46 @@ function handleOnSubmit(event, type, merge) {
 
     if (file) {
         fileReader.onload = function (event) {
-            const tempObj = event.target.result;
+            let tempObj = event.target.result;
             if (type === "json") {
 
-                let ck = JSON.parse(tempObj)
+                console.log("(typeof tempObj): " + (typeof tempObj));
 
-                if (ck[0].automaticThought === undefined) {
-                    console.log("tempObj[0].automaticThought: " + ck[0].automaticThought)
+                console.log("tempObj: " + tempObj);
+                if ((typeof tempObj) === "string") {
+                    tempObj = JSON.parse(tempObj);
+                }
+
+
+                if (tempObj[0].thoughtObj === undefined || tempObj[0].journalObj === undefined) {
+                    console.log("tempObj[0].tempObj: " + JSON.stringify(tempObj[0].thoughtObj) + "  - " + JSON.stringify(tempObj[0].journalObj))
 
                     globalAlert("alert-danger", "This data does not have the correct keys and values.");
                     return false;
                 }
+                thoughtObj = tempObj[0].thoughtObj;
+
+                localStorage.setItem("thoughtObj", JSON.stringify(thoughtObj));
 
 
-                localStorage.setItem("thoughtObj", tempObj);
-                thoughtObj = JSON.parse(tempObj);
+                journalObj = tempObj[0].journalObj;
+
+                localStorage.setItem("journalObj", JSON.stringify(journalObj));
+
 
 
                 buildList();
+                buildJournalList();
                 globalAlert("alert-success", "Your file was uploaded.");
+
+
+
+
+
+
+
+
+
                 return false;
 
 
@@ -283,13 +475,10 @@ function toggle(what) {
 
 function clearData() {
     localStorage.removeItem("thoughtObj");
+    localStorage.removeItem("journalObj");
     document.getElementById("thoughtTarget").innerHTML = "";
+    document.getElementById("journalSubmissionsTarget").innerHTML = "";
     globalAlert("alert-success", "Your data was removed.");
     toggle("default");
     return false;
-}
-
-
-if (localStorage.getItem("thoughtObj")) {
-    buildList();
 }
