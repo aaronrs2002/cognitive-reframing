@@ -104,6 +104,14 @@ function submitTought() {
         return false
 
     }
+
+    if (automaticThought === "") {
+        globalAlert("alert-danger", "What is your thought?");
+        document.getElementById("automaticThought").classList.add("error");
+        return false;
+    }
+
+
     let cognitiveDistortion = "";
     try {
         cognitiveDistortion = document.getElementById("cognitiveDistortion").value;
@@ -112,6 +120,13 @@ function submitTought() {
         document.getElementById("cognitiveDistortion").classList.add("error");
         return false
     }
+
+    if (cognitiveDistortion === "") {
+        globalAlert("alert-danger", "What is the cognitive distortion?");
+        document.getElementById("cognitiveDistortion").classList.add("error");
+        return false;
+    }
+
     let rationalThought = "";
     try {
         rationalThought = document.getElementById("rationalThought").value;
@@ -121,7 +136,11 @@ function submitTought() {
         return false
     }
 
-
+    if (rationalThought === "") {
+        globalAlert("alert-danger", "What is your rational thought?");
+        document.getElementById("rationalThought").classList.add("error");
+        return false;
+    }
 
 
     thoughtObj = [...thoughtObj, {
