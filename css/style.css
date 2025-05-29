@@ -1,3 +1,10 @@
 .error {
     border: 1px #ff0000 solid;
 }
+
+input {
+    margin: 0;
+    font-family: "Raleway", sans-serif;
+    font-size: .75rem;
+    line-height: inherit;
+}
