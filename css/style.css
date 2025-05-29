@@ -2,7 +2,7 @@
     border: 1px #ff0000 solid;
 }
 
-input {
+input[type='file'] {
     margin: 0;
     font-family: "Raleway", sans-serif;
     font-size: .75rem;
