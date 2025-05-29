@@ -103,65 +103,66 @@
 
 
         </div>
+        <div class="row">
 
-        <div class="col-md-12">
-            <div class="card">
+            <div class="col-md-12">
+                <div class="card">
 
-                <div class="card-body">
+                    <div class="card-body">
 
-                    <div class="col-md-12">
+                        <div class="col-md-12">
 
-                        <button class="btn btn-info form-control" onClick="downloadData()">Download All
-                            Thoughts</button>
-                    </div>
+                            <button class="btn btn-info form-control" onClick="downloadData()">Download All
+                                Thoughts</button>
+                        </div>
 
 
 
-                    <div class="col-md-12 py-2">
+                        <div class="col-md-12 py-2">
 
-                        <button class="btn btn-danger form-control" onClick="toggle('clearData')"
-                            data-toggle="default">Clear
-                            Local
-                            Data</button>
-                        <div data-toggle="clearData" class="hide">
-                            <div>
-                                <p>Are you sure you want to delete all your CBT thoughts?</p>
+                            <button class="btn btn-danger form-control" onClick="toggle('clearData')"
+                                data-toggle="default">Clear
+                                Local
+                                Data</button>
+                            <div data-toggle="clearData" class="hide">
+                                <div>
+                                    <p>Are you sure you want to delete all your CBT thoughts?</p>
+                                </div>
+                                <button class="btn btn-secondary p-2" onClick="toggle('default')">No</button>
+                                <button class="btn btn-danger p-2" onClick="clearData()">Yes</button>
                             </div>
-                            <button class="btn btn-secondary p-2" onClick="toggle('default')">No</button>
-                            <button class="btn btn-danger p-2" onClick="clearData()">Yes</button>
-                        </div>
-                    </div>
-
-
-
-                    <div class="col-md-12 py-2">
-                        <div class="d-grid gap-2">
-
-
-
-                            <label class="custom-file-upload btn btn-light">
-                                <input type="file" name="importFile" accept=".json"
-                                    onChange="javascript:handleOnChange(event)" />
-                                <i class="fa fa-cloud-upload"></i> Select a "iHaveThoughts.json" file to
-                                upload
-                            </label>
-
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="d-grid gap-2  py-2">
-                            <button id="fileUpload" class="btn btn-danger hide"
-                                onClick="javascript:handleOnSubmit(event, 'json','default')"><i
-                                    class="fas fa-file-upload"></i>
-                                Upload New Data</button>
                         </div>
 
+
+
+                        <div class="col-md-12 py-2">
+                            <div class="d-grid gap-2">
+
+
+
+                                <label class="custom-file-upload btn btn-light">
+                                    <input type="file" name="importFile" accept=".json"
+                                        onChange="javascript:handleOnChange(event)" />
+                                    <i class="fa fa-cloud-upload"></i> Select a "iHaveThoughts.json" file to
+                                    upload
+                                </label>
+
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="d-grid gap-2  py-2">
+                                <button id="fileUpload" class="btn btn-danger hide"
+                                    onClick="javascript:handleOnSubmit(event, 'json','default')"><i
+                                        class="fas fa-file-upload"></i>
+                                    Upload New Data</button>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
             </div>
+
         </div>
-
-
 
 
     </div>
