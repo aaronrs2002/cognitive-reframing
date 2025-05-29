@@ -78,12 +78,13 @@ function buildList() {
 
         }
 
-        thoughtStr = thoughtStr + "<li class='list-group-item'><label> " + (i + 1) + ". Thought: " + thoughtObj[i].automaticThought
+        thoughtStr = thoughtStr + "<li class='list-group-item' ><label> " + (i + 1) + ". Thought: " + thoughtObj[i].automaticThought
             + "</label><br/><i>Date Time: " + thoughtDateTime + "</i><hr/><label><u>Cognitive Distortion</u></label><p>" + thoughtObj[i].cognitiveDistortion + "</p><hr/><label><u>Rational Thought</u></label><p>" +
             thoughtObj[i].rationalThought + "</p><button class='form-control btn btn-danger' onClick='deleteThought(" + i + ")'> <i class='fas fa-trash'></i> Delete Thought " + (i + 1) + "</button></li>";
     }
 
     document.getElementById("thoughtTarget").innerHTML = thoughtStr;
+
 }
 
 
@@ -131,6 +132,7 @@ function submitTought() {
     }];
 
     localStorage.setItem("thoughtObj", JSON.stringify(thoughtObj));
+    globalAlert("alert-success", "Thought added.");
 
     buildList();
 
@@ -228,6 +230,7 @@ function buildJournalList() {
 
     document.getElementById("journalSubmissionsTarget").innerHTML = journalStr;
 
+
 }
 
 
@@ -241,6 +244,7 @@ function submitJournalThought() {
     let journalSubmission = "";
     try {
         journalSubmission = document.getElementById("journalInput").value;
+
     } catch (error) {
         console.log("journalInput Error: " + error);
         document.getElementById("journalInput").classList.add("error");
@@ -256,7 +260,18 @@ function submitJournalThought() {
         return false
     }
 
+    if (journalTitleSubmission === "") {
+        globalAlert("alert-danger", "What is your thought's title?");
+        document.getElementById("journalTitle").classList.add("error");
+        return false;
+    }
 
+
+    if (journalSubmission === "") {
+        globalAlert("alert-danger", "What is your thought?");
+        document.getElementById("journalInput").classList.add("error");
+        return false;
+    }
 
     journalObj = [...journalObj, {
         journalTitleSubmission,
@@ -266,8 +281,11 @@ function submitJournalThought() {
 
     localStorage.setItem("journalObj", JSON.stringify(journalObj));
 
-    buildJournalList()
+    document.getElementById("journalInput").value = "";
+    document.getElementById("journalTitle").value = "";
 
+    buildJournalList();
+    globalAlert("alert-success", "Journal entry added.");
 }
 
 
@@ -372,13 +390,9 @@ function handleOnSubmit(event, type, merge) {
             let tempObj = event.target.result;
             if (type === "json") {
 
-                console.log("(typeof tempObj): " + (typeof tempObj));
-
-                console.log("tempObj: " + tempObj);
                 if ((typeof tempObj) === "string") {
                     tempObj = JSON.parse(tempObj);
                 }
-
 
                 if (tempObj[0].thoughtObj === undefined || tempObj[0].journalObj === undefined) {
                     console.log("tempObj[0].tempObj: " + JSON.stringify(tempObj[0].thoughtObj) + "  - " + JSON.stringify(tempObj[0].journalObj))
@@ -387,33 +401,14 @@ function handleOnSubmit(event, type, merge) {
                     return false;
                 }
                 thoughtObj = tempObj[0].thoughtObj;
-
                 localStorage.setItem("thoughtObj", JSON.stringify(thoughtObj));
-
-
                 journalObj = tempObj[0].journalObj;
-
                 localStorage.setItem("journalObj", JSON.stringify(journalObj));
-
-
 
                 buildList();
                 buildJournalList();
                 globalAlert("alert-success", "Your file was uploaded.");
-
-
-
-
-
-
-
-
-
                 return false;
-
-
-
-
 
             }
             else {
