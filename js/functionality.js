@@ -243,7 +243,7 @@ function buildJournalList() {
         */
 
         journalStr = journalStr + "<li class='list-group-item'><label> " + (i + 1) + ". Journal Title: " + journalObj[i].journalTitleSubmission
-            + "</label><br/><p>" + journalObj[i].journalSubmission
+            + ":</label><br/><p>" + journalObj[i].journalSubmission
             + "</p><i>Date Time: " + journalDateTime + "</i><hr/><button class='form-control btn btn-danger' onClick='deleteJournal(" + i + ")'> <i class='fas fa-trash'></i> Delete Journal " + (i + 1) + "</button></li>";
     }
 
