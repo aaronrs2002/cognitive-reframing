@@ -373,6 +373,8 @@ document.getElementById("navLinkTarget").innerHTML = navLinkHTML;
 
 function toggleSection(whatSection) {
 
+    localStorage.setItem("iHaveThoughtsSection", whatSection);
+
     [].forEach.call(document.querySelectorAll("[data-section]"), (e) => {
         e.classList.add("hide");
     })
@@ -499,4 +501,8 @@ function clearData() {
     globalAlert("alert-success", "Your data was removed.");
     toggle("default");
     return false;
+}
+
+if (localStorage.getItem("iHaveThoughtsSection")) {
+    toggleSection(localStorage.getItem("iHaveThoughtsSection"));
 }
