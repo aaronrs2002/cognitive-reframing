@@ -242,8 +242,8 @@ function buildJournalList() {
         journalDateTime: timestamp()
         */
 
-        journalStr = journalStr + "<li class='list-group-item'><span class='badge text-bg-secondary'> " + (i + 1) + ". Journal Title: " + journalObj[i].journalTitleSubmission
-            + "</span><br/><p>" + journalObj[i].journalSubmission
+        journalStr = journalStr + "<li class='list-group-item'><label><u> " + (i + 1) + ". Journal Title: " + journalObj[i].journalTitleSubmission
+            + "</u></label><br/><p>" + journalObj[i].journalSubmission
             + "</p><i>Date Time: " + journalDateTime + "</i><hr/><button class='form-control btn btn-danger' onClick='deleteJournal(" + i + ")'> <i class='fas fa-trash'></i> Delete Journal " + (i + 1) + "</button></li>";
     }
 
