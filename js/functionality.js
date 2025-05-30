@@ -78,8 +78,8 @@ function buildList() {
 
         }
 
-        thoughtStr = thoughtStr + "<li class='list-group-item' ><label><u> " + (i + 1) + ". Thought: " + thoughtObj[i].automaticThought
-            + "</u></label><br/><i>Date Time: " + thoughtDateTime + "</i><hr/><label><u>Cognitive Distortion</u></label><p>" + thoughtObj[i].cognitiveDistortion + "</p><hr/><label><u>Rational Thought</u></label><p>" +
+        thoughtStr = thoughtStr + "<li class='list-group-item' ><label><u> " + (i + 1) + ". Thought: </u>" + thoughtObj[i].automaticThought
+            + "</label><br/><i>Date Time: " + thoughtDateTime + "</i><hr/><label><u>Cognitive Distortion</u></label><p>" + thoughtObj[i].cognitiveDistortion + "</p><hr/><label><u>Rational Thought</u></label><p>" +
             thoughtObj[i].rationalThought + "</p><button class='form-control btn btn-danger' onClick='deleteThought(" + i + ")'> <i class='fas fa-trash'></i> Delete Thought " + (i + 1) + "</button></li>";
     }
 
