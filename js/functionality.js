@@ -258,7 +258,11 @@ function buildJournalList() {
 function submitJournalThought() {
     [].forEach.call(document.querySelectorAll("textarea"), (e) => {
         e.classList.remove("error");
-    })
+    });
+
+    [].forEach.call(document.querySelectorAll("input[type='text']"), (e) => {
+        e.classList.remove("error");
+    });
 
     let journalSubmission = "";
     try {
