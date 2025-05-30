@@ -340,6 +340,7 @@ function deleteJournal(num) {
 
 /*START NAV JS*/
 const toggleMobileNav = (whichElem) => {
+    console.log("you fired off mobile nave here!")
 
     if (whichElem === "mobileNav") {//navbar-collapse collapse
         if (document.querySelector(".collapse.navbar-collapse")) {
@@ -366,12 +367,12 @@ for (let i = 0; i < navData.length; i++) {
     if (i === 0) {
         active = "active";
     }
-    navLinkHTML = navLinkHTML + `<li class='nav-item'> <a class='nav-link ${active}' data-selected='${navData[i].name}' href="${navData[i].address} " onClick="toggleSection('${navData[i].name}')"><u>${navData[i].name}</u></a></li>`;
+    navLinkHTML = navLinkHTML + `<li class='nav-item'> <a class='nav-link ${active}' data-selected='${navData[i].name}' href="${navData[i].address} " onClick="toggleSection('${navData[i].name}', true)"><u>${navData[i].name}</u></a></li>`;
 }
 document.getElementById("navLinkTarget").innerHTML = navLinkHTML;
 
 
-function toggleSection(whatSection) {
+function toggleSection(whatSection, toggleMobileFunc) {
 
     localStorage.setItem("iHaveThoughtsSection", whatSection);
 
@@ -379,7 +380,11 @@ function toggleSection(whatSection) {
         e.classList.add("hide");
     })
     document.querySelector("[data-section='" + whatSection + "']").classList.remove("hide");
-    toggleMobileNav("mobileNav");
+
+    if (toggleMobileFunc) {
+        toggleMobileNav("mobileNav");
+    }
+
 
 
     [].forEach.call(document.querySelectorAll("[data-selected]"), (e) => {
@@ -504,5 +509,5 @@ function clearData() {
 }
 
 if (localStorage.getItem("iHaveThoughtsSection")) {
-    toggleSection(localStorage.getItem("iHaveThoughtsSection"));
+    toggleSection(localStorage.getItem("iHaveThoughtsSection"), false);
 }
