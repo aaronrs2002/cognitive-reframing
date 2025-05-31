@@ -499,6 +499,9 @@ function toggle(what) {
 
 
 function clearData() {
+
+    thoughtObj = [];
+    journalObj = [];
     localStorage.removeItem("thoughtObj");
     localStorage.removeItem("journalObj");
     document.getElementById("thoughtTarget").innerHTML = "";
