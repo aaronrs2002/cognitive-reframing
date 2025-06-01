@@ -196,7 +196,7 @@ function downloadData() {
     a.href = URL.createObjectURL(new Blob([JSON.stringify(tempData, null, 2)], {
         type: 'application/json'
     }));
-    a.setAttribute("download", "iHaveThoughts.json");
+    a.setAttribute("download", "iHaveThoughts_" + timestamp() + ".json");
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
