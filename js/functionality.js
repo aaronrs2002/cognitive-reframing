@@ -1,6 +1,13 @@
 
 
 
+const cognDisOptions = ["All or Nothing (AKA Black and White)", "Overgeneralization", "Mental Filtering", "Disqualifying the Positive", "Jumping tio Conclusion", "Magnification or Minimization", "Emotional Reasoning", "\"Should\" Statements", "Labeling and Mislabeling", "Personalization"]
+
+let cogDistStr = "";
+for (let i = 0; i < cognDisOptions.length; i++) {
+    cogDistStr = cogDistStr + "<li class='list-group-item'><label><input type='checkbox'/ name='" + cognDisOptions[i] + "' data-options /> " + cognDisOptions[i] + "</label></li>";
+}
+document.getElementById("cognitiveDistortion").innerHTML = cogDistStr;
 
 let thoughtObj = [];
 let journalObj = [];
@@ -113,19 +120,36 @@ function submitTought() {
 
 
     let cognitiveDistortion = "";
-    try {
-        cognitiveDistortion = document.getElementById("cognitiveDistortion").value;
-    } catch (error) {
-        console.log("cognitiveDistortion Error: " + error);
-        document.getElementById("cognitiveDistortion").classList.add("error");
-        return false
-    }
+    [].forEach.call(document.querySelectorAll("[data-options]"), (e, i) => {
 
-    if (cognitiveDistortion === "") {
+
+        if (e.checked) {
+            cognitiveDistortion = cognitiveDistortion + " - " + cognDisOptions[i]
+        }
+    });
+
+    if (!document.querySelector("[data-options]:checked")) {
+
         globalAlert("alert-danger", "What is the cognitive distortion?");
         document.getElementById("cognitiveDistortion").classList.add("error");
         return false;
     }
+
+    /* 
+      try {
+          cognitiveDistortion = document.getElementById("cognitiveDistortion").value;
+      } catch (error) {
+          console.log("cognitiveDistortion Error: " + error);
+          document.getElementById("cognitiveDistortion").classList.add("error");
+          return false
+      }
+  
+      if (cognitiveDistortion === "") {
+          globalAlert("alert-danger", "What is the cognitive distortion?");
+          document.getElementById("cognitiveDistortion").classList.add("error");
+          return false;
+      }
+  */
 
     let rationalThought = "";
     try {
@@ -157,7 +181,12 @@ function submitTought() {
 
     [].forEach.call(document.querySelectorAll("textarea"), (e) => {
         e.value = "";
-    })
+    });
+
+    [].forEach.call(document.querySelectorAll("[data-options]"), (e) => {
+
+        e.checked = false;
+    });
 
 }
 

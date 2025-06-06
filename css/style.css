@@ -28,3 +28,15 @@ nav img {
     position: absolute;
     z-index: 9;
 }
+
+#cognitiveDistortion {
+    max-height: 185px;
+    overflow-y: auto;
+}
+
+@media (max-width: 1024px) {
+    #cognitiveDistortion {
+        max-height: inherit;
+        overflow-y: inherit;
+    }
+}
