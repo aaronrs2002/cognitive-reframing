@@ -434,6 +434,7 @@ function handleOnChange(event) {
         file = event.target.files[0];
         console.log("event.target.files[0]: " + JSON.stringify(event.target.files[0]));
         document.querySelector("#fileUpload").classList.remove("hide");
+        window.location.href = "#fileUpload";
         //  document.querySelector("#fileMerge").classList.remove("hide");
         globalAlert("alert-warning", `File selected. click the "Upload New Data" button.`);
     } else {
