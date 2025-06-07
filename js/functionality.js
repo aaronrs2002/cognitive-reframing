@@ -71,7 +71,7 @@ function buildList() {
 
 
         let thoughtDateTime;
-        console.log("thoughtObj[i].thoughtDateTime: " + thoughtObj[i].thoughtDateTime);
+
         try {
             if (thoughtObj[i].thoughtDateTime !== undefined) {
                 thoughtDateTime = thoughtObj[i].thoughtDateTime;
