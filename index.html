@@ -10,8 +10,19 @@
     <!-- Bootstrap CSS-->
     <link href="https://bootswatch.com/5/spacelab/bootstrap.css" rel="stylesheet" id="themedStyle">
     <link rel="stylesheet" href="https://aaronrs2002.github.io/black-jack/css/animate.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/js-datepicker/dist/datepicker.min.css" />
     <link href="https://aaronrs2002.github.io/black-jack/css/shared.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+
+
+    <script src="https://cdn.jsdelivr.net/npm/date-fns@3.6.0/cdn.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/date-fns@3.6.0/locale/es/cdn.min.js"></script>
+    <script>
+        dateFns.formatRelative(dateFns.subDays(new Date(), 3), new Date(), {
+            locale: dateFns.locale.es,
+        });
+        //=> "el viernes pasado a las 19:26"
+    </script>
     <title>I have thoughts</title>
 </head>
 
@@ -59,13 +70,9 @@
                 <button class="form-control btn btn-success" onClick="submitJournalThought()">Submit Thought</button>
                 <hr />
             </div>
-            <h3>Journal Entries:</h3>
-            <ul class="list-group" id="journalSubmissionsTarget"></ul>
+
+
         </div>
-
-
-
-
 
 
 
@@ -97,6 +104,43 @@
                 <hr />
             </div>
 
+        </div>
+
+
+        <!--start buttons-->
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="btn-group btn-block" role="group">
+                    <button class="btn btn-primary pointer" data-option="calendar"
+                        onClick="viewVersion('calendar')">Calendar
+                        View</button>
+
+                    <button class="btn btn-primary pointer" data-option="list" onClick="viewVersion('list')">List
+                        View</button>
+                </div>
+            </div>
+        </div>
+        <!--end button grouop-->
+
+
+
+        <!--START CALENDAR-->
+
+        <div class="row" id="calendarWrapper">
+            <h3>Calendar</h3>
+            <i><small>Select green squares to read that day's submission.</small></i>
+            <div id="datePickerCalendarTarget"></div>
+            <!--<TheCalendar padDates={props.calendarData} />-->
+
+        </div>
+
+        <ul class="list-group" id="submissionTarget"></ul>
+        <!--END CALENDAR-->
+
+
+        <div class="row hide" data-section="CBT Thought Process" data-view="list">
+
             <div class="col-md-12">
                 <h3>Your Thought collection:</h3>
 
@@ -106,6 +150,26 @@
 
 
         </div>
+
+
+
+
+
+
+
+        <div class="row hide" data-section="Journal" data-view="list">
+            <div class="col-md-12">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>Journal Entries:</h3>
+                        <ul class="list-group" id="journalSubmissionsTarget"></ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
         <div class="row">
 
             <div class="col-md-12">
@@ -179,6 +243,11 @@
     </div>
     <div class="hide alert fadeInUp" role="alert" id="globalAlert"></div>
 </body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+<script src="https://unpkg.com/js-datepicker"></script>
+
 <script src="js/functionality.js"> </script>
+<script src="js/calendar.js"></script>
 
 </html>

@@ -2,7 +2,11 @@
 
 
 const cognDisOptions = ["All or Nothing (AKA Black and White)", "Overgeneralization", "Mental Filtering", "Disqualifying the Positive", "Jumping to Conclusions", "Magnification or Minimization", "Emotional Reasoning", "\"Should\" Statements", "Labeling and Mislabeling", "Personalization"]
-
+let activeFunc = "CBT Thought Process";
+let activeTherapyView = "calendar";
+if (localStorage.getItem("activeTherapyView")) {
+    activeTherapyView = localStorage.getItem("activeTherapyView");
+}
 let cogDistStr = "";
 for (let i = 0; i < cognDisOptions.length; i++) {
     cogDistStr = cogDistStr + "<li class='list-group-item'><label><input type='checkbox'/ name='" + cognDisOptions[i] + "' data-options /> " + cognDisOptions[i] + "</label></li>";
@@ -11,9 +15,6 @@ document.getElementById("cognitiveDistortion").innerHTML = cogDistStr;
 
 let thoughtObj = [];
 let journalObj = [];
-if (localStorage.getItem("thoughtObj")) {
-    thoughtObj = JSON.parse(localStorage.getItem("thoughtObj"));
-}
 
 
 const timestamp = () => {
@@ -65,6 +66,13 @@ function buildList() {
 
 
 
+    if (localStorage.getItem("thoughtObj")) {
+        thoughtObj = JSON.parse(localStorage.getItem("thoughtObj"));
+    } else {
+        globalAlert("alerty-warning", "No Thoughts submitted.");
+        return false;
+    }
+
 
     let thoughtStr = "";
     for (let i = 0; i < thoughtObj.length; i++) {
@@ -106,7 +114,7 @@ function submitTought() {
         automaticThought = document.getElementById("automaticThought").value;
 
     } catch (error) {
-        console.log("automaticThought Error: " + error);
+
         document.getElementById("automaticThought").classList.add("error");
         return false
 
@@ -155,7 +163,7 @@ function submitTought() {
     try {
         rationalThought = document.getElementById("rationalThought").value;
     } catch (error) {
-        console.log("rationalThought Error: " + error);
+
         document.getElementById("rationalThought").classList.add("error");
         return false
     }
@@ -232,10 +240,6 @@ function downloadData() {
 }
 
 
-if (localStorage.getItem("thoughtObj")) {
-    buildList();
-}
-
 
 
 /****START JOURNAL */
@@ -251,7 +255,7 @@ function buildJournalList() {
 
 
         let journalDateTime;
-        console.log("journalObj[i].thoughtDateTime: " + journalObj[i].journalSubmission);
+
         try {
             if (journalObj[i].journalDateTime !== undefined) {
                 journalDateTime = journalObj[i].journalDateTime;
@@ -298,7 +302,7 @@ function submitJournalThought() {
         journalSubmission = document.getElementById("journalInput").value;
 
     } catch (error) {
-        console.log("journalInput Error: " + error);
+
         document.getElementById("journalInput").classList.add("error");
         return false
     }
@@ -307,7 +311,7 @@ function submitJournalThought() {
     try {
         journalTitleSubmission = document.getElementById("journalTitle").value;
     } catch (error) {
-        console.log("journalInputTitle Error: " + error);
+
         document.getElementById("journalTitle").classList.add("error");
         return false
     }
@@ -369,7 +373,6 @@ function deleteJournal(num) {
 
 /*START NAV JS*/
 const toggleMobileNav = (whichElem) => {
-    console.log("you fired off mobile nave here!")
 
     if (whichElem === "mobileNav") {//navbar-collapse collapse
         if (document.querySelector(".collapse.navbar-collapse")) {
@@ -396,32 +399,11 @@ for (let i = 0; i < navData.length; i++) {
     if (i === 0) {
         active = "active";
     }
-    navLinkHTML = navLinkHTML + `<li class='nav-item'> <a class='nav-link ${active}' data-selected='${navData[i].name}' href="${navData[i].address} " onClick="toggleSection('${navData[i].name}', true)"><u>${navData[i].name}</u></a></li>`;
+    navLinkHTML = navLinkHTML + `<li class='nav-item'> <a class='nav-link ${active}' data-selected='${navData[i].name}' href='#top' onClick="toggleSection('${navData[i].name}', true)"><u>${navData[i].name}</u></a></li>`;
 }
 document.getElementById("navLinkTarget").innerHTML = navLinkHTML;
 
 
-function toggleSection(whatSection, toggleMobileFunc) {
-
-    localStorage.setItem("iHaveThoughtsSection", whatSection);
-
-    [].forEach.call(document.querySelectorAll("[data-section]"), (e) => {
-        e.classList.add("hide");
-    })
-    document.querySelector("[data-section='" + whatSection + "']").classList.remove("hide");
-
-    if (toggleMobileFunc) {
-        toggleMobileNav("mobileNav");
-    }
-
-
-
-    [].forEach.call(document.querySelectorAll("[data-selected]"), (e) => {
-        e.classList.remove("active");
-    });
-
-    document.querySelector("[data-selected='" + whatSection + "']").classList.add("active");
-}
 
 
 
@@ -432,7 +414,7 @@ let file;
 function handleOnChange(event) {
     if (event.target.files[0]) {
         file = event.target.files[0];
-        console.log("event.target.files[0]: " + JSON.stringify(event.target.files[0]));
+
         document.querySelector("#fileUpload").classList.remove("hide");
         window.location.href = "#fileUpload";
         //  document.querySelector("#fileMerge").classList.remove("hide");
@@ -455,7 +437,7 @@ function handleOnSubmit(event, type, merge) {
                 }
 
                 if (tempObj[0].thoughtObj === undefined || tempObj[0].journalObj === undefined) {
-                    console.log("tempObj[0].tempObj: " + JSON.stringify(tempObj[0].thoughtObj) + "  - " + JSON.stringify(tempObj[0].journalObj))
+
 
                     globalAlert("alert-danger", "This data does not have the correct keys and values.");
                     return false;
@@ -541,6 +523,7 @@ function clearData() {
     return false;
 }
 
-if (localStorage.getItem("iHaveThoughtsSection")) {
-    toggleSection(localStorage.getItem("iHaveThoughtsSection"), false);
+
+if (localStorage.getItem("thoughtObj")) {
+    buildList();
 }

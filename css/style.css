@@ -2,11 +2,19 @@
     border: 1px #ff0000 solid;
 }
 
+#globalAlert {
+    z-index: 15;
+}
+
 input[type='file'] {
     margin: 0;
     font-family: "Raleway", sans-serif;
     font-size: .75rem;
     line-height: inherit;
+}
+
+.qs-square.qs-num.alert.alert-success {
+    cursor: pointer;
 }
 
 /*START NAV*/
@@ -41,3 +49,98 @@ nav img {
         overflow-y: inherit;
     }
 }*/
+
+#datePickerCalendarTarget {
+    background-color: #f8f8f8;
+    border-radius: 10px;
+    /* padding: 20px 10px;
+    margin-top: 20px;*/
+}
+
+
+
+/*END CHART CSS*/
+
+
+/*START CALENDAR*/
+
+
+.qs-centered {
+    position: inherit;
+    top: 0%;
+    left: 0%;
+    -webkit-transform: translate(-0%, -0%);
+    -ms-transform: translate(-0%, -0%);
+    transform: translate(-0%, -0%);
+}
+
+.qs-datepicker-container {
+    z-index: 1;
+    min-height: 500px;
+    margin: auto;
+    /* font-family: "Raleway", sans-serif;
+   font-size: 1rem;
+    font-family: sans-serif;*/
+    color: #000;
+    position: inherit;
+    width: 98%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    z-index: 10;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid grey;
+    border-radius: .263921875em;
+    overflow: hidden;
+    background: #fff;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.qs-square {
+    width: calc(100% / 7);
+    height: 4.5625em;
+}
+
+.qs-controls {
+    border-radius: 5px;
+    font-size: 2rem;
+    padding: 1rem;
+}
+
+.qs-datepicker-container button {
+    font-size: .75rem;
+}
+
+/*END CALENDAR*/
+
+/*start loader animation*/
+.loader {
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #333;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 2s linear infinite;
+    /* Safari */
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/*start loader animation*/
