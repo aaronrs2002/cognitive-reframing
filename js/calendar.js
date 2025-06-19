@@ -390,3 +390,21 @@ function handleOnSubmit(event, type, merge) {
 
 writeDayNums(timestamp().substring(0, 7));
 convertForCalendar();
+
+
+function deleteJournal(num) {
+
+    let tempObj = [];
+    for (let i = 0; i < journalObj.length; i++) {
+        if (num !== i) {
+            tempObj.push(journalObj[i])
+        }
+    }
+    journalObj = tempObj;
+    localStorage.setItem("journalObj", JSON.stringify(journalObj));
+
+    buildJournalList();
+
+    viewVersion("list");
+
+}

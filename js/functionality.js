@@ -353,22 +353,6 @@ if (localStorage.getItem("journalObj")) {
 
 
 
-function deleteJournal(num) {
-
-    let tempObj = [];
-    for (let i = 0; i < journalObj.length; i++) {
-        if (num !== i) {
-            tempObj.push(journalObj[i])
-        }
-    }
-    journalObj = tempObj;
-    localStorage.setItem("journalObj", JSON.stringify(journalObj));
-
-    buildJournalList();
-
-
-}
-
 
 
 /*START NAV JS*/
@@ -424,54 +408,7 @@ function handleOnChange(event) {
         // document.querySelector("#fileMerge").classList.add("hide");
     }
 };
-function handleOnSubmit(event, type, merge) {
-    event.preventDefault();
 
-    if (file) {
-        fileReader.onload = function (event) {
-            let tempObj = event.target.result;
-            if (type === "json") {
-
-                if ((typeof tempObj) === "string") {
-                    tempObj = JSON.parse(tempObj);
-                }
-
-                if (tempObj[0].thoughtObj === undefined || tempObj[0].journalObj === undefined) {
-
-
-                    globalAlert("alert-danger", "This data does not have the correct keys and values.");
-                    return false;
-                }
-                thoughtObj = tempObj[0].thoughtObj;
-                localStorage.setItem("thoughtObj", JSON.stringify(thoughtObj));
-                journalObj = tempObj[0].journalObj;
-                localStorage.setItem("journalObj", JSON.stringify(journalObj));
-
-                buildList();
-                buildJournalList();
-                globalAlert("alert-success", "Your file was uploaded.");
-                return false;
-
-            }
-            else {
-                console.log("That wasn't json.")
-            }
-        };
-        fileReader.readAsText(file);
-    }
-    document.querySelector("input[type='file']").value = "";
-    document.querySelector("#fileUpload").classList.add("hide");
-
-    // toggleEdit();
-
-
-
-
-
-
-
-
-};
 
 
 
