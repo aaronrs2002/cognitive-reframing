@@ -266,7 +266,6 @@ function viewVersion(view) {
         whatSection = localStorage.getItem("iHaveThoughtsSection");
     }
 
-    console.log("activeFunc: " + activeFunc);
 
 
     if (view === "calendar") {
@@ -295,7 +294,7 @@ function viewVersion(view) {
 
         document.querySelector("#calendarWrapper").classList.add("hide");
 
-        console.log("whatSection: " + whatSection);
+
 
         document.querySelector("[data-section='" + whatSection + "'][data-view='list']").classList.remove("hide");
 

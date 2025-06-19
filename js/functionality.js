@@ -69,7 +69,7 @@ function buildList() {
     if (localStorage.getItem("thoughtObj")) {
         thoughtObj = JSON.parse(localStorage.getItem("thoughtObj"));
     } else {
-        globalAlert("alerty-warning", "No Thoughts submitted.");
+        globalAlert("alert-warning", "No Thoughts submitted.");
         return false;
     }
 
@@ -93,7 +93,7 @@ function buildList() {
 
         }
 
-        thoughtStr = thoughtStr + "<li class='list-group-item' ><label><u> " + (i + 1) + ". Thought: </u>" + thoughtObj[i].automaticThought
+        thoughtStr = thoughtStr + "<li class='list-group-item' data-row='" + i + "' ><label><u> " + (i + 1) + ". Thought: </u>" + thoughtObj[i].automaticThought
             + "</label><br/><i>Date Time: " + thoughtDateTime + "</i><hr/><label><u>Cognitive Distortion</u></label><p>" + thoughtObj[i].cognitiveDistortion + "</p><hr/><label><u>Rational Thought</u></label><p>" +
             thoughtObj[i].rationalThought + "</p><button class='form-control btn btn-danger' onClick='deleteThought(" + i + ")'> <i class='fas fa-trash'></i> Delete Thought " + (i + 1) + "</button></li>";
     }
@@ -258,7 +258,7 @@ function buildJournalList() {
         journalDateTime: timestamp()
         */
 
-        journalStr = journalStr + "<li class='list-group-item'><label><u> " + (i + 1) + ". Journal Title: " + journalObj[i].journalTitleSubmission
+        journalStr = journalStr + "<li class='list-group-item' data-row='" + i + "'><label><u> " + (i + 1) + ". Journal Title: " + journalObj[i].journalTitleSubmission
             + "</u></label><br/><p>" + journalObj[i].journalSubmission
             + "</p><i>Date Time: " + journalDateTime + "</i><hr/><button class='form-control btn btn-danger' onClick='deleteJournal(" + i + ")'> <i class='fas fa-trash'></i> Delete Journal " + (i + 1) + "</button></li>";
     }
@@ -446,4 +446,30 @@ function clearData() {
 
 if (localStorage.getItem("thoughtObj")) {
     buildList();
+}
+
+function runSearch() {
+
+    tempObj = JSON.parse(localStorage.getItem("thoughtObj"));
+    if (localStorage.getItem("iHaveThoughtsSection") === "Journal") {
+        tempObj = JSON.parse(localStorage.getItem("journalObj"));
+    }
+
+    let searchTerm = document.querySelector("[name='searchField-" + localStorage.getItem("iHaveThoughtsSection") + "']").value.toLowerCase();
+
+    [].forEach.call(document.querySelectorAll("li.list-group-item[data-row]"), (e, i) => {
+
+        e.classList.add("hide");
+
+    });
+
+    for (let i = 0; i < tempObj.length; i++) {
+        console.log("tempObj[i].toString().toLowerCase(): " + tempObj[i].toString().toLowerCase());
+        console.log("searchTerm: " + searchTerm)
+        if (JSON.stringify(tempObj[i]).toLowerCase().indexOf(searchTerm) !== -1) {
+            document.querySelector("li.list-group-item[data-row='" + i + "']").classList.remove("hide");
+        }
+    }
+
+
 }

@@ -143,6 +143,15 @@
 
             <div class="col-md-12">
                 <h3>Your Thought collection:</h3>
+                <hr />
+                <div class="form-control">
+
+                    <input type="text" class="form-control" name="searchField-CBT Thought Process"
+                        placeholder="Search CBT Thought Process title, date and content"
+                        onKeyUp="runSearch('CBT Thought Process')" />
+                </div>
+            </div>
+            <div class="col-md-12">
 
                 <ul id="thoughtTarget" class="list-group"></ul>
             </div>
@@ -163,6 +172,16 @@
                 <div class="row">
                     <div class="col-md-12">
                         <h3>Journal Entries:</h3>
+
+                        <hr />
+                        <div class="form-control">
+
+                            <input type="text" class="form-control" name="searchField-Journal"
+                                placeholder="Search Journal title, date and content" onKeyUp="runSearch('Journal')" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
                         <ul class="list-group" id="journalSubmissionsTarget"></ul>
                     </div>
                 </div>
