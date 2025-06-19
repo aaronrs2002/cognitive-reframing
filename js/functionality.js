@@ -544,6 +544,16 @@ function updateCRUD(addEdit) {
         e.checked = false;
     });
 
+    [].forEach.call(document.querySelectorAll("input[type='text']"), (e) => {
+        e.value = "";
+    });
+
+
+    [].forEach.call(document.querySelectorAll("textarea"), (e) => {
+        e.value = "";
+    });
+
+
 
     [].forEach.call(document.querySelectorAll("[data-edit='" + addEdit + "']"), (e) => {
         e.classList.remove("hide");
