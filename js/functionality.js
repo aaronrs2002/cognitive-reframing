@@ -201,23 +201,6 @@ function submitTought() {
 
 
 
-function deleteThought(num) {
-
-    let tempObj = [];
-    for (let i = 0; i < thoughtObj.length; i++) {
-        if (num !== i) {
-            tempObj.push(thoughtObj[i])
-        }
-    }
-    thoughtObj = tempObj;
-    localStorage.setItem("thoughtObj", JSON.stringify(thoughtObj));
-
-    buildList();
-
-
-}
-
-
 
 
 function downloadData() {
