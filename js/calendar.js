@@ -382,9 +382,9 @@ function handleOnSubmit(event, type, merge) {
     document.querySelector("input[type='file']").value = "";
     document.querySelector("#fileUpload").classList.add("hide");
     let activeView = "list";
-    if (localStorage.getItem('activeTherapyView')) {
-        activeView = localStorage.getItem('activeTherapyView');
-    }
+    /* if (localStorage.getItem('activeTherapyView')) {
+         activeView = localStorage.getItem('activeTherapyView');
+     }*/
 
     viewVersion(activeView);
 

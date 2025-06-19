@@ -432,6 +432,12 @@ function toggle(what) {
 
 function clearData() {
 
+
+    [].forEach.call(document.querySelectorAll("[data-direction='0']"), (e) => {
+        e.classList.remove("alert");
+        e.classList.remove("alert-success");
+    });
+
     thoughtObj = [];
     journalObj = [];
     localStorage.removeItem("thoughtObj");
