@@ -280,6 +280,8 @@ function viewVersion(view) {
         })
 
         document.querySelector("#calendarWrapper").classList.remove("hide");
+
+        viewSubmission(timestamp().substring(0, 10))
     }
 
 

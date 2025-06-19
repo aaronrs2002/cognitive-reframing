@@ -437,6 +437,7 @@ function clearData() {
         e.classList.remove("alert");
         e.classList.remove("alert-success");
     });
+    document.getElementById("submissionTarget").innerHTML = "";
 
     thoughtObj = [];
     journalObj = [];
