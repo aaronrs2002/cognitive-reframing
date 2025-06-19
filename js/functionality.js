@@ -203,6 +203,10 @@ function submitThought(addEdit) {
     if (addEdit === "edit") {
 
         let selectedNum = document.querySelector("select[name='thoughtObjDateList']").value;
+        if (selectedNum == "default") {
+            globalAlert("alert-warning", "Please select a date.");
+            return false;
+        }
 
         thoughtObj[selectedNum].automaticThought = automaticThought;
         thoughtObj[selectedNum].cognitiveDistortion = cognitiveDistortion;
@@ -355,6 +359,11 @@ function submitJournalThought(addEdit) {
     if (addEdit === "edit") {
 
         let selectedEdit = document.querySelector("select[name='journalDateList']").value;
+        if (selectedEdit == "default") {
+            globalAlert("alert-warning", "Please select a date.");
+            return false;
+        }
+
 
         journalObj[selectedEdit].journalTitleSubmission = journalTitleSubmission;
         journalObj[selectedEdit].journalSubmission = journalSubmission;
