@@ -17,6 +17,7 @@ let thoughtObj = [];
 let journalObj = [];
 
 
+
 const timestamp = () => {
 
     const date = new Date();
@@ -60,6 +61,20 @@ const timestamp = () => {
 
 
 
+function populateEditMenus() {
+    let thoughtDateSrt = "<option value='default'>Select by date</option>";
+    for (let i = 0; i < thoughtObj.length; i++) {
+        thoughtDateSrt = thoughtDateSrt + "<option value='" + i + "'>" + thoughtObj[i].thoughtDateTime + "</option>";
+    }
+    document.querySelector("select[name='thoughtObjDateList']").innerHTML = thoughtDateSrt;
+
+    let journalDateSrt = "<option value='default'>Select by date</option>";
+    for (let i = 0; i < journalObj.length; i++) {
+        journalDateSrt = journalDateSrt + "<option value='" + i + "'>" + journalObj[i].journalDateTime + "</option>";
+    }
+    document.querySelector("select[name='journalDateList']").innerHTML = journalDateSrt;
+}
+
 
 
 function buildList() {
@@ -99,11 +114,12 @@ function buildList() {
     }
 
     document.getElementById("thoughtTarget").innerHTML = thoughtStr;
+    populateEditMenus();
 
 }
 
 
-function submitTought() {
+function submitThought(addEdit) {
 
     [].forEach.call(document.querySelectorAll("textarea"), (e) => {
         e.classList.remove("error");
@@ -174,13 +190,26 @@ function submitTought() {
         return false;
     }
 
+    if (addEdit === "add") {
+        thoughtObj = [...thoughtObj, {
+            automaticThought,
+            cognitiveDistortion,
+            rationalThought,
+            thoughtDateTime: timestamp()
+        }];
 
-    thoughtObj = [...thoughtObj, {
-        automaticThought,
-        cognitiveDistortion,
-        rationalThought,
-        thoughtDateTime: timestamp()
-    }];
+    }
+
+    if (addEdit === "edit") {
+
+        let selectedNum = document.querySelector("select[name='thoughtObjDateList']").value;
+
+        thoughtObj[selectedNum].automaticThought = automaticThought;
+        thoughtObj[selectedNum].cognitiveDistortion = cognitiveDistortion;
+        thoughtObj[selectedNum].rationalThought = rationalThought;
+
+
+    }
 
     localStorage.setItem("thoughtObj", JSON.stringify(thoughtObj));
     globalAlert("alert-success", "Thought added.");
@@ -265,13 +294,15 @@ function buildJournalList() {
 
     document.getElementById("journalSubmissionsTarget").innerHTML = journalStr;
 
+    populateEditMenus();
+
 
 }
 
 
 
 
-function submitJournalThought() {
+function submitJournalThought(addEdit) {
     [].forEach.call(document.querySelectorAll("textarea"), (e) => {
         e.classList.remove("error");
     });
@@ -311,12 +342,26 @@ function submitJournalThought() {
         document.getElementById("journalInput").classList.add("error");
         return false;
     }
+    if (addEdit === "add") {
 
-    journalObj = [...journalObj, {
-        journalTitleSubmission,
-        journalSubmission,
-        journalDateTime: timestamp()
-    }];
+
+        journalObj = [...journalObj, {
+            journalTitleSubmission,
+            journalSubmission,
+            journalDateTime: timestamp()
+        }];
+    }
+
+    if (addEdit === "edit") {
+
+        let selectedEdit = document.querySelector("select[name='journalDateList']").value;
+
+        journalObj[selectedEdit].journalTitleSubmission = journalTitleSubmission;
+        journalObj[selectedEdit].journalSubmission = journalSubmission;
+
+    }
+
+
 
     localStorage.setItem("journalObj", JSON.stringify(journalObj));
 
@@ -478,5 +523,62 @@ function runSearch() {
         }
     }
 
+
+}
+
+function updateCRUD(addEdit) {
+    [].forEach.call(document.querySelectorAll("[data-edit]"), (e) => {
+        e.classList.add("hide");
+    });
+
+
+    [].forEach.call(document.querySelectorAll("[data-edit='" + addEdit + "']"), (e) => {
+        e.classList.remove("hide");
+    });
+
+    globalAlert("alert-info", "You are in " + addEdit + " mode.");
+    //document.querySelector("[data-edit='" + addEdit + "']").classList.remove("hide");
+
+}
+
+function populateForEdit(whichObj) {
+
+
+
+    if (whichObj === "journalDateList") {
+
+        let selectedNum = document.querySelector("select[name='journalDateList']").value;
+        if (selectedNum === "default") {
+            return false;
+        }
+
+        document.getElementById("journalInput").value = journalObj[selectedNum].journalSubmission;
+        document.getElementById("journalTitle").value = journalObj[selectedNum].journalTitleSubmission;
+
+    }
+
+    if (whichObj === "thoughtObjDateList") {
+        let selectedNum = document.querySelector("select[name='thoughtObjDateList']").value;
+        if (selectedNum === "default") {
+            return false;
+        }
+
+        document.getElementById("automaticThought").value = thoughtObj[selectedNum].automaticThought;
+        document.getElementById("rationalThought").value = thoughtObj[selectedNum].rationalThought;
+
+        [].forEach.call(document.querySelectorAll("input[type='checkbox'][data-options]"), (e) => {
+            e.checked = false;
+        });
+
+
+        for (let i = 0; i < cognDisOptions.length; i++) {
+            console.log("thoughtObj[selectedNum].cognitiveDistortion: " + thoughtObj[selectedNum].cognitiveDistortion);
+            if (thoughtObj[selectedNum].cognitiveDistortion.indexOf(cognDisOptions[i]) !== -1) {
+                document.querySelector("input[type='checkbox'][name='" + cognDisOptions[i] + "']").checked = true;
+            }
+
+        }
+
+    }
 
 }

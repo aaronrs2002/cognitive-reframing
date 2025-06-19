@@ -457,3 +457,16 @@ function deleteThought(num) {
 
 }
 
+/*
+
+let thoughtObj = [];
+let journalObj = [];
+let journalDateList = [];
+let thoughtObjDateList = [];
+
+select[name='journalDateList']
+select[name='thoughtObjDateList']
+
+*/
+
+populateEditMenus();

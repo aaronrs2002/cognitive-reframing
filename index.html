@@ -57,6 +57,21 @@
                 <h1>Thought Journal</h1>
 
                 <hr />
+
+                <div class="btn-group block" role="group">
+                    <button type="button" class="btn btn-info active" onClick="javascript:updateCRUD('add')">Add
+                        Form</button>
+                    <button type="button" class="btn btn-info " onClick="javascript:updateCRUD('edit')">Edit
+                        Form</button>
+
+
+                </div>
+                <div class="py-2">
+                    <label class="hide" data-edit="edit">Edit journal by date selection</label>
+                    <select class="form-control hide" data-edit="edit" name="journalDateList"
+                        onChange="populateForEdit('journalDateList')"></select>
+                </div>
+
             </div>
             <div class="col-md-12">
                 <h3>Journal Title</h3>
@@ -66,8 +81,14 @@
                 <h3>Journal Thought</h3>
                 <textarea rows="10" class="form-control" id="journalInput" placeholder="Journal Thought"></textarea>
             </div>
-            <div class="col-md-12">
-                <button class="form-control btn btn-success" onClick="submitJournalThought()">Submit Thought</button>
+            <div class="col-md-12" data-edit="add">
+                <button class="form-control btn btn-success" onClick="submitJournalThought('add')">Add
+                    Thought</button>
+                <hr />
+            </div>
+            <div class="col-md-12 hide" data-edit="edit">
+                <button class="form-control btn btn-success" onClick="submitJournalThought('edit')">Edit
+                    Thought</button>
                 <hr />
             </div>
 
@@ -83,6 +104,19 @@
                 <h1>CBT Thought Process</h1>
 
                 <hr />
+
+                <div class="btn-group block" role="group">
+                    <button type="button" class="btn btn-info active"
+                        onClick="javascript:updateCRUD('add')">Add</button>
+                    <button type="button" class="btn btn-info " onClick="javascript:updateCRUD('edit')">Edit</button>
+
+
+                </div>
+                <div class="py-2">
+                    <label data-edit="edit" class="hide">Edit thought by date selection</label>
+                    <select class="form-control hide" data-edit="edit" name="thoughtObjDateList"
+                        onChange="populateForEdit('thoughtObjDateList')"></select>
+                </div>
             </div>
             <div class="col-md-12">
                 <h3>Automatic thought</h3>
@@ -100,7 +134,13 @@
                 <textarea class="form-control" id="rationalThought" placeholder="Rational Thought" rows="3"></textarea>
             </div>
             <div class="col-md-12">
-                <button class="form-control btn btn-success" onClick="submitTought()">Submit Thought</button>
+                <button class="form-control btn btn-success" data-edit="add" onClick="submitThought('add')">Add
+                    Thought</button>
+                <hr />
+            </div>
+            <div class="col-md-12 hide" data-edit="edit">
+                <button class="form-control btn btn-success" onClick="submitThought('edit')">Edit
+                    Thought</button>
                 <hr />
             </div>
 
