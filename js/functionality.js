@@ -540,6 +540,10 @@ function updateCRUD(addEdit) {
         e.classList.add("hide");
     });
 
+    [].forEach.call(document.querySelectorAll("input[type='checkbox'][data-options]"), (e) => {
+        e.checked = false;
+    });
+
 
     [].forEach.call(document.querySelectorAll("[data-edit='" + addEdit + "']"), (e) => {
         e.classList.remove("hide");
