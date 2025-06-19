@@ -266,8 +266,12 @@ function viewVersion(view) {
         whatSection = localStorage.getItem("iHaveThoughtsSection");
     }
 
+    console.log("activeFunc: " + activeFunc);
+
 
     if (view === "calendar") {
+
+        buildJournalList();
 
         writeDayNums(timestamp().substring(0, 7));
         convertForCalendar();
@@ -283,7 +287,7 @@ function viewVersion(view) {
     if (view === "list") {
 
 
-
+        buildList();
 
         [].forEach.call(document.querySelectorAll("[data-view='list']"), (e) => {
             e.classList.add("hide");
@@ -305,8 +309,12 @@ function viewVersion(view) {
 function toggleSection(whatSection, toggleMobileFunc) {
 
 
+    let activeView = "list";
+    if (localStorage.getItem('activeTherapyView')) {
+        activeView = localStorage.getItem('activeTherapyView');
+    }
     setTimeout(() => {
-        viewVersion("list");
+        viewVersion(activeView);
     }, 1000);
 
 
@@ -374,7 +382,14 @@ function handleOnSubmit(event, type, merge) {
     }
     document.querySelector("input[type='file']").value = "";
     document.querySelector("#fileUpload").classList.add("hide");
-    viewVersion("list");
+    let activeView = "list";
+    if (localStorage.getItem('activeTherapyView')) {
+        activeView = localStorage.getItem('activeTherapyView');
+    }
+
+    viewVersion(activeView);
+
+
 
     // toggleEdit();
 
@@ -405,7 +420,14 @@ function deleteJournal(num) {
 
     buildJournalList();
 
-    viewVersion("list");
+    let activeView = "list";
+    if (localStorage.getItem('activeTherapyView')) {
+        activeView = localStorage.getItem('activeTherapyView');
+    }
+
+    viewVersion(activeView);
+
+
 
 }
 
@@ -422,7 +444,15 @@ function deleteThought(num) {
     localStorage.setItem("thoughtObj", JSON.stringify(thoughtObj));
 
     buildList();
-    viewVersion("list");
+
+    let activeView = "list";
+    if (localStorage.getItem('activeTherapyView')) {
+        activeView = localStorage.getItem('activeTherapyView');
+    }
+
+    viewVersion(activeView);
+
+
 
 }
 
