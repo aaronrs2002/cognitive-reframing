@@ -216,7 +216,7 @@ function submitThought(addEdit) {
     }
 
     localStorage.setItem("thoughtObj", JSON.stringify(thoughtObj));
-    globalAlert("alert-success", "Thought added.");
+    globalAlert("alert-success", "Thought " + addEdit + "ed.");
 
     buildList();
 
