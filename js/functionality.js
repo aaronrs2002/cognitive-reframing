@@ -219,6 +219,8 @@ function submitThought(addEdit) {
     globalAlert("alert-success", "Thought " + addEdit + "ed.");
 
     buildList();
+    writeDayNums(timestamp().substring(0, 7));
+    convertForCalendar();
 
     [].forEach.call(document.querySelectorAll("textarea"), (e) => {
         e.value = "";
@@ -303,83 +305,6 @@ function buildJournalList() {
 
 }
 
-
-
-
-function submitJournalThought(addEdit) {
-    [].forEach.call(document.querySelectorAll("textarea"), (e) => {
-        e.classList.remove("error");
-    });
-
-    [].forEach.call(document.querySelectorAll("input[type='text']"), (e) => {
-        e.classList.remove("error");
-    });
-
-    let journalSubmission = "";
-    try {
-        journalSubmission = document.getElementById("journalInput").value;
-
-    } catch (error) {
-
-        document.getElementById("journalInput").classList.add("error");
-        return false
-    }
-
-    let journalTitleSubmission = "";
-    try {
-        journalTitleSubmission = document.getElementById("journalTitle").value;
-    } catch (error) {
-
-        document.getElementById("journalTitle").classList.add("error");
-        return false
-    }
-
-    if (journalTitleSubmission === "") {
-        globalAlert("alert-danger", "What is your thought's title?");
-        document.getElementById("journalTitle").classList.add("error");
-        return false;
-    }
-
-
-    if (journalSubmission === "") {
-        globalAlert("alert-danger", "What is your thought?");
-        document.getElementById("journalInput").classList.add("error");
-        return false;
-    }
-    if (addEdit === "add") {
-
-
-        journalObj = [...journalObj, {
-            journalTitleSubmission,
-            journalSubmission,
-            journalDateTime: timestamp()
-        }];
-    }
-
-    if (addEdit === "edit") {
-
-        let selectedEdit = document.querySelector("select[name='journalDateList']").value;
-        if (selectedEdit == "default") {
-            globalAlert("alert-warning", "Please select a date.");
-            return false;
-        }
-
-
-        journalObj[selectedEdit].journalTitleSubmission = journalTitleSubmission;
-        journalObj[selectedEdit].journalSubmission = journalSubmission;
-
-    }
-
-
-
-    localStorage.setItem("journalObj", JSON.stringify(journalObj));
-
-    document.getElementById("journalInput").value = "";
-    document.getElementById("journalTitle").value = "";
-
-    buildJournalList();
-    globalAlert("alert-success", "Journal entry " + addEdit + "ed.");
-}
 
 
 if (localStorage.getItem("journalObj")) {

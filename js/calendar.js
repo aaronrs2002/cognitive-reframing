@@ -457,16 +457,188 @@ function deleteThought(num) {
 
 }
 
-/*
 
-let thoughtObj = [];
-let journalObj = [];
-let journalDateList = [];
-let thoughtObjDateList = [];
+function submitJournalThought(addEdit) {
+    [].forEach.call(document.querySelectorAll("textarea"), (e) => {
+        e.classList.remove("error");
+    });
 
-select[name='journalDateList']
-select[name='thoughtObjDateList']
+    [].forEach.call(document.querySelectorAll("input[type='text']"), (e) => {
+        e.classList.remove("error");
+    });
 
-*/
+    let journalSubmission = "";
+    try {
+        journalSubmission = document.getElementById("journalInput").value;
+
+    } catch (error) {
+
+        document.getElementById("journalInput").classList.add("error");
+        return false
+    }
+
+    let journalTitleSubmission = "";
+    try {
+        journalTitleSubmission = document.getElementById("journalTitle").value;
+    } catch (error) {
+
+        document.getElementById("journalTitle").classList.add("error");
+        return false
+    }
+
+    if (journalTitleSubmission === "") {
+        globalAlert("alert-danger", "What is your thought's title?");
+        document.getElementById("journalTitle").classList.add("error");
+        return false;
+    }
+
+
+    if (journalSubmission === "") {
+        globalAlert("alert-danger", "What is your thought?");
+        document.getElementById("journalInput").classList.add("error");
+        return false;
+    }
+    if (addEdit === "add") {
+
+
+        journalObj = [...journalObj, {
+            journalTitleSubmission,
+            journalSubmission,
+            journalDateTime: timestamp()
+        }];
+    }
+
+    if (addEdit === "edit") {
+
+        let selectedEdit = document.querySelector("select[name='journalDateList']").value;
+        if (selectedEdit == "default") {
+            globalAlert("alert-warning", "Please select a date.");
+            return false;
+        }
+
+
+        journalObj[selectedEdit].journalTitleSubmission = journalTitleSubmission;
+        journalObj[selectedEdit].journalSubmission = journalSubmission;
+
+    }
+
+    localStorage.setItem("journalObj", JSON.stringify(journalObj));
+
+    document.getElementById("journalInput").value = "";
+    document.getElementById("journalTitle").value = "";
+
+    buildJournalList();
+    writeDayNums(timestamp().substring(0, 7));
+    convertForCalendar();
+    document.getElementById("submissionTarget").innerHTML = "";
+    globalAlert("alert-success", "Journal entry " + addEdit + "ed.");
+}
+
+
+
+
+
+function submitThought(addEdit) {
+
+    [].forEach.call(document.querySelectorAll("textarea"), (e) => {
+        e.classList.remove("error");
+    })
+
+    let automaticThought = "";
+    try {
+        automaticThought = document.getElementById("automaticThought").value;
+
+    } catch (error) {
+
+        document.getElementById("automaticThought").classList.add("error");
+        return false
+
+    }
+
+    if (automaticThought === "") {
+        globalAlert("alert-danger", "What is your thought?");
+        document.getElementById("automaticThought").classList.add("error");
+        return false;
+    }
+
+
+    let cognitiveDistortion = "";
+    [].forEach.call(document.querySelectorAll("[data-options]"), (e, i) => {
+
+
+        if (e.checked) {
+            cognitiveDistortion = cognitiveDistortion + " - " + cognDisOptions[i]
+        }
+    });
+
+    if (!document.querySelector("[data-options]:checked")) {
+
+        globalAlert("alert-danger", "What is the cognitive distortion?");
+        document.getElementById("cognitiveDistortion").classList.add("error");
+        return false;
+    }
+
+    let rationalThought = "";
+    try {
+        rationalThought = document.getElementById("rationalThought").value;
+    } catch (error) {
+
+        document.getElementById("rationalThought").classList.add("error");
+        return false
+    }
+
+    if (rationalThought === "") {
+        globalAlert("alert-danger", "What is your rational thought?");
+        document.getElementById("rationalThought").classList.add("error");
+        return false;
+    }
+
+    if (addEdit === "add") {
+        thoughtObj = [...thoughtObj, {
+            automaticThought,
+            cognitiveDistortion,
+            rationalThought,
+            thoughtDateTime: timestamp()
+        }];
+
+    }
+
+    if (addEdit === "edit") {
+
+        let selectedNum = document.querySelector("select[name='thoughtObjDateList']").value;
+        if (selectedNum == "default") {
+            globalAlert("alert-warning", "Please select a date.");
+            return false;
+        }
+
+        thoughtObj[selectedNum].automaticThought = automaticThought;
+        thoughtObj[selectedNum].cognitiveDistortion = cognitiveDistortion;
+        thoughtObj[selectedNum].rationalThought = rationalThought;
+
+
+    }
+
+    localStorage.setItem("thoughtObj", JSON.stringify(thoughtObj));
+    globalAlert("alert-success", "Thought " + addEdit + "ed.");
+
+    buildList();
+    writeDayNums(timestamp().substring(0, 7));
+    convertForCalendar();
+
+    [].forEach.call(document.querySelectorAll("textarea"), (e) => {
+        e.value = "";
+    });
+
+    [].forEach.call(document.querySelectorAll("[data-options]"), (e) => {
+
+        e.checked = false;
+    });
+
+    document.getElementById("submissionTarget").innerHTML = "";
+
+}
+
+
+
 
 populateEditMenus();
