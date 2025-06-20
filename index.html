@@ -59,9 +59,9 @@
                 <hr />
 
                 <div class="btn-group block" role="group">
-                    <button type="button" class="btn btn-info active" onClick="javascript:updateCRUD('add')">Add
+                    <button type="button" class="btn btn-primary active" onClick="javascript:updateCRUD('add')">Add
                         Form</button>
-                    <button type="button" class="btn btn-info " onClick="javascript:updateCRUD('edit')">Edit
+                    <button type="button" class="btn btn-primary " onClick="javascript:updateCRUD('edit')">Edit
                         Form</button>
 
 
@@ -106,9 +106,9 @@
                 <hr />
 
                 <div class="btn-group block" role="group">
-                    <button type="button" class="btn btn-info active"
+                    <button type="button" class="btn btn-primary active"
                         onClick="javascript:updateCRUD('add')">Add</button>
-                    <button type="button" class="btn btn-info " onClick="javascript:updateCRUD('edit')">Edit</button>
+                    <button type="button" class="btn btn-primary " onClick="javascript:updateCRUD('edit')">Edit</button>
 
 
                 </div>
@@ -152,11 +152,11 @@
 
             <div class="col-md-12">
                 <div class="btn-group btn-block" role="group">
-                    <button class="btn btn-primary pointer" data-option="calendar"
+                    <button class="btn btn-info pointer" data-option="calendar"
                         onClick="viewVersion('calendar')">Calendar
                         View</button>
 
-                    <button class="btn btn-primary pointer" data-option="list" onClick="viewVersion('list')">List
+                    <button class="btn btn-info pointer" data-option="list" onClick="viewVersion('list')">List
                         View</button>
                 </div>
             </div>
@@ -301,6 +301,16 @@
 
     </div>
     <div class="hide alert fadeInUp" role="alert" id="globalAlert"></div>
+    <footer class="footer mt-auto py-3 animated fadeInUp">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-4 my-2"> <select class="form-control" onChange="changeTheme()" id="themes"></select>
+                </div>
+
+            </div>
+        </div>
+    </footer>
 </body>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>

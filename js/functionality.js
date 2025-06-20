@@ -119,125 +119,6 @@ function buildList() {
 }
 
 
-function submitThought(addEdit) {
-
-    [].forEach.call(document.querySelectorAll("textarea"), (e) => {
-        e.classList.remove("error");
-    })
-
-    let automaticThought = "";
-    try {
-        automaticThought = document.getElementById("automaticThought").value;
-
-    } catch (error) {
-
-        document.getElementById("automaticThought").classList.add("error");
-        return false
-
-    }
-
-    if (automaticThought === "") {
-        globalAlert("alert-danger", "What is your thought?");
-        document.getElementById("automaticThought").classList.add("error");
-        return false;
-    }
-
-
-    let cognitiveDistortion = "";
-    [].forEach.call(document.querySelectorAll("[data-options]"), (e, i) => {
-
-
-        if (e.checked) {
-            cognitiveDistortion = cognitiveDistortion + " - " + cognDisOptions[i]
-        }
-    });
-
-    if (!document.querySelector("[data-options]:checked")) {
-
-        globalAlert("alert-danger", "What is the cognitive distortion?");
-        document.getElementById("cognitiveDistortion").classList.add("error");
-        return false;
-    }
-
-    /* 
-      try {
-          cognitiveDistortion = document.getElementById("cognitiveDistortion").value;
-      } catch (error) {
-          console.log("cognitiveDistortion Error: " + error);
-          document.getElementById("cognitiveDistortion").classList.add("error");
-          return false
-      }
-  
-      if (cognitiveDistortion === "") {
-          globalAlert("alert-danger", "What is the cognitive distortion?");
-          document.getElementById("cognitiveDistortion").classList.add("error");
-          return false;
-      }
-  */
-
-    let rationalThought = "";
-    try {
-        rationalThought = document.getElementById("rationalThought").value;
-    } catch (error) {
-
-        document.getElementById("rationalThought").classList.add("error");
-        return false
-    }
-
-    if (rationalThought === "") {
-        globalAlert("alert-danger", "What is your rational thought?");
-        document.getElementById("rationalThought").classList.add("error");
-        return false;
-    }
-
-    if (addEdit === "add") {
-        thoughtObj = [...thoughtObj, {
-            automaticThought,
-            cognitiveDistortion,
-            rationalThought,
-            thoughtDateTime: timestamp()
-        }];
-
-    }
-
-    if (addEdit === "edit") {
-
-        let selectedNum = document.querySelector("select[name='thoughtObjDateList']").value;
-        if (selectedNum == "default") {
-            globalAlert("alert-warning", "Please select a date.");
-            return false;
-        }
-
-        thoughtObj[selectedNum].automaticThought = automaticThought;
-        thoughtObj[selectedNum].cognitiveDistortion = cognitiveDistortion;
-        thoughtObj[selectedNum].rationalThought = rationalThought;
-
-
-    }
-
-    localStorage.setItem("thoughtObj", JSON.stringify(thoughtObj));
-    globalAlert("alert-success", "Thought " + addEdit + "ed.");
-
-    buildList();
-    writeDayNums(timestamp().substring(0, 7));
-    convertForCalendar();
-
-    [].forEach.call(document.querySelectorAll("textarea"), (e) => {
-        e.value = "";
-    });
-
-    [].forEach.call(document.querySelectorAll("[data-options]"), (e) => {
-
-        e.checked = false;
-    });
-
-}
-
-
-
-
-
-
 function downloadData() {
     let tempData = [{ thoughtObj: [], journalObj: [] }];
     if (localStorage.getItem("thoughtObj")) {
@@ -530,3 +411,76 @@ function populateForEdit(whichObj) {
     }
 
 }
+
+
+/*START THEMES*/
+const themesList = ["Spacelab", "United", "Slate", "Cerulean", "Darkly", "Litera", "Materia", "Sandstone", "Superhero", "Cosmo", "Flatly", "Lumen", "Minty", "Simplex", "Solar", "Cyborg", "Journal", "Lux", "Pulse", "Sketchy", "Yeti", "Morph", "Quartz", "Vapor", "Zephyr"];
+let chosenTheme;
+let url = window.location;
+let themeVal = {};
+let themeOptions = "<option value='default'>Select Theme</option>";
+
+for (let i = 0; i < themesList.length; i++) {
+    themeOptions = themeOptions + "<option value='" + themesList[i].toLocaleLowerCase() + "'>Theme: <span class='capitalize'>" + themesList[i] + "</span></option>";
+}
+document.getElementById("themes").innerHTML = themeOptions;
+
+function changeTheme() {
+    let gaParam = "";
+    if (url.toString().indexOf("exclude") !== -1) {
+        gaParam = "exclude=true";
+    }
+    let whichTheme = document.getElementById("themes").value;
+    if (whichTheme === "default") {
+        return false;
+    } else {
+        // document.getElementById("themedStyle").setAttribute("href", "https://bootswatch.com/5/" + whichTheme + "/bootstrap.css");
+        chosenTheme = whichTheme.replace("https://bootswatch.com/5/", "").replace("/bootstrap.css");
+        localStorage.setItem("theme", chosenTheme);
+        //setGameLinks(chosenTheme);
+        window.location = "?" + gaParam + "&theme=" + chosenTheme + "&balance=" + localStorage.getItem("balance") + "&";
+    }
+
+}
+/*SPLIT PARAMS*/
+(url + "?")
+    .split("?")[1]
+    .split("&")
+    .forEach(function (pair) {
+        pair = (pair + "=").split("=").map(decodeURIComponent);
+        if (pair[0].length) {
+            themeVal[pair[0]] = pair[1];
+            if (pair[0] === "theme") {
+
+                const themeFromUrl = "https://bootswatch.com/5/" + pair[1] + "/bootstrap.css";
+
+                document.getElementById("themedStyle").setAttribute("href", themeFromUrl);
+                localStorage.setItem("theme", pair[1]);
+            }
+            if (pair[0] === "balance") {
+                localStorage.setItem("balance", pair[1].replace("#", ""));
+
+            }
+        }
+    });
+let tempTheme = localStorage.getItem("theme");
+if (localStorage.getItem("theme")) {
+
+    let needAddress = "https://bootswatch.com/5/";
+    if (localStorage.getItem("theme").indexOf("boot") !== -1) {
+        needAddress = "";
+    }
+    setGameLinks(localStorage.getItem("theme"));
+
+    if (tempTheme.indexOf("bootstrap.css") !== -1) {
+        tempTheme = tempTheme.replace("/bootstrap.css", "");
+    }
+
+    document.getElementById("themedStyle").setAttribute("href", needAddress + tempTheme + "/bootstrap.css");
+} else {
+    setGameLinks("spacelab");
+    localStorage.setItem("theme", "spacelab");
+}
+document.querySelector("#themes option:first-child").innerHTML = "Selected theme: " + tempTheme;
+//END THEMES
+
