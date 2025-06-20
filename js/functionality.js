@@ -7,6 +7,12 @@ let activeTherapyView = "calendar";
 if (localStorage.getItem("activeTherapyView")) {
     activeTherapyView = localStorage.getItem("activeTherapyView");
 }
+
+[].forEach.call(document.querySelectorAll("[data-instructions='top']"), (e) => {
+    e.innerHTML = "This application has no database. What is typed is stored in your browser's local storage.All data can be downloaded and uploaded at the <a href='#downloadOption' > bottom of the page.</a>"
+})
+
+
 let cogDistStr = "";
 for (let i = 0; i < cognDisOptions.length; i++) {
     cogDistStr = cogDistStr + "<li class='list-group-item'><label><input type='checkbox'/ name='" + cognDisOptions[i] + "' data-options /> " + cognDisOptions[i] + "</label></li>";

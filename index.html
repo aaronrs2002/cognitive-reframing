@@ -55,14 +55,14 @@
         <div class="row hide pt-5" id="journal" data-section="Journal">
             <div class="col-md-12">
                 <h1>Thought Journal</h1>
+                <p data-instructions="top"></p>
 
                 <hr />
 
                 <div class="btn-group block" role="group">
-                    <button type="button" class="btn btn-primary active" onClick="javascript:updateCRUD('add')">Add
-                        Form</button>
-                    <button type="button" class="btn btn-primary " onClick="javascript:updateCRUD('edit')">Edit
-                        Form</button>
+                    <button type="button" class="btn btn-primary active"
+                        onClick="javascript:updateCRUD('add')">Add</button>
+                    <button type="button" class="btn btn-primary " onClick="javascript:updateCRUD('edit')">Edit</button>
 
 
                 </div>
@@ -102,7 +102,7 @@
         <div class="row pt-5" id="thoughtProcess" data-section="CBT Thought Process">
             <div class="col-md-12">
                 <h1>CBT Thought Process</h1>
-
+                <p data-instructions="top"></p>
                 <hr />
 
                 <div class="btn-group block" role="group">
@@ -231,7 +231,7 @@
 
         <div class="row">
 
-            <div class="col-md-12">
+            <div class="col-md-12" id="downloadOption">
                 <div class="card">
 
                     <div class="card-body">
@@ -246,8 +246,7 @@
 
                         <div class="col-md-12 py-2">
 
-                            <button class="btn btn-danger form-control" onClick="toggle('clearData')"
-                                data-toggle="default">Clear
+                            <button class="btn btn-danger form-control" onClick="toggle('clearData')">Clear
                                 Local
                                 Data</button>
                             <div data-toggle="clearData" class="hide">
@@ -294,6 +293,138 @@
             <div class="col-md-12 py-5">
 
                 <a class="btn btn-secondary form-control" href="#top">Back to Top <i class="fas fa-arrow-up"></i></a>
+            </div>
+
+
+
+
+
+            <!--start info-->
+            <div class="col-md-12 py-1">
+
+                <div class="d-grid gap-2">
+                    <button class="btn btn-info" onClick="javascript:toggle('rules')" type="button"
+                        data-toggle="defaultInstructions">View Instructions</button>
+                    <button class="btn btn-info hide" onClick="javascript:toggle('defaultInstructions')" type="button"
+                        data-toggle="rules">Hide Instructions</button>
+                </div>
+
+                <div class="card hide" data-toggle="rules">
+                    <div class="card-body">
+
+                        <h5 class="card-title" alt="Cognitive reframing ">Cognitive reframing:</h5>
+
+                        <p>Cognitive reframing is a psychological technique that involves changing the way a person
+                            perceives and interprets
+                            events, situations, and experiences. It aims to help individuals identify and challenge
+                            negative or distorted thoughts
+                            and replace them with more positive and realistic perspectives. [1, 2, 3]
+                            Key aspects of cognitive reframing:</p>
+                        <ul class="list-group-numbered">
+                            <li class="list-group-item"> Identifying negative thoughts: The first step involves
+                                identifying automatic negative thoughts that may be causing
+                                distress or limiting beliefs. [4, 5, 6]</li>
+                            <li class="list-group-item"> Challenging negative thoughts: Once identified, these thoughts
+                                are challenged and examined for their validity. [7, 8]</li>
+                            <li class="list-group-item"> Developing alternative thoughts: New, more positive thoughts
+                                are formulated to replace the negative ones. [9, 10, 11]</li>
+                            <li class="list-group-item"> Practicing new thoughts: The goal is to repeatedly practice
+                                these new thoughts in different situations to gradually
+                                shift the individual's perspective. [12, 13]</li>
+                        </ul>
+                        <p>Cognitive reframing is often used in cognitive behavioral therapy (CBT) to help individuals
+                            manage anxiety, depression,
+                            and other mental health conditions. It can also be a helpful tool for improving coping
+                            mechanisms and promoting personal
+                            growth. [14, 15, 16, 17, 18]</p>
+
+                        <i><small>AI responses may include mistakes.<br />
+
+                                [1] https://en.wikipedia.org/wiki/Cognitive_reframing
+                                [2] https://upvio.com/cbt/change-the-perspective-the-art-of-cognitive-reframing
+                                [3] https://www.ebsco.com/research-starters/psychology/cognitive-reframing
+                                [4] https://study.com/learn/lesson/cognitive-reframing-examples-techniques.html
+                                [5] https://www.linkedin.com/pulse/conquer-your-fears-power-reframing-lawyers-gary-miles-ounte
+                                [6] https://cogbtherapy.com/cbt-and-automatic-thoughts
+                                [7] https://www.verywellmind.com/reframing-defined-2610419
+                                [8] https://upvio.com/cbt/change-the-perspective-the-art-of-cognitive-reframing
+                                [9] https://www.lifepaththerapy.org/blog/the-power-of-cognitive-reframing-shifting-perspectives-for-personal-growth
+                                [10] https://www.mindspsychology.com/post/cognitive-behavioral-therapy-in-brooklyn
+                                [11] https://www.alisbh.com/blog/how-hopelessness-affects-your-future-goals/
+                                [12] https://www.facebook.com/ConsciousDiscipline/videos/reframing-our-intent-from-negative-to-positive/739858993872228/
+                                [13] https://openresearch.ocadu.ca/2668/1/Peter_Narratives_2018.pdf
+                                [14] https://www.sciencedirect.com/topics/psychology/cognitive-reframing
+                                [15] https://www.everydayhealth.com/stress/study-says-heres-how-to-reframe-stress-to-use-it-to-your-advantage/
+                                [16] https://www.verywellmind.com/reframing-defined-2610419
+                                [17] https://www.aristarecovery.com/blog/how-cbt-helps-in-developing-healthy-coping-mechanisms
+                                [18] https://www.therapytrainings.com/pages/blog/advanced-cognitive-restructuring-strategies-for-complex-cases</small></i>
+
+                        <hr />
+
+                        <h5>Journal</h5>
+
+                        <p>
+                            A journal is a personal record, often written, of experiences, thoughts, and feelings. It
+                            can be a place to explore your
+                            emotions, track your progress, and improve your overall well-being. Benefits include
+                            increased self-awareness, stress
+                            reduction, improved memory, and enhanced creativity. [1, 2, 3]
+                            Here's a more detailed look at the benefits:</p>
+                        <ul class="list-group-numbered">
+                            <li class="list-group-item"> Improved Mental Health: Journaling can help process emotions,
+                                reduce stress and anxiety, and even alleviate symptoms
+                                of depression. [1, 3]</li>
+                            <li class="list-group-item"> Enhanced Self-Awareness: By writing about your experiences, you
+                                can gain a better understanding of your thoughts,
+                                feelings, and behaviors, identifying patterns and triggers. [2]</li>
+                            <li class="list-group-item">Increased Creativity: Journaling can be a great way to
+                                brainstorm ideas, explore your imagination, and even find
+                                solutions to problems. [3, 4]</li>
+                            <li class="list-group-item">Better Memory: Reflecting on past experiences in your journal
+                                can help you remember details and strengthen your
+                                memory. [3]</li>
+                            <li class="list-group-item"> Goal Setting and Achievement: Writing down your goals and
+                                tracking your progress can keep you motivated and focused on
+                                achieving them. [3, 5]</li>
+                            <li class="list-group-item"> Improved Communication Skills: Expressing yourself through
+                                writing can improve your ability to communicate your
+                                thoughts and feelings to others. [4]</li>
+                            <li class="list-group-item"> Reduced Stress and Anxiety: Journaling can be a great way to
+                                release pent-up emotions and reduce stress, especially
+                                when dealing with challenging situations. [4]</li>
+                            <li class="list-group-item"> Boosted Happiness: Some studies suggest journaling can increase
+                                overall happiness and well-being. [6]</li>
+                            <li class="list-group-item">Physical Benefits: There's even research indicating journaling
+                                can have positive physical effects, such as boosting
+                                the immune system. [6]</li>
+                        </ul>
+                        <p>Different types of journaling:</p>
+                        <ul>
+                            <li class="list-group-item"> Daily log: Recording daily events and experiences.</li>
+                            <li class="list-group-item">Thought journal: Capturing and processing thoughts and feelings.
+                            </li>
+                            <li class="list-group-item"> Gratitude journal: Focusing on positive aspects of life.</li>
+                            <li class="list-group-item"> Idea journal: Brainstorming and developing new ideas.</li>
+                            <li class="list-group-item"> Dream journal: Recording and analyzing dreams.</li>
+                            <li class="list-group-item"> Travel journal: Documenting travel experiences. [1, 2, 4, 4, 5,
+                                5, 7, 7, 8, 9, 10, 11]</li>
+                        </ul>
+                        <p>Ultimately, journaling can be a powerful tool for self-discovery, personal growth, and
+                            improved
+                            well-being. [2, 12]</p>
+
+                        <i><small>AI responses may include mistakes.<br />
+
+                                [1] https://www.urmc.rochester.edu/encyclopedia/content?ContentTypeID=1&ContentID=4552[2] https://bloomingtonmeadows.com/blog/the-benefits-of-journaling-for-mental-health/[3] https://www.psychologytoday.com/us/blog/modern-minds/202301/10-good-reasons-to-keep-a-journal[4] https://healthy.kaiserpermanente.org/health-wellness/healtharticle.7-benefits-of-keeping-a-journal[5] https://dayoneapp.com/blog/journaling-benefits/[6] https://www.reddit.com/r/Journaling/comments/161q9bj/what_are_the_benefits_of_journaling/[7] https://burampage.com/article/2020/09/30/three-types-of-journaling-that-can-benefit-your-mental-health/[8] https://www.youtube.com/watch?v=ibGHNoMkDCs[9] https://dayoneapp.com/blog/journaling-habit/[10] https://ca.pinterest.com/pin/a-peek-inside-someones-personal-dream-journal--143200463122293097/[11] https://www.archerandolive.com/blogs/news/15-journals-to-keep[12] https://www.quora.com/What-are-the-benefits-of-keeping-a-journal-and-what-is-it-like-to-read-them-later-in-life
+                                Not all images can be exported from Search.</i></small>
+
+
+
+
+
+
+                    </div>
+                </div>
             </div>
 
         </div>
