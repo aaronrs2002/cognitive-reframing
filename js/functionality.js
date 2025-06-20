@@ -378,7 +378,7 @@ function submitJournalThought(addEdit) {
     document.getElementById("journalTitle").value = "";
 
     buildJournalList();
-    globalAlert("alert-success", "Journal entry added.");
+    globalAlert("alert-success", "Journal entry " + addEdit + "ed.");
 }
 
 
