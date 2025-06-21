@@ -444,7 +444,7 @@ function changeTheme() {
         chosenTheme = whichTheme.replace("https://bootswatch.com/5/", "").replace("/bootstrap.css");
         localStorage.setItem("theme", chosenTheme);
         //setGameLinks(chosenTheme);
-        window.location = "?" + gaParam + "&theme=" + chosenTheme + "&balance=" + localStorage.getItem("balance") + "&";
+        window.location = "?" + gaParam + "&theme=" + chosenTheme + "&";
     }
 
 }
@@ -463,10 +463,7 @@ function changeTheme() {
                 document.getElementById("themedStyle").setAttribute("href", themeFromUrl);
                 localStorage.setItem("theme", pair[1]);
             }
-            if (pair[0] === "balance") {
-                localStorage.setItem("balance", pair[1].replace("#", ""));
 
-            }
         }
     });
 let tempTheme = localStorage.getItem("theme");
