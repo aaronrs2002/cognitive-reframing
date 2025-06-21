@@ -288,7 +288,7 @@ function viewVersion(view) {
 
 
     if (view === "list") {
-
+        window.location.href = "#viewListTarget";
 
         buildList();
 
@@ -301,7 +301,7 @@ function viewVersion(view) {
 
 
         document.querySelector("[data-section='" + whatSection + "'][data-view='list']").classList.remove("hide");
-        window.location.href = "#viewListTarget";
+
 
     }
 
