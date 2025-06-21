@@ -476,7 +476,7 @@ if (localStorage.getItem("theme")) {
     if (localStorage.getItem("theme").indexOf("boot") !== -1) {
         needAddress = "";
     }
-    setGameLinks(localStorage.getItem("theme"));
+
 
     if (tempTheme.indexOf("bootstrap.css") !== -1) {
         tempTheme = tempTheme.replace("/bootstrap.css", "");
@@ -484,7 +484,7 @@ if (localStorage.getItem("theme")) {
 
     document.getElementById("themedStyle").setAttribute("href", needAddress + tempTheme + "/bootstrap.css");
 } else {
-    setGameLinks("spacelab");
+
     localStorage.setItem("theme", "spacelab");
 }
 document.querySelector("#themes option:first-child").innerHTML = "Selected theme: " + tempTheme;

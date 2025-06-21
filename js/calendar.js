@@ -88,7 +88,7 @@ function viewSubmission(dateOfSubmission) {
 
 
 
-function convertForCalendar() {
+function convertForCalendar(windowLocation) {
 
 
     if (localStorage.getItem("iHaveThoughtsSection")) {
@@ -151,7 +151,8 @@ function convertForCalendar() {
                 };
             }
 
-            window.location.href = "#submissionTarget";
+            window.location.href = "#" + windowLocation;
+
             return false;
 
         }
@@ -204,7 +205,7 @@ let picker = datepicker('#datePickerCalendarTarget', {
         }
         whichMonth = instance.currentYear + "-" + tempMonth;
         writeDayNums(whichMonth);
-        convertForCalendar()
+        convertForCalendar("submissionTarget")
     },
     // Customizations.
     formatter: (input, date, instance) => {
@@ -273,7 +274,7 @@ function viewVersion(view) {
         buildJournalList();
 
         writeDayNums(timestamp().substring(0, 7));
-        convertForCalendar();
+        convertForCalendar("calendarWrapper");
 
         [].forEach.call(document.querySelectorAll("[data-view='list']"), (e) => {
             e.classList.add("hide");
@@ -281,7 +282,8 @@ function viewVersion(view) {
 
         document.querySelector("#calendarWrapper").classList.remove("hide");
 
-        viewSubmission(timestamp().substring(0, 10))
+        viewSubmission(timestamp().substring(0, 10));
+        window.location.href = "#calendarWrapper";
     }
 
 
@@ -299,6 +301,7 @@ function viewVersion(view) {
 
 
         document.querySelector("[data-section='" + whatSection + "'][data-view='list']").classList.remove("hide");
+        window.location.href = "#viewListTarget";
 
     }
 
@@ -405,7 +408,7 @@ function handleOnSubmit(event, type, merge) {
 
 
 writeDayNums(timestamp().substring(0, 7));
-convertForCalendar();
+convertForCalendar("top");
 
 
 function deleteJournal(num) {
@@ -529,7 +532,7 @@ function submitJournalThought(addEdit) {
 
     buildJournalList();
     writeDayNums(timestamp().substring(0, 7));
-    convertForCalendar();
+    convertForCalendar("submissionTarget");
     document.getElementById("submissionTarget").innerHTML = "";
     globalAlert("alert-success", "Journal entry " + addEdit + "ed.");
 }
@@ -623,7 +626,7 @@ function submitThought(addEdit) {
 
     buildList();
     writeDayNums(timestamp().substring(0, 7));
-    convertForCalendar();
+    convertForCalendar("submissionTarget");
 
     [].forEach.call(document.querySelectorAll("textarea"), (e) => {
         e.value = "";
