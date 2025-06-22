@@ -348,6 +348,13 @@ function runSearch() {
 }
 
 function updateCRUD(addEdit) {
+
+    [].forEach.call(document.querySelectorAll("[data-addeditbt]"), (e) => {
+        e.classList.remove("active");
+    });
+
+    document.querySelector("[data-addeditbt='" + addEdit + "']").classList.add("active");
+
     [].forEach.call(document.querySelectorAll("[data-edit]"), (e) => {
         e.classList.add("hide");
     });
@@ -371,7 +378,7 @@ function updateCRUD(addEdit) {
         e.classList.remove("hide");
     });
 
-    globalAlert("alert-info", "You are in " + addEdit + " mode.");
+    globalAlert("alert-info", "You are in \"" + addEdit + "\" mode.");
     //document.querySelector("[data-edit='" + addEdit + "']").classList.remove("hide");
 
 }

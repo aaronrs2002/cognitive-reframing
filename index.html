@@ -15,8 +15,8 @@
     <link href="https://bootswatch.com/5/spacelab/bootstrap.css" rel="stylesheet" id="themedStyle">
     <link rel="stylesheet" href="https://aaronrs2002.github.io/black-jack/css/animate.min.css" />
     <link rel="stylesheet" href="https://unpkg.com/js-datepicker/dist/datepicker.min.css" />
-    <link href="https://aaronrs2002.github.io/black-jack/css/shared.css?v=1&" data-version="css" rel="stylesheet">
-    <link href="css/style.css?v=1&" rel="stylesheet" data-version="css">
+    <link href="https://aaronrs2002.github.io/black-jack/css/shared.css?v=2&" data-version="css" rel="stylesheet">
+    <link href="css/style.css?v=2&" rel="stylesheet" data-version="css">
 
 
     <script src="https://cdn.jsdelivr.net/npm/date-fns@3.6.0/cdn.min.js"></script>
@@ -64,9 +64,10 @@
                 <hr />
 
                 <div class="btn-group block" role="group">
-                    <button type="button" class="btn btn-primary active"
-                        onClick="javascript:updateCRUD('add')">Add</button>
-                    <button type="button" class="btn btn-primary " onClick="javascript:updateCRUD('edit')">Edit</button>
+                    <button type="button" class="btn btn-primary active" onClick="javascript:updateCRUD('add')"
+                        data-addeditbt="add">Add</button>
+                    <button type="button" class="btn btn-primary " data-addeditbt="edit"
+                        onClick="javascript:updateCRUD('edit')">Edit</button>
 
 
                 </div>
@@ -110,9 +111,10 @@
                 <hr />
 
                 <div class="btn-group block" role="group">
-                    <button type="button" class="btn btn-primary active"
-                        onClick="javascript:updateCRUD('add')">Add</button>
-                    <button type="button" class="btn btn-primary " onClick="javascript:updateCRUD('edit')">Edit</button>
+                    <button type="button" class="btn btn-primary active" onClick="javascript:updateCRUD('add')"
+                        data-addeditbt="add">Add</button>
+                    <button type="button" class="btn btn-primary " data-addeditbt="edit"
+                        onClick="javascript:updateCRUD('edit')">Edit</button>
 
 
                 </div>
@@ -452,25 +454,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
 <script src="https://unpkg.com/js-datepicker"></script>
 
-<script src="js/functionality.js?v=1&" data-version="js"> </script>
-<script src="js/calendar.js?v=1&" data-version="js"></script>
-<!--<script>
+<script src="js/functionality.js?v=2&" data-version="js"> </script>
+<script src="js/calendar.js?v=2&" data-version="js"></script>
 
-    [].forEach.call(document.querySelectorAll("[data-version]"), (e) => {
-        let whichVersion = e.dataset.version;
-        if (whichVersion === "css") {
-            let originalAddress = e.getAttribute("href");
-            e.setAttribute("href", originalAddress + "?v=" + Date.now() + "&")
-        }
-    });
-
-    [].forEach.call(document.querySelectorAll("[data-version]"), (e) => {
-        let whichVersion = e.dataset.version;
-        if (whichVersion === "js") {
-            let originalAddress = e.getAttribute("src");
-            e.setAttribute("src", originalAddress + "?v=" + Date.now() + "&")
-        }
-    });
-</script>-->
 
 </html>

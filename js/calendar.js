@@ -340,6 +340,24 @@ function toggleSection(whatSection, toggleMobileFunc) {
     });
 
     document.querySelector("[data-selected='" + whatSection + "']").classList.add("active");
+
+    try {
+        if (document.querySelector("[data-addeditbt='edit'].active")) {
+            globalAlert("alert-info", "You are in \"edit\" mode.");
+        }
+    } catch (error) {
+        console.log("error: " + error)
+    }
+
+    try {
+        if (document.querySelector("[data-addeditbt='add'].active")) {
+            globalAlert("alert-info", "You are in \"add\" mode.");
+        }
+    } catch (error) {
+        console.log("error: " + error)
+    }
+
+
 }
 
 
