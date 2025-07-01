@@ -144,3 +144,18 @@ nav img {
 }
 
 /*start loader animation*/
+
+iframe[title="YouTube video player"] {
+    width: 560px;
+    height: 350px;
+
+}
+
+@media (max-width: 768px) {
+    iframe[title="YouTube video player"] {
+        width: 350px !important;
+        height: auto !important;
+
+    }
+
+}
