@@ -162,7 +162,10 @@ function convertForCalendar(windowLocation) {
 
 
 }
-
+/*
+After discussion with chatGPT, this may help safari iphone 13 bug:
+https://chatgpt.com/share/68730b76-292c-8003-addf-9a5b87ec55fd
+*/
 let picker = datepicker('#datePickerCalendarTarget', {
     // Event callbacks.
     onSelect: instance => {

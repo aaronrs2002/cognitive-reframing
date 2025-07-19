@@ -153,7 +153,7 @@ iframe[title="YouTube video player"] {
 
 @media (max-width: 768px) {
     iframe[title="YouTube video player"] {
-        width: 350px !important;
+        width: 300px !important;
         height: auto !important;
 
     }
