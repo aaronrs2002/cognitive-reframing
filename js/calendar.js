@@ -274,7 +274,7 @@ function viewVersion(view) {
 
     if (view === "calendar") {
 
-        buildJournalList();
+        buildJournalList("viewVersion");
 
         writeDayNums(timestamp().substring(0, 7));
         convertForCalendar("calendarWrapper");
@@ -293,7 +293,11 @@ function viewVersion(view) {
     if (view === "list") {
         window.location.href = "#viewListTarget";
 
-        buildList();
+
+        if (localStorage.getItem("thoughtObj")) {
+            buildList("viewVersion");
+        }
+
 
         [].forEach.call(document.querySelectorAll("[data-view='list']"), (e) => {
             e.classList.add("hide");
@@ -393,8 +397,8 @@ function handleOnSubmit(event, type, merge) {
                 journalObj = tempObj[0].journalObj;
                 localStorage.setItem("journalObj", JSON.stringify(journalObj));
 
-                buildList();
-                buildJournalList();
+                buildList("handleOnSubmit");
+                buildJournalList("handleOnSubmit");
                 globalAlert("alert-success", "Your file was uploaded.");
                 return false;
 
@@ -443,7 +447,7 @@ function deleteJournal(num) {
     journalObj = tempObj;
     localStorage.setItem("journalObj", JSON.stringify(journalObj));
 
-    buildJournalList();
+    buildJournalList("deleteJournal");
 
     let activeView = "list";
     if (localStorage.getItem('activeTherapyView')) {
@@ -468,7 +472,7 @@ function deleteThought(num) {
     thoughtObj = tempObj;
     localStorage.setItem("thoughtObj", JSON.stringify(thoughtObj));
 
-    buildList();
+    buildList("deleteThought");
 
     let activeView = "list";
     if (localStorage.getItem('activeTherapyView')) {
@@ -551,7 +555,7 @@ function submitJournalThought(addEdit) {
     document.getElementById("journalInput").value = "";
     document.getElementById("journalTitle").value = "";
 
-    buildJournalList();
+    buildJournalList("submitJournalThought");
     writeDayNums(timestamp().substring(0, 7));
     convertForCalendar("submissionTarget");
     document.getElementById("submissionTarget").innerHTML = "";
@@ -645,7 +649,7 @@ function submitThought(addEdit) {
     localStorage.setItem("thoughtObj", JSON.stringify(thoughtObj));
     globalAlert("alert-success", "Thought " + addEdit + "ed.");
 
-    buildList();
+    buildList("submitThought");
     writeDayNums(timestamp().substring(0, 7));
     convertForCalendar("submissionTarget");
 

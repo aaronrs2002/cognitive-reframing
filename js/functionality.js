@@ -83,7 +83,7 @@ function populateEditMenus() {
 
 
 
-function buildList() {
+function buildList(fromWhere) {
 
 
 
@@ -121,6 +121,7 @@ function buildList() {
 
     document.getElementById("thoughtTarget").innerHTML = thoughtStr;
     populateEditMenus();
+    console.log("ran buildList again from: " + fromWhere);
 
 }
 
@@ -152,7 +153,7 @@ function downloadData() {
 
 
 
-function buildJournalList() {
+function buildJournalList(fromWhere) {
 
 
     let journalStr = "";
@@ -188,6 +189,7 @@ function buildJournalList() {
     document.getElementById("journalSubmissionsTarget").innerHTML = journalStr;
 
     populateEditMenus();
+    console.log("run buildJournal again from: " + fromWhere);
 
 
 }
@@ -196,7 +198,7 @@ function buildJournalList() {
 
 if (localStorage.getItem("journalObj")) {
     journalObj = JSON.parse(localStorage.getItem("journalObj"));
-    buildJournalList();
+    //buildJournalList("localStorage");
 }
 
 
@@ -316,10 +318,10 @@ function clearData() {
     return false;
 }
 
-
+/*
 if (localStorage.getItem("thoughtObj")) {
-    buildList();
-}
+    buildList("LocalStorage");
+}*/
 
 function runSearch() {
 
