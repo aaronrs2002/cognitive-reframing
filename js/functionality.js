@@ -318,10 +318,10 @@ function clearData() {
     return false;
 }
 
-/*
+
 if (localStorage.getItem("thoughtObj")) {
     buildList("LocalStorage");
-}*/
+}
 
 function runSearch() {
 
