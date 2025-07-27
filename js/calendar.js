@@ -463,12 +463,19 @@ function deleteJournal(num) {
 
 function deleteThought(num) {
 
+    if (localStorage.getItem("thoughtObj")) {
+        thoughtObj = JSON.parse(localStorage.getItem("thoughtObj"));
+    } else {
+        console.log("there was no localStorage - thoughtObj");
+        return false;
+    }
     let tempObj = [];
     for (let i = 0; i < thoughtObj.length; i++) {
         if (num !== i) {
             tempObj.push(thoughtObj[i])
         }
     }
+
     thoughtObj = tempObj;
     localStorage.setItem("thoughtObj", JSON.stringify(thoughtObj));
 
