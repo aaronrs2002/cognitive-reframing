@@ -325,7 +325,7 @@ function toggleSection(whatSection, toggleMobileFunc) {
         activeView = localStorage.getItem('activeTherapyView');
     }
     //  setTimeout(() => {
-    viewVersion(activeView);
+
     //   }, 1000);
 
 
@@ -363,7 +363,7 @@ function toggleSection(whatSection, toggleMobileFunc) {
     } catch (error) {
         console.log("error: " + error)
     }
-
+    viewVersion(activeView);
 
 }
 
