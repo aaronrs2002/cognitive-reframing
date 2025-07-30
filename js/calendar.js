@@ -324,9 +324,9 @@ function toggleSection(whatSection, toggleMobileFunc) {
     if (localStorage.getItem('activeTherapyView')) {
         activeView = localStorage.getItem('activeTherapyView');
     }
-    setTimeout(() => {
-        viewVersion(activeView);
-    }, 1000);
+    //  setTimeout(() => {
+    viewVersion(activeView);
+    //   }, 1000);
 
 
     localStorage.setItem("iHaveThoughtsSection", whatSection);
