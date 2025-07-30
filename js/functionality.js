@@ -93,37 +93,37 @@ function buildList(fromWhere) {
         globalAlert("alert-warning", "No Thoughts submitted.");
         return false;
     }
-    if (localStorage.getItem("activeTherapyView") !== "calendar") {
 
 
 
-        let thoughtStr = "";
-        for (let i = 0; i < thoughtObj.length; i++) {
+
+    let thoughtStr = "";
+    for (let i = 0; i < thoughtObj.length; i++) {
 
 
-            let thoughtDateTime;
+        let thoughtDateTime;
 
-            try {
-                if (thoughtObj[i].thoughtDateTime !== undefined) {
-                    thoughtDateTime = thoughtObj[i].thoughtDateTime;
-                } else {
-                    thoughtDateTime = timestamp();
-                }
-
-            } catch (error) {
-
-                console.log("Error: " + error)
-
+        try {
+            if (thoughtObj[i].thoughtDateTime !== undefined) {
+                thoughtDateTime = thoughtObj[i].thoughtDateTime;
+            } else {
+                thoughtDateTime = timestamp();
             }
 
-            thoughtStr = thoughtStr + "<li class='list-group-item' data-row='" + i + "' ><label><u> " + (i + 1) + ". Thought: </u>" + thoughtObj[i].automaticThought
-                + "</label><br/><i>Date Time: " + thoughtDateTime + "</i><hr/><label><u>Cognitive Distortion</u></label><p>" + thoughtObj[i].cognitiveDistortion + "</p><hr/><label><u>Rational Thought</u></label><p>" +
-                thoughtObj[i].rationalThought + "</p><button class='form-control btn btn-danger' onClick='deleteThought(" + i + ")'> <i class='fas fa-trash'></i> Delete Thought " + (i + 1) + "</button></li>";
+        } catch (error) {
+
+            console.log("Error: " + error)
+
         }
 
-        document.getElementById("thoughtTarget").innerHTML = thoughtStr;
-
+        thoughtStr = thoughtStr + "<li class='list-group-item' data-row='" + i + "' ><label><u> " + (i + 1) + ". Thought: </u>" + thoughtObj[i].automaticThought
+            + "</label><br/><i>Date Time: " + thoughtDateTime + "</i><hr/><label><u>Cognitive Distortion</u></label><p>" + thoughtObj[i].cognitiveDistortion + "</p><hr/><label><u>Rational Thought</u></label><p>" +
+            thoughtObj[i].rationalThought + "</p><button class='form-control btn btn-danger' onClick='deleteThought(" + i + ")'> <i class='fas fa-trash'></i> Delete Thought " + (i + 1) + "</button></li>";
     }
+
+    document.getElementById("thoughtTarget").innerHTML = thoughtStr;
+
+
     populateEditMenus();
     console.log("ran buildList again from: " + fromWhere);
 
@@ -499,4 +499,3 @@ if (localStorage.getItem("theme")) {
 }
 document.querySelector("#themes option:first-child").innerHTML = "Selected theme: " + tempTheme;
 //END THEMES
-
