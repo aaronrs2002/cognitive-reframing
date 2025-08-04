@@ -506,7 +506,7 @@ function submitJournalThought(addEdit) {
 
     let journalSubmission = "";
     try {
-        journalSubmission = document.getElementById("journalInput").value.replaceAll(/"/g, "&quot;").replaceAll(/'/g, "&#39;");
+        journalSubmission = document.getElementById("journalInput").value;
 
     } catch (error) {
 
@@ -516,7 +516,7 @@ function submitJournalThought(addEdit) {
 
     let journalTitleSubmission = "";
     try {
-        journalTitleSubmission = document.getElementById("journalTitle").value.replaceAll(/"/g, "&quot;").replaceAll(/'/g, "&#39;");
+        journalTitleSubmission = document.getElementById("journalTitle").value;
     } catch (error) {
 
         document.getElementById("journalTitle").classList.add("error");
@@ -632,9 +632,9 @@ function submitThought(addEdit) {
 
     if (addEdit === "add") {
         thoughtObj = [...thoughtObj, {
-            automaticThought: automaticThought.replaceAll(/"/g, "&quot;").replaceAll(/'/g, "&#39;"),
+            automaticThought: automaticThought,
             cognitiveDistortion,
-            rationalThought: rationalThought.replaceAll(/"/g, "&quot;").replaceAll(/'/g, "&#39;"),
+            rationalThought: rationalThought,
             thoughtDateTime: timestamp()
         }];
 
@@ -648,9 +648,9 @@ function submitThought(addEdit) {
             return false;
         }
 
-        thoughtObj[selectedNum].automaticThought = automaticThought.replaceAll(/"/g, "&quot;").replaceAll(/'/g, "&#39;");
+        thoughtObj[selectedNum].automaticThought = automaticThought;
         thoughtObj[selectedNum].cognitiveDistortion = cognitiveDistortion;
-        thoughtObj[selectedNum].rationalThought = rationalThought.replaceAll(/"/g, "&quot;").replaceAll(/'/g, "&#39;");
+        thoughtObj[selectedNum].rationalThought = rationalThought;
 
 
     }
