@@ -323,6 +323,9 @@ function toggleSection(whatSection, toggleMobileFunc) {
     if (localStorage.getItem('activeTherapyView')) {
         activeView = localStorage.getItem('activeTherapyView');
     }
+    if (activeView === "calendar") {
+        picker.setDate(new Date(), true)
+    }
     //  setTimeout(() => {
 
     //   }, 1000);
