@@ -22,7 +22,7 @@ const writeDayNums = (yrMo) => {
 
 function viewSubmission(dateOfSubmission) {
 
-
+    picker.setDate(new Date(), true)
 
 
 
@@ -249,7 +249,6 @@ let picker = datepicker('#datePickerCalendarTarget', {
 
 function viewVersion(view) {
 
-
     [].forEach.call(document.querySelectorAll("[data-option]"), (e) => {
         e.classList.remove("active");
     });
@@ -273,7 +272,7 @@ function viewVersion(view) {
 
 
     if (view === "calendar") {
-
+        viewSubmission(timestamp().substring(0, 10));
         buildJournalList("viewVersion");
 
         writeDayNums(timestamp().substring(0, 7));
@@ -285,7 +284,7 @@ function viewVersion(view) {
 
         document.querySelector("#calendarWrapper").classList.remove("hide");
 
-        viewSubmission(timestamp().substring(0, 10));
+
         window.location.href = "#calendarWrapper";
     }
 
