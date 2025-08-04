@@ -22,7 +22,7 @@ const writeDayNums = (yrMo) => {
 
 function viewSubmission(dateOfSubmission) {
 
-    picker.setDate(new Date(), true)
+
 
 
 
