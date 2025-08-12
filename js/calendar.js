@@ -318,7 +318,7 @@ function viewVersion(view) {
 
 function toggleSection(whatSection, toggleMobileFunc) {
 
-
+    document.getElementById("submissionTarget").innerHTML = "";
     let activeView = "list";
     if (localStorage.getItem('activeTherapyView')) {
         activeView = localStorage.getItem('activeTherapyView');
