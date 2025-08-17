@@ -7,6 +7,7 @@ let activeTherapyView = "calendar";
 if (localStorage.getItem("activeTherapyView")) {
     activeTherapyView = localStorage.getItem("activeTherapyView");
 }
+localStorage.setItem("iHaveThoughtsSection", "CBT Thought Process");/*set deafault for search to work*/
 
 [].forEach.call(document.querySelectorAll("[data-instructions='top']"), (e) => {
     e.innerHTML = "This application has no database. What is typed is stored in your browser's local storage.All data can be downloaded and uploaded at the <a href='#downloadOption' > bottom of the page.</a>"
