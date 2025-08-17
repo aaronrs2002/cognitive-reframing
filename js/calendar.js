@@ -269,11 +269,17 @@ function viewVersion(view) {
         whatSection = localStorage.getItem("iHaveThoughtsSection");
     }
 
+    if (whatSection === "Journal") {
+        if (localStorage.getItem("journalObj")) {
+            buildJournalList("viewVersion");
+        }
+
+    }
 
 
     if (view === "calendar") {
         viewSubmission(timestamp().substring(0, 10));
-        buildJournalList("viewVersion");
+
 
         writeDayNums(timestamp().substring(0, 7));
         convertForCalendar("calendarWrapper");
