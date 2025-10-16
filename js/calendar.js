@@ -585,7 +585,9 @@ function submitThought(addEdit) {
 
     [].forEach.call(document.querySelectorAll("textarea"), (e) => {
         e.classList.remove("error");
-    })
+    });
+
+    document.getElementById("cognitiveDistortion").classList.remove("error");
 
     let automaticThought = "";
     try {
