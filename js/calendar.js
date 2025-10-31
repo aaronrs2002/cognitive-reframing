@@ -172,6 +172,7 @@ function convertForCalendar(windowLocation) {
 After discussion with chatGPT, this may help safari iphone 13 bug:
 https://chatgpt.com/share/68730b76-292c-8003-addf-9a5b87ec55fd
 */
+
 let picker = datepicker('#datePickerCalendarTarget', {
     // Event callbacks.
     onSelect: instance => {
@@ -255,14 +256,18 @@ let picker = datepicker('#datePickerCalendarTarget', {
 
 
 function rebuildCalendarTarget() {
+
     // Find the parent wrapper
     const wrapper = document.getElementById('calendarWrapper');
+
     if (!wrapper) return null;
 
     // Remove any existing calendar target completely
     const oldTarget = document.getElementById('datePickerCalendarTarget');
     if (oldTarget) {
         oldTarget.remove(); // fully detaches the node, freeing memory
+
+
     }
 
     // Create a fresh calendar target div
@@ -271,12 +276,13 @@ function rebuildCalendarTarget() {
     wrapper.appendChild(newTarget);
 
     return newTarget;
+
 }
 
 
 function viewVersion(view) {
 
-    rebuildCalendarTarget();
+
 
     [].forEach.call(document.querySelectorAll("[data-option]"), (e) => {
         e.classList.remove("active");
@@ -309,6 +315,7 @@ function viewVersion(view) {
 
 
     if (view === "calendar") {
+
         viewSubmission(timestamp().substring(0, 10));
 
 
@@ -361,6 +368,8 @@ function toggleSection(whatSection, toggleMobileFunc) {
         activeView = localStorage.getItem('activeTherapyView');
     }
     if (activeView === "calendar") {
+        rebuildCalendarTarget();
+
         picker.setDate(new Date(), true)
     }
     //  setTimeout(() => {
