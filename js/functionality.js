@@ -84,9 +84,29 @@ function populateEditMenus() {
 
 
 
+function rebuildCalendarTarget() {
+    // Find the parent wrapper
+    const wrapper = document.getElementById('calendarWrapper');
+    if (!wrapper) return null;
+
+    // Remove any existing calendar target completely
+    const oldTarget = document.getElementById('datePickerCalendarTarget');
+    if (oldTarget) {
+        oldTarget.remove(); // fully detaches the node, freeing memory
+    }
+
+    // Create a fresh calendar target div
+    const newTarget = document.createElement('div');
+    newTarget.id = 'datePickerCalendarTarget';
+    wrapper.appendChild(newTarget);
+
+    return newTarget;
+}
+
+
 function buildList(fromWhere) {
 
-
+    rebuildCalendarTarget();
 
     if (localStorage.getItem("thoughtObj")) {
         thoughtObj = JSON.parse(localStorage.getItem("thoughtObj"));

@@ -20,6 +20,13 @@ const writeDayNums = (yrMo) => {
     return false;
 }
 
+let whatSection = "CBT Thought Process";
+
+if (localStorage.getItem("iHaveThoughtsSection")) {
+    whatSection = localStorage.getItem("iHaveThoughtsSection");
+}
+
+
 function viewSubmission(dateOfSubmission) {
 
 
@@ -263,10 +270,12 @@ function viewVersion(view) {
 
     localStorage.setItem("activeTherapyView", view);
 
-    let whatSection = "CBT Thought Process";
+
 
     if (localStorage.getItem("iHaveThoughtsSection")) {
         whatSection = localStorage.getItem("iHaveThoughtsSection");
+    } else {
+        whatSection = "CBT Thought Process";
     }
 
     if (whatSection === "Journal") {
