@@ -125,7 +125,7 @@ function buildList(fromWhere) {
 
 
     populateEditMenus();
-    console.log("ran buildList again from: " + fromWhere);
+
 
 }
 
@@ -193,7 +193,7 @@ function buildJournalList(fromWhere) {
     document.getElementById("journalSubmissionsTarget").innerHTML = journalStr;
 
     populateEditMenus();
-    console.log("run buildJournal again from: " + fromWhere);
+
 
 
 }
@@ -289,7 +289,7 @@ function globalAlert(alertLevel, message) {
 
 
 function toggle(what) {
-    console.log("toggle what: " + what);
+
 
     [].forEach.call(document.querySelectorAll("[data-toggle]"), (e) => {
         e.classList.add("hide");
@@ -344,8 +344,6 @@ function runSearch() {
     });
 
     for (let i = 0; i < tempObj.length; i++) {
-        console.log("tempObj[i].toString().toLowerCase(): " + tempObj[i].toString().toLowerCase());
-        console.log("searchTerm: " + searchTerm)
         if (JSON.stringify(tempObj[i]).toLowerCase().indexOf(searchTerm) !== -1) {
             document.querySelector("li.list-group-item[data-row='" + i + "']").classList.remove("hide");
         }
@@ -421,7 +419,7 @@ function populateForEdit(whichObj) {
 
 
         for (let i = 0; i < cognDisOptions.length; i++) {
-            console.log("thoughtObj[selectedNum].cognitiveDistortion: " + thoughtObj[selectedNum].cognitiveDistortion);
+
             if (thoughtObj[selectedNum].cognitiveDistortion.indexOf(cognDisOptions[i]) !== -1) {
                 document.querySelector("input[type='checkbox'][name='" + cognDisOptions[i] + "']").checked = true;
             }

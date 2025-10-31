@@ -59,27 +59,26 @@ function viewSubmission(dateOfSubmission) {
         if (localStorage.getItem("thoughtObj")) {
             tempObj = JSON.parse(localStorage.getItem("thoughtObj"));
 
-            console.log("tempObj.length: " + tempObj.length)
+
         } else {
             globalAlert("alert-warning", "No current thoughts.");
             return false;
         }
 
-        console.log("CBT Thought Process")
+
 
 
         let tempThoughtStr = "";
         for (let i = 0; i < tempObj.length; i++) {
 
-            console.log("checking dates: " + tempObj[i].thoughtDateTime.indexOf(dateOfSubmission))
+
             if (tempObj[i].thoughtDateTime.indexOf(dateOfSubmission) !== -1) {
 
 
-                console.log("found one: " + tempObj[i].thoughtDateTime.indexOf(dateOfSubmission));
+
                 tempThoughtStr = tempThoughtStr + "<li class='list-group-item' ><label><u> " + (1 + Number(i)) + ". CBT Thought: </u>" + tempObj[i].automaticThought + "</label><br/><i>Date Time: " + tempObj[i].thoughtDateTime + "</i><hr/><label><u>Cognitive Distortion</u></label><p>" + tempObj[i].cognitiveDistortion + "</p><hr/><label><u>Rational Thought</u></label><p>" + tempObj[i].rationalThought + "</p><button class='form-control btn btn-danger' onClick=\"toggle('thought-" + i + "')\"> <i class='fas fa-trash'></i> Delete Thought " + (i + 1) + "</button><div  class='hide' data-toggle='thought-" + i + "' class='alert alert-info'><p>Are you sure you want to delete thought " + (1 + i) + "?</p><button class='btn btn-secondary' onClick=\"toggle('')\">No</button><button class='btn btn-danger'  onClick='deleteThought(" + i + ")'>Yes</button></div></li>";
 
 
-                console.log("tempThoughtStr" + tempThoughtStr)
             }
             document.getElementById("submissionTarget").innerHTML = tempThoughtStr;
         }
@@ -111,7 +110,7 @@ function convertForCalendar(windowLocation) {
             if (localStorage.getItem("journalObj")) {
                 tempObj = JSON.parse(localStorage.getItem("journalObj"));
 
-                console.log("tempObj.length: " + tempObj.length)
+
             } else {
                 globalAlert("alert-warning", "No current Journal.");
                 return false;
@@ -177,7 +176,7 @@ let picker = datepicker('#datePickerCalendarTarget', {
     // Event callbacks.
     onSelect: instance => {
         // Show which date was selected.
-        console.log(instance.dateSelected);
+
 
 
         const date = new Date(instance.dateSelected);
