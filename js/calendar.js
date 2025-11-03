@@ -95,7 +95,7 @@ function viewSubmission(dateOfSubmission) {
 
 
 function convertForCalendar(windowLocation) {
-
+    console.log("convertForCalendar() fired! ")
 
     if (localStorage.getItem("iHaveThoughtsSection")) {
         activeFunc = localStorage.getItem("iHaveThoughtsSection");
@@ -280,7 +280,7 @@ function rebuildCalendarTarget() {
 }
 
 
-function viewVersion(view) {
+function viewVersion(view, onload) {
 
 
 
@@ -320,7 +320,10 @@ function viewVersion(view) {
 
 
         writeDayNums(timestamp().substring(0, 7));
-        convertForCalendar("calendarWrapper");
+        if (!onload) {
+            convertForCalendar("calendarWrapper");
+        }
+
 
         [].forEach.call(document.querySelectorAll("[data-view='list']"), (e) => {
             e.classList.add("hide");
@@ -362,7 +365,7 @@ function viewVersion(view) {
 }
 
 
-function toggleSection(whatSection, toggleMobileFunc) {
+function toggleSection(whatSection, toggleMobileFunc, onload) {
 
     document.getElementById("submissionTarget").innerHTML = "";
     let activeView = "list";
@@ -370,12 +373,12 @@ function toggleSection(whatSection, toggleMobileFunc) {
         activeView = localStorage.getItem('activeTherapyView');
     }
     if (activeView === "calendar") {
-        window.addEventListener('load', () => {
-            rebuildCalendarTarget();
-            console.log("reset calendar");
 
-            picker.setDate(new Date(), true);
-        });
+        rebuildCalendarTarget();
+        console.log("reset calendar");
+
+        picker.setDate(new Date(), true);
+
     }
     //  setTimeout(() => {
 
@@ -416,14 +419,14 @@ function toggleSection(whatSection, toggleMobileFunc) {
     } catch (error) {
         console.log("error: " + error)
     }
-    viewVersion(activeView);
+    viewVersion(activeView, onload);
 
 }
 
 
 
 if (localStorage.getItem("iHaveThoughtsSection")) {
-    toggleSection(localStorage.getItem("iHaveThoughtsSection"), false);
+    toggleSection(localStorage.getItem("iHaveThoughtsSection"), false, true);
 }
 
 
