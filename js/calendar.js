@@ -330,6 +330,8 @@ function viewVersion(view) {
 
 
         window.location.href = "#calendarWrapper";
+
+
     }
 
 
@@ -368,10 +370,12 @@ function toggleSection(whatSection, toggleMobileFunc) {
         activeView = localStorage.getItem('activeTherapyView');
     }
     if (activeView === "calendar") {
-        rebuildCalendarTarget();
-        console.log("reset calendar");
+        window.addEventListener('load', () => {
+            rebuildCalendarTarget();
+            console.log("reset calendar");
 
-        picker.setDate(new Date(), true)
+            picker.setDate(new Date(), true);
+        });
     }
     //  setTimeout(() => {
 
@@ -723,6 +727,7 @@ function submitThought(addEdit) {
     document.getElementById("submissionTarget").innerHTML = "";
 
 }
+
 
 
 
