@@ -95,40 +95,40 @@ function buildList(fromWhere) {
     }
 
 
-    if (activeTherapyView === "list") {
 
 
 
-        let thoughtStr = "";
-        for (let i = 0; i < thoughtObj.length; i++) {
+
+    let thoughtStr = "";
+    for (let i = 0; i < thoughtObj.length; i++) {
 
 
-            let thoughtDateTime;
+        let thoughtDateTime;
 
-            try {
-                if (thoughtObj[i].thoughtDateTime !== undefined) {
-                    thoughtDateTime = thoughtObj[i].thoughtDateTime;
-                } else {
-                    thoughtDateTime = timestamp();
-                }
-
-            } catch (error) {
-
-                console.log("Error: " + error)
-
+        try {
+            if (thoughtObj[i].thoughtDateTime !== undefined) {
+                thoughtDateTime = thoughtObj[i].thoughtDateTime;
+            } else {
+                thoughtDateTime = timestamp();
             }
 
-            thoughtStr = thoughtStr + "<li class='list-group-item' data-row='" + i + "' ><label><u> " + (i + 1) + ". Thought: </u>" + thoughtObj[i].automaticThought
-                + "</label><br/><i>Date Time: " + thoughtDateTime + "</i><hr/><label><u>Cognitive Distortion</u></label><p>" + thoughtObj[i].cognitiveDistortion + "</p><hr/><label><u>Rational Thought</u></label><p>" +
-                thoughtObj[i].rationalThought + "</p><button class='form-control btn btn-danger' onClick=\"toggle('thought-" + i + "')\"> <i class='fas fa-trash'></i> Delete Thought " + (i + 1) + "</button><div  class='hide' data-toggle='thought-" + i + "' class='alert alert-info'><p>Are you sure you want to delete thought " + (1 + i) + "?</p><button class='btn btn-secondary' onClick=\"toggle('')\">No</button><button class='btn btn-danger'  onClick='deleteThought(" + i + ")'>Yes</button></div></li>";
+        } catch (error) {
+
+            console.log("Error: " + error)
+
         }
 
-        document.getElementById("thoughtTarget").innerHTML = thoughtStr;
+        thoughtStr = thoughtStr + "<li class='list-group-item' data-row='" + i + "' ><label><u> " + (i + 1) + ". Thought: </u>" + thoughtObj[i].automaticThought
+            + "</label><br/><i>Date Time: " + thoughtDateTime + "</i><hr/><label><u>Cognitive Distortion</u></label><p>" + thoughtObj[i].cognitiveDistortion + "</p><hr/><label><u>Rational Thought</u></label><p>" +
+            thoughtObj[i].rationalThought + "</p><button class='form-control btn btn-danger' onClick=\"toggle('thought-" + i + "')\"> <i class='fas fa-trash'></i> Delete Thought " + (i + 1) + "</button><div  class='hide' data-toggle='thought-" + i + "' class='alert alert-info'><p>Are you sure you want to delete thought " + (1 + i) + "?</p><button class='btn btn-secondary' onClick=\"toggle('')\">No</button><button class='btn btn-danger'  onClick='deleteThought(" + i + ")'>Yes</button></div></li>";
     }
 
-    if (document.querySelector(".btn.active[data-addeditbt='edit']")) {
-        populateEditMenus();
-    }
+    document.getElementById("thoughtTarget").innerHTML = thoughtStr;
+
+
+
+    populateEditMenus();
+
 
 
 
