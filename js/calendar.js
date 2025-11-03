@@ -369,6 +369,7 @@ function toggleSection(whatSection, toggleMobileFunc) {
     }
     if (activeView === "calendar") {
         rebuildCalendarTarget();
+        console.log("reset calendar");
 
         picker.setDate(new Date(), true)
     }

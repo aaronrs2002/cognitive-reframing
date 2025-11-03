@@ -95,36 +95,41 @@ function buildList(fromWhere) {
     }
 
 
+    if (activeTherapyView === "list") {
 
 
-    let thoughtStr = "";
-    for (let i = 0; i < thoughtObj.length; i++) {
+
+        let thoughtStr = "";
+        for (let i = 0; i < thoughtObj.length; i++) {
 
 
-        let thoughtDateTime;
+            let thoughtDateTime;
 
-        try {
-            if (thoughtObj[i].thoughtDateTime !== undefined) {
-                thoughtDateTime = thoughtObj[i].thoughtDateTime;
-            } else {
-                thoughtDateTime = timestamp();
+            try {
+                if (thoughtObj[i].thoughtDateTime !== undefined) {
+                    thoughtDateTime = thoughtObj[i].thoughtDateTime;
+                } else {
+                    thoughtDateTime = timestamp();
+                }
+
+            } catch (error) {
+
+                console.log("Error: " + error)
+
             }
 
-        } catch (error) {
-
-            console.log("Error: " + error)
-
+            thoughtStr = thoughtStr + "<li class='list-group-item' data-row='" + i + "' ><label><u> " + (i + 1) + ". Thought: </u>" + thoughtObj[i].automaticThought
+                + "</label><br/><i>Date Time: " + thoughtDateTime + "</i><hr/><label><u>Cognitive Distortion</u></label><p>" + thoughtObj[i].cognitiveDistortion + "</p><hr/><label><u>Rational Thought</u></label><p>" +
+                thoughtObj[i].rationalThought + "</p><button class='form-control btn btn-danger' onClick=\"toggle('thought-" + i + "')\"> <i class='fas fa-trash'></i> Delete Thought " + (i + 1) + "</button><div  class='hide' data-toggle='thought-" + i + "' class='alert alert-info'><p>Are you sure you want to delete thought " + (1 + i) + "?</p><button class='btn btn-secondary' onClick=\"toggle('')\">No</button><button class='btn btn-danger'  onClick='deleteThought(" + i + ")'>Yes</button></div></li>";
         }
 
-        thoughtStr = thoughtStr + "<li class='list-group-item' data-row='" + i + "' ><label><u> " + (i + 1) + ". Thought: </u>" + thoughtObj[i].automaticThought
-            + "</label><br/><i>Date Time: " + thoughtDateTime + "</i><hr/><label><u>Cognitive Distortion</u></label><p>" + thoughtObj[i].cognitiveDistortion + "</p><hr/><label><u>Rational Thought</u></label><p>" +
-            thoughtObj[i].rationalThought + "</p><button class='form-control btn btn-danger' onClick=\"toggle('thought-" + i + "')\"> <i class='fas fa-trash'></i> Delete Thought " + (i + 1) + "</button><div  class='hide' data-toggle='thought-" + i + "' class='alert alert-info'><p>Are you sure you want to delete thought " + (1 + i) + "?</p><button class='btn btn-secondary' onClick=\"toggle('')\">No</button><button class='btn btn-danger'  onClick='deleteThought(" + i + ")'>Yes</button></div></li>";
+        document.getElementById("thoughtTarget").innerHTML = thoughtStr;
     }
 
-    document.getElementById("thoughtTarget").innerHTML = thoughtStr;
+    if (document.querySelector(".btn.active[data-addeditbt='edit']")) {
+        populateEditMenus();
+    }
 
-
-    populateEditMenus();
 
 
 }
@@ -355,10 +360,15 @@ function runSearch() {
 function updateCRUD(addEdit) {
 
     [].forEach.call(document.querySelectorAll("[data-addeditbt]"), (e) => {
-        e.classList.remove("active");
+        if (e.dataset.addeditbt !== addEdit) {
+            e.classList.remove("active");
+        } else {
+            e.classList.add("active");
+        }
+
     });
 
-    document.querySelector("[data-addeditbt='" + addEdit + "']").classList.add("active");
+
 
     [].forEach.call(document.querySelectorAll("[data-edit]"), (e) => {
         e.classList.add("hide");
