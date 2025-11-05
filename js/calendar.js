@@ -241,7 +241,6 @@ let picker = datepicker('#datePickerCalendarTarget', {
     minDate: new Date(2016, 5, 1), // June 1st, 2016.
     startDate: new Date(), // This month.
     showAllDates: false, // Numbers for leading & trailing days outside the current month will show.
-    disableMobile: false,
     // Disabling things.
     /* noWeekends: true, // Saturday's and Sunday's will be unselectable.
      disabler: date => (date.getDay() === 2 && date.getMonth() === 9), // Disabled every Tuesday in October
