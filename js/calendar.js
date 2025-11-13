@@ -165,10 +165,10 @@ function convertForCalendar(windowLocation) {
 
 
 
-            return false;
+
 
         }
-        return false;
+
     });
 
     window.location.href = "#" + windowLocation;
