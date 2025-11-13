@@ -173,7 +173,7 @@ After discussion with chatGPT, this may help safari iphone 13 bug:
 https://chatgpt.com/share/68730b76-292c-8003-addf-9a5b87ec55fd
 */
 
-let picker = datepicker('#datePickerCalendarTarget', {
+let picker = datepicker(((document.querySelector(".active[data-selected='CBT Thought Process']")) ? "#datePickerCalendarTarget" : "#datePickerCalendarTargetCBT"), {
     // Event callbacks.
     onSelect: instance => {
         // Show which date was selected.
@@ -263,7 +263,7 @@ function rebuildCalendarTarget() {
     if (!wrapper) return null;
 
     // Remove any existing calendar target completely
-    const oldTarget = document.getElementById('datePickerCalendarTarget');
+    const oldTarget = ((document.querySelector(".active[data-selected='CBT Thought Process']")) ? "#datePickerCalendarTarget" : "#datePickerCalendarTargetCBT");
     if (oldTarget) {
         oldTarget.remove(); // fully detaches the node, freeing memory
 
@@ -272,7 +272,7 @@ function rebuildCalendarTarget() {
 
     // Create a fresh calendar target div
     const newTarget = document.createElement('div');
-    newTarget.id = 'datePickerCalendarTarget';
+    newTarget.id = ((document.querySelector(".active[data-selected='CBT Thought Process']")) ? "#datePickerCalendarTarget" : "#datePickerCalendarTargetCBT");
     wrapper.appendChild(newTarget);
 
     return newTarget;
@@ -374,7 +374,7 @@ function toggleSection(whatSection, toggleMobileFunc, onload) {
     }
     if (activeView === "calendar") {
 
-        rebuildCalendarTarget();
+        /* rebuildCalendarTarget(); no need to fire this now that we have 2 calendars*/
         console.log("reset calendar");
 
         picker.setDate(new Date(), true);
