@@ -101,20 +101,33 @@ function convertForCalendar(windowLocation) {
         activeFunc = localStorage.getItem("iHaveThoughtsSection");
     }
 
+    if (activeFunc === "Journal") {
+        if (localStorage.getItem("journalObj")) {
+            tempObj = JSON.parse(localStorage.getItem("journalObj"));
+
+
+        } else {
+            globalAlert("alert-warning", "No current Journal.");
+            return false;
+        }
+    } else {
+        if (localStorage.getItem("thoughtObj")) {
+            tempObj = JSON.parse(localStorage.getItem("thoughtObj"));
+            console.log("JSON.stringify(tempObj): " + JSON.stringify(tempObj));
+
+        } else {
+            globalAlert("alert-warning", "No current thoughts.");
+            return false;
+        }
+    }
+
     [].forEach.call(document.querySelectorAll("[data-direction='0']"), (e) => {
         let fistTxt = e.innerHTML;
 
         let datSrt = e.dataset.daynum;
 
         if (activeFunc === "Journal") {
-            if (localStorage.getItem("journalObj")) {
-                tempObj = JSON.parse(localStorage.getItem("journalObj"));
 
-
-            } else {
-                globalAlert("alert-warning", "No current Journal.");
-                return false;
-            }
 
 
             let tempJournalStr = "";
@@ -135,14 +148,7 @@ function convertForCalendar(windowLocation) {
 
         if (activeFunc === "CBT Thought Process") {
 
-            if (localStorage.getItem("thoughtObj")) {
-                tempObj = JSON.parse(localStorage.getItem("thoughtObj"));
 
-
-            } else {
-                globalAlert("alert-warning", "No current thoughts.");
-                return false;
-            }
 
             for (let i = 0; i < tempObj.length; i++) {
 
