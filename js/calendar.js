@@ -95,7 +95,6 @@ function viewSubmission(dateOfSubmission) {
 
 
 function convertForCalendar(windowLocation) {
-    console.log("convertForCalendar() fired! ")
 
     if (localStorage.getItem("iHaveThoughtsSection")) {
         activeFunc = localStorage.getItem("iHaveThoughtsSection");
@@ -113,7 +112,6 @@ function convertForCalendar(windowLocation) {
     } else {
         if (localStorage.getItem("thoughtObj")) {
             tempObj = JSON.parse(localStorage.getItem("thoughtObj"));
-            console.log("JSON.stringify(tempObj): " + JSON.stringify(tempObj));
 
         } else {
             globalAlert("alert-warning", "No current thoughts.");
@@ -381,7 +379,6 @@ function toggleSection(whatSection, toggleMobileFunc, onload) {
     if (activeView === "calendar") {
 
         rebuildCalendarTarget();
-        console.log("reset calendar");
 
         picker.setDate(new Date(), true);
 
