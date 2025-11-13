@@ -328,9 +328,19 @@ function clearData() {
     return false;
 }
 
-
+/*
 if (localStorage.getItem("thoughtObj")) {
     buildList("LocalStorage");
+}*/
+
+
+try {
+    const data = localStorage.getItem("thoughtObj");
+    console.log("Raw localStorage data length:", data?.length);
+    console.log("data:", data);
+    thoughtObj = JSON.parse(data);
+} catch (err) {
+    console.error("Error parsing thoughtObj from localStorage:", err);
 }
 
 function runSearch() {
