@@ -163,7 +163,7 @@ function convertForCalendar(windowLocation) {
                 };
             }
 
-            window.location.href = "#" + windowLocation;
+
 
             return false;
 
@@ -171,7 +171,7 @@ function convertForCalendar(windowLocation) {
         return false;
     });
 
-
+    window.location.href = "#" + windowLocation;
 
 }
 /*
