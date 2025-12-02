@@ -334,27 +334,22 @@ if (localStorage.getItem("thoughtObj")) {
 }
 
 function runSearch() {
-
+    let idTarget = "thoughtTarget";
     tempObj = JSON.parse(localStorage.getItem("thoughtObj"));
     if (localStorage.getItem("iHaveThoughtsSection") === "Journal") {
         tempObj = JSON.parse(localStorage.getItem("journalObj"));
+        idTarget = "journalSubmissionsTarget";
     }
-
     let searchTerm = document.querySelector("[name='searchField-" + localStorage.getItem("iHaveThoughtsSection") + "']").value.toLowerCase();
-
-    [].forEach.call(document.querySelectorAll("li.list-group-item[data-row]"), (e, i) => {
-
-        e.classList.add("hide");
-
-    });
-
     for (let i = 0; i < tempObj.length; i++) {
-        if (JSON.stringify(tempObj[i]).toLowerCase().indexOf(searchTerm) !== -1) {
-            document.querySelector("li.list-group-item[data-row='" + i + "']").classList.remove("hide");
+        if (tempObj[i].journalTitleSubmission.toLowerCase().indexOf(searchTerm) !== -1 || tempObj[i].journalSubmission.toLowerCase().indexOf(searchTerm) !== -1 || tempObj[i].journalDateTime.indexOf(searchTerm) !== -1) {
+            if (document.querySelector("#" + idTarget + " li.list-group-item.hide[data-row='" + i + "']")) {
+                document.querySelector("#" + idTarget + " li.list-group-item[data-row='" + i + "']").classList.remove("hide");
+            }
+        } else {
+            document.querySelector("#" + idTarget + " li.list-group-item[data-row='" + i + "']").classList.add("hide");
         }
     }
-
-
 }
 
 function updateCRUD(addEdit) {
