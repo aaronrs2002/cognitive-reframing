@@ -342,13 +342,38 @@ function runSearch() {
     }
     let searchTerm = document.querySelector("[name='searchField-" + localStorage.getItem("iHaveThoughtsSection") + "']").value.toLowerCase();
     for (let i = 0; i < tempObj.length; i++) {
-        if (tempObj[i].journalTitleSubmission.toLowerCase().indexOf(searchTerm) !== -1 || tempObj[i].journalSubmission.toLowerCase().indexOf(searchTerm) !== -1 || tempObj[i].journalDateTime.indexOf(searchTerm) !== -1) {
-            if (document.querySelector("#" + idTarget + " li.list-group-item.hide[data-row='" + i + "']")) {
-                document.querySelector("#" + idTarget + " li.list-group-item[data-row='" + i + "']").classList.remove("hide");
+        if (idTarget === "thoughtTarget") {
+
+
+
+            /*
+
+
+        "automaticThought": 
+        "cognitiveDistortion": " 
+        "rationalThought": " 
+          "thoughtDateTime":
+
+            */
+
+            if (tempObj[i].automaticThought.toLowerCase().indexOf(searchTerm) !== -1 || tempObj[i].cognitiveDistortion.toLowerCase().indexOf(searchTerm) !== -1 || tempObj[i].rationalThought.toLowerCase().indexOf(searchTerm) !== -1 || tempObj[i].thoughtDateTime.indexOf(searchTerm) !== -1) {
+                if (document.querySelector("#" + idTarget + " li.list-group-item.hide[data-row='" + i + "']")) {
+                    document.querySelector("#" + idTarget + " li.list-group-item[data-row='" + i + "']").classList.remove("hide");
+                }
+            } else {
+                document.querySelector("#" + idTarget + " li.list-group-item[data-row='" + i + "']").classList.add("hide");
             }
+
         } else {
-            document.querySelector("#" + idTarget + " li.list-group-item[data-row='" + i + "']").classList.add("hide");
+            if (tempObj[i].journalTitleSubmission.toLowerCase().indexOf(searchTerm) !== -1 || tempObj[i].journalSubmission.toLowerCase().indexOf(searchTerm) !== -1 || tempObj[i].journalDateTime.indexOf(searchTerm) !== -1) {
+                if (document.querySelector("#" + idTarget + " li.list-group-item.hide[data-row='" + i + "']")) {
+                    document.querySelector("#" + idTarget + " li.list-group-item[data-row='" + i + "']").classList.remove("hide");
+                }
+            } else {
+                document.querySelector("#" + idTarget + " li.list-group-item[data-row='" + i + "']").classList.add("hide");
+            }
         }
+
     }
 }
 
