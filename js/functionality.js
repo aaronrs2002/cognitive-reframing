@@ -589,7 +589,7 @@ function runMoodChart() {
     }
     var options = {
         series: [{
-            name: "Desktops",
+            name: "Mood Metric",
             data: moodData
         }],
         chart: {
