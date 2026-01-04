@@ -682,6 +682,7 @@ function submitJournalThought(addEdit) {
     convertForCalendar("submissionTarget");
     document.getElementById("submissionTarget").innerHTML = "";
     globalAlert("alert-success", "Journal entry " + addEdit + "ed.");
+    document.querySelector("select#mood").selectedIndex = 0;
 }
 
 
