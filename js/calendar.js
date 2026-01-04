@@ -358,18 +358,39 @@ function viewVersion(view, onload) {
         document.querySelector("#calendarWrapper").classList.add("hide");
 
 
+        if (document.querySelector("[data-section='" + whatSection + "'][data-view='list']")) {
+            document.querySelector("[data-section='" + whatSection + "'][data-view='list']").classList.remove("hide");
+        }
 
-        document.querySelector("[data-section='" + whatSection + "'][data-view='list']").classList.remove("hide");
 
 
     }
 
+
+    runMoodChart();
 
 
 }
 
 
 function toggleSection(whatSection, toggleMobileFunc, onload) {
+    document.getElementById("activeTitleTarget").innerHTML = whatSection;
+    if (whatSection !== "Analytics") {
+
+
+        [].forEach.call(document.querySelectorAll(".viewOptionWrapper"), (e) => {
+            e.classList.remove("hide");
+        });
+    } else {
+        document
+            .querySelector("#chart")
+            .scrollIntoView({ behavior: "smooth" });
+        [].forEach.call(document.querySelectorAll(".viewOptionWrapper"), (e) => {
+            e.classList.add("hide");
+        });
+
+    }
+
 
     document.getElementById("submissionTarget").innerHTML = "";
     let activeView = "list";
@@ -391,10 +412,19 @@ function toggleSection(whatSection, toggleMobileFunc, onload) {
     localStorage.setItem("iHaveThoughtsSection", whatSection);
 
     [].forEach.call(document.querySelectorAll("[data-section]"), (e) => {
-        e.classList.add("hide");
-    })
-    document.querySelector("[data-section='" + whatSection + "']").classList.remove("hide");
 
+        if (e.dataset.section === whatSection) {
+            e.classList.remove("hide");
+        } else {
+            e.classList.add("hide");
+        }
+
+    })
+    //document.querySelector("[data-section='" + whatSection + "']").classList.remove("hide");
+
+
+
+    console.log("whatSection: " + whatSection)
     if (toggleMobileFunc) {
         toggleMobileNav("mobileNav");
     }
@@ -402,26 +432,38 @@ function toggleSection(whatSection, toggleMobileFunc, onload) {
 
 
     [].forEach.call(document.querySelectorAll("[data-selected]"), (e) => {
-        e.classList.remove("active");
+
+        if (e.dataset.section === whatSection) {
+            e.classList.remove("active");
+        } else {
+            e.classList.add("active");
+        }
+
     });
 
-    document.querySelector("[data-selected='" + whatSection + "']").classList.add("active");
+    // document.querySelector("[data-selected='" + whatSection + "']").classList.add("active");
 
-    try {
-        if (document.querySelector("[data-addeditbt='edit'].active")) {
-            globalAlert("alert-info", "You are in \"edit\" mode.");
+    if (localStorage.getItem("iHaveThoughtsSection") !== "Analytics") {
+
+        try {
+            if (document.querySelector("[data-addeditbt='edit'].active")) {
+                globalAlert("alert-info", "You are in \"edit\" mode.");
+            }
+        } catch (error) {
+            console.log("error: " + error)
         }
-    } catch (error) {
-        console.log("error: " + error)
+
+        try {
+            if (document.querySelector("[data-addeditbt='add'].active")) {
+                globalAlert("alert-info", "You are in \"add\" mode.");
+            }
+        } catch (error) {
+            console.log("error: " + error)
+        }
+
     }
 
-    try {
-        if (document.querySelector("[data-addeditbt='add'].active")) {
-            globalAlert("alert-info", "You are in \"add\" mode.");
-        }
-    } catch (error) {
-        console.log("error: " + error)
-    }
+
     viewVersion(activeView, onload);
 
 }
@@ -458,6 +500,7 @@ function handleOnSubmit(event, type, merge) {
 
                 buildList("handleOnSubmit");
                 buildJournalList("handleOnSubmit");
+
                 globalAlert("alert-success", "Your file was uploaded.");
                 return false;
 
@@ -515,6 +558,7 @@ function deleteJournal(num) {
 
     viewVersion(activeView);
 
+    runMoodChart();
 
 
 }
@@ -553,6 +597,18 @@ function deleteThought(num) {
 
 
 function submitJournalThought(addEdit) {
+
+    let mood = document.getElementById("mood").value;
+
+    if (document.getElementById("mood").value === "default") {
+        globalAlert("alert-danger", "Select an option for your current mood please.");
+        document.getElementById("mood").classList.add("error");
+        return false;
+    } else {
+        document.getElementById("mood").classList.remove("error");
+    }
+
+
     [].forEach.call(document.querySelectorAll("textarea"), (e) => {
         e.classList.remove("error");
     });
@@ -593,12 +649,11 @@ function submitJournalThought(addEdit) {
         return false;
     }
     if (addEdit === "add") {
-
-
         journalObj = [...journalObj, {
             journalTitleSubmission,
             journalSubmission,
-            journalDateTime: timestamp()
+            journalDateTime: timestamp(),
+            mood
         }];
     }
 
@@ -613,6 +668,7 @@ function submitJournalThought(addEdit) {
 
         journalObj[selectedEdit].journalTitleSubmission = journalTitleSubmission;
         journalObj[selectedEdit].journalSubmission = journalSubmission;
+        journalObj[selectedEdit].mood = mood;
 
     }
 
@@ -633,6 +689,8 @@ function submitJournalThought(addEdit) {
 
 
 function submitThought(addEdit) {
+
+
 
     [].forEach.call(document.querySelectorAll("textarea"), (e) => {
         e.classList.remove("error");
@@ -712,6 +770,7 @@ function submitThought(addEdit) {
         thoughtObj[selectedNum].rationalThought = rationalThought;
 
 
+
     }
 
     localStorage.setItem("thoughtObj", JSON.stringify(thoughtObj));
@@ -731,6 +790,7 @@ function submitThought(addEdit) {
     });
 
     document.getElementById("submissionTarget").innerHTML = "";
+
 
 }
 

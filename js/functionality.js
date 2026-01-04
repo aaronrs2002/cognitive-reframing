@@ -198,7 +198,7 @@ function buildJournalList(fromWhere) {
     document.getElementById("journalSubmissionsTarget").innerHTML = journalStr;
 
     populateEditMenus();
-
+    runMoodChart();
 
 
 }
@@ -236,7 +236,7 @@ const toggleMobileNav = (whichElem) => {
 
 
 
-let navData = [{ name: "CBT Thought Process", address: "#top" }, { name: "Journal", address: "#top" }];
+let navData = [{ name: "CBT Thought Process", address: "#top" }, { name: "Journal", address: "#top" }, { name: "Analytics", address: "#chart" }];
 let navLinkHTML = "";
 for (let i = 0; i < navData.length; i++) {
     let active = "";
@@ -379,6 +379,10 @@ function runSearch() {
 
 function updateCRUD(addEdit) {
 
+
+
+
+
     [].forEach.call(document.querySelectorAll("[data-addeditbt]"), (e) => {
         if (e.dataset.addeditbt !== addEdit) {
             e.classList.remove("active");
@@ -414,6 +418,8 @@ function updateCRUD(addEdit) {
     });
 
     globalAlert("alert-info", "You are in \"" + addEdit + "\" mode.");
+
+
     //document.querySelector("[data-edit='" + addEdit + "']").classList.remove("hide");
 
 }
@@ -431,6 +437,10 @@ function populateForEdit(whichObj) {
 
         document.getElementById("journalInput").value = journalObj[selectedNum].journalSubmission;
         document.getElementById("journalTitle").value = journalObj[selectedNum].journalTitleSubmission;
+        if (journalObj[selectedNum].mood) {
+            document.getElementById("mood").value = journalObj[selectedNum].mood;
+        }
+
 
     }
 
@@ -442,6 +452,10 @@ function populateForEdit(whichObj) {
 
         document.getElementById("automaticThought").value = thoughtObj[selectedNum].automaticThought;
         document.getElementById("rationalThought").value = thoughtObj[selectedNum].rationalThought;
+        if (thoughtObj[selectedNum].mood) {
+            document.getElementById("mood").value = thoughtObj[selectedNum].mood;
+        }
+
 
         [].forEach.call(document.querySelectorAll("input[type='checkbox'][data-options]"), (e) => {
             e.checked = false;
@@ -528,3 +542,103 @@ if (localStorage.getItem("theme")) {
 }
 document.querySelector("#themes option:first-child").innerHTML = "Selected theme: " + tempTheme;
 //END THEMES
+
+
+/* mood functionality. start*/
+let counter = 0;
+let counterHTML = "<option value='default'>Select 1 (terrible) - 10 (great)</option>";
+for (let i = 0; i < 10; i++) {
+    counter = counter + 1;
+    counterHTML = counterHTML + "<option value='" + counter + "' >" + counter + "</option>"
+}
+document.getElementById("mood").innerHTML = counterHTML;
+
+
+/*START MOOD LINE CHART
+let thoughtObj = [];
+let journalObj = [];
+*/
+function runMoodChart() {
+
+
+
+
+    let moodData = [];
+    let moodDates = []
+    /*for (let i = 0; i < thoughtObj.length; i++) {
+        if (thoughtObj[i].mood) {
+            moodData.push(thoughtObj[i].mood);
+            moodDates.push(thoughtObj[i].thoughtDateTime.substring(0, 19))
+        }
+
+    }*/
+    for (let i = 0; i < journalObj.length; i++) {
+        if (journalObj[i].mood) {
+            moodData.push(journalObj[i].mood)
+            moodDates.push(journalObj[i].journalDateTime.substring(5, 19))
+        }
+
+    }
+
+
+    console.log("moodData: " + moodData);
+    console.log("moodDates: " + moodDates);
+    if (moodData.length === 0) {
+        console.log("we didn't find a mood data point.");
+        return false;
+    }
+    var options = {
+        series: [{
+            name: "Desktops",
+            data: moodData
+        }],
+        chart: {
+            height: 350,
+            type: 'line',
+            zoom: {
+                enabled: false
+            }
+        },
+        dataLabels: {
+            enabled: false
+        },
+        stroke: {
+            curve: 'straight'
+        },
+        title: {
+            text: 'Mood Trends 1 (awful) to 10 (great)',
+            align: 'left'
+        },
+        grid: {
+            row: {
+                colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+                opacity: 0.5
+            },
+        },
+        xaxis: {
+            categories: moodDates,
+            labels: {
+                show: true,
+                rotate: -45,
+                rotateAlways: false,
+                hideOverlappingLabels: true,
+                showDuplicates: false,
+                trim: false,
+                minHeight: undefined,
+                maxHeight: 120,
+                style: {
+                    colors: [],
+                    fontSize: '12px',
+                    fontFamily: 'Helvetica, Arial, sans-serif',
+                    fontWeight: 400,
+                    cssClass: 'apexcharts-xaxis-label',
+                },
+                offsetX: 0,
+                offsetY: 0,
+            }
+        }
+    };
+
+    var chart = new ApexCharts(document.querySelector("#chart"), options);
+    chart.render();
+}

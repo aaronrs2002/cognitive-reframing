@@ -50,12 +50,31 @@
 
 
     <div class="container">
-        <div class="row hide pt-5" id="journal" data-section="Journal">
-            <div class="col-md-12">
-                <h1>Thought Journal</h1>
+        <div class="row">
+            <div class="col-md-12 pt-2">
+                <h1 id="activeTitleTarget">Thought Journal</h1>
                 <p data-instructions="top"></p>
 
+
                 <hr />
+            </div>
+            <div class="col-md-12" data-section="Journal">
+                <h3>How are youy feeling on a scale from 1 - 10</h3>
+                <i>1 means you are currently terrible. 10 means you're doing great.</i>
+                <select class="form-control" id="mood">
+                    <option value="1">1</option>
+                </select>
+            </div>
+
+            <div class="col-md-12 py-5 hide" data-section="Analytics">
+                <h1>Mood Chart</h1>
+                <div id="chart"></div>
+            </div>
+
+        </div>
+        <div class="row pt-5" id="journal" data-section="Journal">
+            <div class="col-md-12">
+
 
                 <div class="btn-group block" role="group">
                     <button type="button" class="btn btn-primary active" onClick="javascript:updateCRUD('add')"
@@ -76,10 +95,13 @@
                 <h3>Journal Title</h3>
                 <input type="text" class="form-control" id="journalTitle" placeholder="Journal Title" />
             </div>
+
+
             <div class="col-md-12">
                 <h3>Journal Thought</h3>
                 <textarea rows="10" class="form-control" id="journalInput" placeholder="Journal Thought"></textarea>
             </div>
+
             <div class="col-md-12" data-edit="add">
                 <button class="form-control btn btn-success" onClick="submitJournalThought('add')">Add
                     Thought</button>
@@ -100,9 +122,6 @@
 
         <div class="row pt-5" id="thoughtProcess" data-section="CBT Thought Process">
             <div class="col-md-12">
-                <h1>CBT Thought Process</h1>
-                <p data-instructions="top"></p>
-                <hr />
 
                 <div class="btn-group block" role="group">
                     <button type="button" class="btn btn-primary active" onClick="javascript:updateCRUD('add')"
@@ -146,38 +165,38 @@
 
         </div>
 
+        <span class="viewOptionWrapper">
+            <!--start buttons-->
+            <div class="row py-3">
 
-        <!--start buttons-->
-        <div class="row py-3">
+                <div class="col-md-12">
+                    <div class="btn-group btn-block" role="group">
+                        <button class="btn btn-info pointer" data-option="calendar"
+                            onClick="viewVersion('calendar')">Calendar
+                            View</button>
 
-            <div class="col-md-12">
-                <div class="btn-group btn-block" role="group">
-                    <button class="btn btn-info pointer" data-option="calendar"
-                        onClick="viewVersion('calendar')">Calendar
-                        View</button>
-
-                    <button class="btn btn-info pointer" data-option="list" onClick="viewVersion('list')">List
-                        View</button>
+                        <button class="btn btn-info pointer" data-option="list" onClick="viewVersion('list')">List
+                            View</button>
+                    </div>
                 </div>
             </div>
-        </div>
-        <!--end button grouop-->
+            <!--end button grouop-->
 
 
 
-        <!--START CALENDAR-->
+            <!--START CALENDAR-->
 
-        <div class="row" id="calendarWrapper">
-            <h3>Calendar</h3>
-            <i><small>Select green squares to read that day's submission.</small></i>
-            <div id="datePickerCalendarTarget" data-section="Journal"></div>
-            <div id="datePickerCalendarTargetCBT" data-section="CBT Thought Process"></div>
+            <div class="row" id="calendarWrapper">
+                <h3>Calendar</h3>
+                <i><small>Select green squares to read that day's submission.</small></i>
+                <div id="datePickerCalendarTarget" data-section="Journal"></div>
+                <div id="datePickerCalendarTargetCBT" data-section="CBT Thought Process"></div>
 
-        </div>
+            </div>
 
-        <ul class="list-group" id="submissionTarget"></ul>
-        <!--END CALENDAR-->
-
+            <ul class="list-group" id="submissionTarget"></ul>
+            <!--END CALENDAR-->
+        </span>
         <div id="viewListTarget"></div>
         <!--CBT Thought Process is hidden so the href window location won't work so I made an empy div with a target ID-->
         <div class="row hide" data-section="CBT Thought Process" data-view="list">
@@ -208,6 +227,7 @@
 
 
         <div class="row hide" data-section="Journal" data-view="list">
+
             <div class="col-md-12">
 
                 <div class="row">
@@ -215,11 +235,16 @@
                         <h3>Journal Entries:</h3>
 
                         <hr />
-                        <div class="form-control">
 
-                            <input type="text" class="form-control" name="searchField-Journal"
-                                placeholder="Search Journal title, date and content" onKeyUp="runSearch('Journal')" />
-                        </div>
+
+
+                        <h4>Search</h4>
+
+                        <input type="text" class="form-control" name="searchField-Journal"
+                            placeholder="Search Journal title, date and content" onKeyUp="runSearch('Journal')" />
+
+
+
                     </div>
 
                     <div class="col-md-12">
@@ -446,7 +471,7 @@
 </body>
 
 <script src="https://unpkg.com/js-datepicker"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script src="js/functionality.js" data-version="js"> </script>
 <script src="js/calendar.js" data-version="js"></script>
 
