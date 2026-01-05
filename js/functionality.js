@@ -640,5 +640,10 @@ function runMoodChart() {
     };
 
     var chart = new ApexCharts(document.querySelector("#chart"), options);
-    chart.render();
+
+    setTimeout(() => {
+        document.getElementById("chart").innerHTML = "";
+        chart.render();
+    }, 500)
+
 }
