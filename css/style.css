@@ -37,6 +37,11 @@ nav img {
     z-index: 9;
 }
 
+#chart {
+    background-color: #f3f3f3;
+    border-radius: 5px;
+}
+
 /*
 #cognitiveDistortion {
     max-height: 185px;
