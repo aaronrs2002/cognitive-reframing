@@ -433,7 +433,7 @@ function toggleSection(whatSection, toggleMobileFunc, onload) {
 
     [].forEach.call(document.querySelectorAll("[data-selected]"), (e) => {
 
-        if (e.dataset.section === whatSection) {
+        if (e.dataset.selected === whatSection) {
             e.classList.remove("active");
         } else {
             e.classList.add("active");

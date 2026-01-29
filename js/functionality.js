@@ -3,6 +3,7 @@
 
 const cognDisOptions = ["All or Nothing (AKA Black and White)", "Overgeneralization", "Mental Filtering", "Disqualifying the Positive", "Jumping to Conclusions", "Magnification or Minimization", "Emotional Reasoning", "\"Should\" Statements", "Labeling and Mislabeling", "Personalization"]
 let activeFunc = "CBT Thought Process";
+
 let activeTherapyView = "calendar";
 if (localStorage.getItem("activeTherapyView")) {
     activeTherapyView = localStorage.getItem("activeTherapyView");
@@ -236,14 +237,13 @@ const toggleMobileNav = (whichElem) => {
 
 
 
+
 let navData = [{ name: "CBT Thought Process", address: "#top" }, { name: "Journal", address: "#top" }, { name: "Analytics", address: "#chart" }];
 let navLinkHTML = "";
+
+
 for (let i = 0; i < navData.length; i++) {
-    let active = "";
-    if (i === 0) {
-        active = "active";
-    }
-    navLinkHTML = navLinkHTML + `<li class='nav-item'> <a class='nav-link ${active}' data-selected='${navData[i].name}' href='#top' onClick="toggleSection('${navData[i].name}', true)"><u>${navData[i].name}</u></a></li>`;
+    navLinkHTML = navLinkHTML + `<li class='nav-item'> <a class='nav-link' data-selected='${navData[i].name}' href='#top' onClick="toggleSection('${navData[i].name}', true)"><u>${navData[i].name}</u></a></li>`;
 }
 document.getElementById("navLinkTarget").innerHTML = navLinkHTML;
 
@@ -581,8 +581,6 @@ function runMoodChart() {
     }
 
 
-    console.log("moodData: " + moodData);
-    console.log("moodDates: " + moodDates);
     if (moodData.length === 0) {
         console.log("we didn't find a mood data point.");
         return false;
