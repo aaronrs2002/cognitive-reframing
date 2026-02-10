@@ -7,6 +7,7 @@ let updateCalendar = true;
 let activePad = "default";
 let whichMonth = "";
 
+
 const writeDayNums = (yrMo) => {
     [].forEach.call(document.querySelectorAll("[data-direction='0']"), (e) => {
         let fistTxt = e.innerHTML;
@@ -44,8 +45,20 @@ function viewSubmission(dateOfSubmission) {
         let tempJournalStr = "";
         for (let i = 0; i < tempObj.length; i++) {
 
+            let journalTopicStr = "";
+            let topicsTitle = "";
+            if (journalObj[i].topics !== undefined) {
+                topicsTitle = "<label>Topics:</label>";
+                for (let j = 0; j < journalObj[i].topics.length; j++) {
+                    journalTopicStr = journalTopicStr + `<span class="badge rounded-pill bg-dark"> ${journalObj[i].topics[j]}</span>`;
+                }
+
+                console.log("journalObj[i].topics: " + journalObj[i].topics);
+            }
+
+
             if (tempObj[i].journalDateTime.indexOf(dateOfSubmission) !== -1) {
-                tempJournalStr = tempJournalStr + "<li class='list-group-item'><label><u> " + (1 + Number(i)) + ". Journal Title: " + tempObj[i].journalTitleSubmission + "</u></label><br/><p>" + tempObj[i].journalSubmission + "</p><i>Date Time: " + tempObj[i].journalDateTime + "</i><hr/><button class='form-control btn btn-danger'  onClick=\"toggle('journal-" + i + "')\"> <i class='fas fa-trash'></i> Delete Journal " + (i + 1) + "</button><div  class='hide' data-toggle='journal-" + i + "' class='alert alert-info'><p>Are you sure you want to delete Journal number " + (1 + i) + "?</p><button class='btn btn-secondary' onClick=\"toggle('')\">No</button><button class='btn btn-danger'  onClick='deleteJournal(" + i + ")'>Yes</button></div></li>";
+                tempJournalStr = tempJournalStr + "<li class='list-group-item'><label><u> " + (1 + Number(i)) + ". Journal Title: " + tempObj[i].journalTitleSubmission + "</u></label><br/><p>" + tempObj[i].journalSubmission + "</p>" + topicsTitle + "<div>" + journalTopicStr + "</div><i>Date Time: " + tempObj[i].journalDateTime + "</i><hr/><button class='form-control btn btn-danger'  onClick=\"toggle('journal-" + i + "')\"> <i class='fas fa-trash'></i> Delete Journal " + (i + 1) + "</button><div  class='hide' data-toggle='journal-" + i + "' class='alert alert-info'><p>Are you sure you want to delete Journal number " + (1 + i) + "?</p><button class='btn btn-secondary' onClick=\"toggle('')\">No</button><button class='btn btn-danger'  onClick='deleteJournal(" + i + ")'>Yes</button></div></li>";
             }
         }
         document.getElementById("submissionTarget").innerHTML = tempJournalStr;
@@ -72,11 +85,22 @@ function viewSubmission(dateOfSubmission) {
         for (let i = 0; i < tempObj.length; i++) {
 
 
+            let cbtTopicStr = "";
+            let topicsTitle = ""
+            if (thoughtObj[i].topics !== undefined) {
+                topicsTitle = "<label>Topics:</label>";
+                for (let j = 0; j < thoughtObj[i].topics.length; j++) {
+                    cbtTopicStr = cbtTopicStr + `<span class="badge rounded-pill bg-dark"> ${thoughtObj[i].topics[j]}</span>`;
+                }
+
+                console.log("thoughtObj[i].topics: " + thoughtObj[i].topics);
+            }
+
             if (tempObj[i].thoughtDateTime.indexOf(dateOfSubmission) !== -1) {
 
 
 
-                tempThoughtStr = tempThoughtStr + "<li class='list-group-item' ><label><u> " + (1 + Number(i)) + ". CBT Thought: </u>" + tempObj[i].automaticThought + "</label><br/><i>Date Time: " + tempObj[i].thoughtDateTime + "</i><hr/><label><u>Cognitive Distortion</u></label><p>" + tempObj[i].cognitiveDistortion + "</p><hr/><label><u>Rational Thought</u></label><p>" + tempObj[i].rationalThought + "</p><button class='form-control btn btn-danger' onClick=\"toggle('thought-" + i + "')\"> <i class='fas fa-trash'></i> Delete Thought " + (i + 1) + "</button><div  class='hide' data-toggle='thought-" + i + "' class='alert alert-info'><p>Are you sure you want to delete thought " + (1 + i) + "?</p><button class='btn btn-secondary' onClick=\"toggle('')\">No</button><button class='btn btn-danger'  onClick='deleteThought(" + i + ")'>Yes</button></div></li>";
+                tempThoughtStr = tempThoughtStr + "<li class='list-group-item' ><label><u> " + (1 + Number(i)) + ". CBT Thought: </u>" + tempObj[i].automaticThought + "</label><br/><i>Date Time: " + tempObj[i].thoughtDateTime + "</i><hr/><label><u>Cognitive Distortion</u></label><p>" + tempObj[i].cognitiveDistortion + "</p><hr/><label><u>Rational Thought</u></label><p>" + tempObj[i].rationalThought + "</p>" + topicsTitle + "<div>" + cbtTopicStr + "</div><button class='form-control btn btn-danger' onClick=\"toggle('thought-" + i + "')\"> <i class='fas fa-trash'></i> Delete Thought " + (i + 1) + "</button><div  class='hide' data-toggle='thought-" + i + "' class='alert alert-info'><p>Are you sure you want to delete thought " + (1 + i) + "?</p><button class='btn btn-secondary' onClick=\"toggle('')\">No</button><button class='btn btn-danger'  onClick='deleteThought(" + i + ")'>Yes</button></div></li>";
 
 
             }
@@ -653,7 +677,8 @@ function submitJournalThought(addEdit) {
             journalTitleSubmission,
             journalSubmission,
             journalDateTime: timestamp(),
-            mood
+            mood,
+            topics: journalTopics
         }];
     }
 
@@ -669,6 +694,7 @@ function submitJournalThought(addEdit) {
         journalObj[selectedEdit].journalTitleSubmission = journalTitleSubmission;
         journalObj[selectedEdit].journalSubmission = journalSubmission;
         journalObj[selectedEdit].mood = mood;
+        journalObj[selectedEdit].topics = journalTopics;
 
     }
 
@@ -683,6 +709,10 @@ function submitJournalThought(addEdit) {
     document.getElementById("submissionTarget").innerHTML = "";
     globalAlert("alert-success", "Journal entry " + addEdit + "ed.");
     document.querySelector("select#mood").selectedIndex = 0;
+    journalTopics = [];
+    document.getElementById("submissionTarget").innerHTML = "";
+    document.getElementById("journalTopicsTarget").innerHTML = "";
+
 }
 
 
@@ -753,7 +783,8 @@ function submitThought(addEdit) {
             automaticThought: automaticThought,
             cognitiveDistortion,
             rationalThought: rationalThought,
-            thoughtDateTime: timestamp()
+            thoughtDateTime: timestamp(),
+            topics: cbtTopics
         }];
 
     }
@@ -769,6 +800,7 @@ function submitThought(addEdit) {
         thoughtObj[selectedNum].automaticThought = automaticThought;
         thoughtObj[selectedNum].cognitiveDistortion = cognitiveDistortion;
         thoughtObj[selectedNum].rationalThought = rationalThought;
+        thoughtObj[selectedNum].topics = cbtTopics;
 
 
 
@@ -791,6 +823,10 @@ function submitThought(addEdit) {
     });
 
     document.getElementById("submissionTarget").innerHTML = "";
+    document.getElementById("cbtTopicsTarget").innerHTML = "";
+
+    cbtTopics = [];
+
 
 
 }
@@ -800,3 +836,155 @@ function submitThought(addEdit) {
 
 
 populateEditMenus();
+
+
+
+function addTopic(whichTopic) {
+    document.querySelector("[name='journalTopic']").classList.remove("error");
+    document.querySelector("[name='cbtTopic']").classList.remove("error");
+
+    if (whichTopic === "CBT") {
+
+        console.log("document.querySelector([name = 'cbtTopic']).value: " + document.querySelector("[name='cbtTopic']").value)
+        let topic = document.querySelector("[name='cbtTopic']").value;
+        topic = topic.toLowerCase();
+        if (topic !== "") {
+
+            cbtTopics.push(topic);
+            document.querySelector("[name='cbtTopic']").value = "";
+            globalAlert("alert-success", "Topic: " + topic + " saved.");//cbtTopicsTarget
+            let currentCbtTopics = document.getElementById("cbtTopicsTarget").innerHTML;
+            currentCbtTopics = currentCbtTopics + `<li class="list-group-item p-0"><button onClick="deleteTopic('CBT','${topic}')" class="btn btn-dark"><i class="fas fa-trash"></i> ${topic}</button></li>`;
+            document.getElementById("cbtTopicsTarget").innerHTML = currentCbtTopics;
+
+        } else {
+            document.querySelector("[name='cbtTopic']").classList.add("error");
+            return false;
+        }
+    } else {
+
+
+
+
+
+
+
+
+        console.log("document.querySelector([name = 'journalTopic']).value: " + document.querySelector("[name='journalTopic']").value)
+        let topic = document.querySelector("[name='journalTopic']").value;
+        topic = topic.toLowerCase();
+        if (topic !== "") {
+
+            journalTopics.push(topic);
+            document.querySelector("[name='journalTopic']").value = "";
+            globalAlert("alert-success", "Topic: " + topic + " saved.");
+            let currentJournalTopics = document.getElementById("journalTopicsTarget").innerHTML;
+            currentJournalTopics = currentJournalTopics + `<li class="list-group-item p-0"><button onClick="deleteTopic('Journal','${topic}')" class="btn btn-dark "><i class="fas fa-trash"></i> ${topic}</button></li>`;
+            document.getElementById("journalTopicsTarget").innerHTML = currentJournalTopics;
+
+
+        } else {
+            document.querySelector("[name='journalTopic']").classList.add("error");
+            return false;
+        }
+    }
+
+
+}
+
+/*
+let cbtTopics = [];
+let journalTopics = [];
+*/
+
+
+function deleteTopic(journalCBT, name) {
+    let selectedNum = document.querySelector("select[name='thoughtObjDateList']").value;
+    if (journalCBT === "Journal") {
+        selectedNum = document.querySelector("select[name='journalDateList']").value;
+    }
+    console.log("selectedNum: " + selectedNum)
+
+    if (journalCBT === "Journal") {
+        let topicArray = []
+
+        document.getElementById("journalTopicsTarget").innerHTML = "";
+        if (selectedNum === "default") {
+            topicArray = journalTopics;
+            console.log("we are going with journalTopics: " + journalTopics)
+        } else {
+            topicArray = journalObj[selectedNum].topics
+        }
+
+        console.log("before loop topicArray: " + topicArray);
+        let tempJournalTopics = [];
+        let journalTopicStr = "";
+        for (let i = 0; i < topicArray.length; i++) {
+            console.log("topicArray[i]: " + topicArray[i] + " name: " + name);
+            if (topicArray[i] !== name) {
+                journalTopicStr = journalTopicStr + `<li class="list-group-item p-0"><button onClick="deleteTopic('Journal','${topicArray[i]}')" class="btn btn-dark"><i class="fas fa-trash"></i> ${topicArray[i]}</button></li>`;
+
+                tempJournalTopics.push(topicArray[i])
+            } else {
+                console.log("it equalled: " + name);
+            }
+        }
+        console.log("before loop topicArray: " + topicArray);
+        //topicArray = tempJournalTopics;
+        journalTopics = tempJournalTopics;
+        console.log("topicArray: " + topicArray);
+        if (selectedNum !== "default") {
+            journalObj[selectedNum].topics = tempJournalTopics;
+        }
+        document.getElementById("journalTopicsTarget").innerHTML = journalTopicStr;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    } else {
+
+
+        let topicArray = []
+
+        document.getElementById("cbtTopicsTarget").innerHTML = "";
+        if (selectedNum === "default") {
+            topicArray = cbtTopics;
+        } else {
+            topicArray = thoughtObj[selectedNum].topics
+        }
+        let tempCbtTopics = [];
+
+        let cbtTopicStr = "";
+        console.log("before loop topicArray: " + topicArray);
+        for (let i = 0; i < topicArray.length; i++) {
+            if (topicArray[i] !== name) {
+                cbtTopicStr = cbtTopicStr + `<li class="list-group-item p-0"><button onClick="deleteTopic('CBT','${topicArray[i]}')" class="btn btn-dark"><i class="fas fa-trash"></i> ${topicArray[i]}</button></li>`;
+
+                tempCbtTopics.push(topicArray[i]);
+            }
+
+        }
+        console.log("afetr loop topicArray: " + topicArray);
+
+        if (selectedNum !== "default") {
+            thoughtObj[selectedNum].topics = tempCbtTopics
+        }
+        cbtTopics = tempCbtTopics;
+        console.log("tempCbtTopics: " + tempCbtTopics);
+
+        document.getElementById("cbtTopicsTarget").innerHTML = cbtTopicStr;
+    }
+
+}
