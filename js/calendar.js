@@ -50,7 +50,7 @@ function viewSubmission(dateOfSubmission) {
             if (journalObj[i].topics !== undefined) {
                 topicsTitle = "<label>Topics:</label>";
                 for (let j = 0; j < journalObj[i].topics.length; j++) {
-                    journalTopicStr = journalTopicStr + `<span class="badge rounded-pill bg-dark"> ${journalObj[i].topics[j]}</span>`;
+                    journalTopicStr = journalTopicStr + `<span class="badge rounded-pill bg-secondary"> ${journalObj[i].topics[j]}</span>`;
                 }
 
                 console.log("journalObj[i].topics: " + journalObj[i].topics);
@@ -90,7 +90,7 @@ function viewSubmission(dateOfSubmission) {
             if (thoughtObj[i].topics !== undefined) {
                 topicsTitle = "<label>Topics:</label>";
                 for (let j = 0; j < thoughtObj[i].topics.length; j++) {
-                    cbtTopicStr = cbtTopicStr + `<span class="badge rounded-pill bg-dark"> ${thoughtObj[i].topics[j]}</span>`;
+                    cbtTopicStr = cbtTopicStr + `<span class="badge rounded-pill bg-secondary"> ${thoughtObj[i].topics[j]}</span>`;
                 }
 
                 console.log("thoughtObj[i].topics: " + thoughtObj[i].topics);
