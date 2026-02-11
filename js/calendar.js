@@ -852,7 +852,7 @@ function addTopic(whichTopic) {
 
             cbtTopics.push(topic);
             document.querySelector("[name='cbtTopic']").value = "";
-            globalAlert("alert-success", "Topic: " + topic + " saved.");//cbtTopicsTarget
+            // globalAlert("alert-success", "Topic: " + topic + " saved.");//cbtTopicsTarget
             let currentCbtTopics = document.getElementById("cbtTopicsTarget").innerHTML;
             currentCbtTopics = currentCbtTopics + `<li class="list-group-item p-0"><button onClick="deleteTopic('CBT','${topic}')" class="btn btn-dark"><i class="fas fa-trash"></i> ${topic}</button></li>`;
             document.getElementById("cbtTopicsTarget").innerHTML = currentCbtTopics;
@@ -877,7 +877,7 @@ function addTopic(whichTopic) {
 
             journalTopics.push(topic);
             document.querySelector("[name='journalTopic']").value = "";
-            globalAlert("alert-success", "Topic: " + topic + " saved.");
+            //globalAlert("alert-success", "Topic: " + topic + " saved.");
             let currentJournalTopics = document.getElementById("journalTopicsTarget").innerHTML;
             currentJournalTopics = currentJournalTopics + `<li class="list-group-item p-0"><button onClick="deleteTopic('Journal','${topic}')" class="btn btn-dark "><i class="fas fa-trash"></i> ${topic}</button></li>`;
             document.getElementById("journalTopicsTarget").innerHTML = currentJournalTopics;
