@@ -7,6 +7,17 @@ let updateCalendar = true;
 let activePad = "default";
 let whichMonth = "";
 
+let whatSection = "Journal";
+
+if (localStorage.getItem("iHaveThoughtsSection")) {
+    whatSection = localStorage.getItem("iHaveThoughtsSection");
+} else {
+    localStorage.setItem("iHaveThoughtsSection", whatSection);
+
+}
+
+
+
 
 const writeDayNums = (yrMo) => {
     [].forEach.call(document.querySelectorAll("[data-direction='0']"), (e) => {
@@ -19,12 +30,6 @@ const writeDayNums = (yrMo) => {
         e.innerHTML = fistTxt
     });
     return false;
-}
-
-let whatSection = "CBT Thought Process";
-
-if (localStorage.getItem("iHaveThoughtsSection")) {
-    whatSection = localStorage.getItem("iHaveThoughtsSection");
 }
 
 
@@ -398,6 +403,8 @@ function viewVersion(view, onload) {
 
 
 function toggleSection(whatSection, toggleMobileFunc, onload) {
+
+
     document.getElementById("activeTitleTarget").innerHTML = whatSection;
     if (whatSection !== "Analytics") {
 
@@ -448,7 +455,6 @@ function toggleSection(whatSection, toggleMobileFunc, onload) {
 
 
 
-    console.log("whatSection: " + whatSection)
     if (toggleMobileFunc) {
         toggleMobileNav("mobileNav");
     }
