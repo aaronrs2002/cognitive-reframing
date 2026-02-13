@@ -83,10 +83,12 @@ function populateEditMenus() {
     }
     document.querySelector("select[name='journalDateList']").innerHTML = journalDateSrt;
 }
-
+let oneTopicStr = "<option value='default'>Select previous topic<option>";
+let tempList = [];
 
 function buildList(fromWhere) {
-
+    document.getElementById("thoughtTarget").innerHTML = "";
+    let thoughtStr = "";
 
 
     if (localStorage.getItem("thoughtObj")) {
@@ -97,14 +99,7 @@ function buildList(fromWhere) {
     }
 
 
-
-
-
-
-    let thoughtStr = "";
     for (let i = 0; i < thoughtObj.length; i++) {
-
-
         let thoughtDateTime;
 
         try {
@@ -124,13 +119,30 @@ function buildList(fromWhere) {
 
         let cbtTopicStr = "";
         let topicsTitle = "";
+
         if (thoughtObj[i].topics !== undefined) {
+
+
+
+            for (let j = 0; j < thoughtObj[i].topics.length; j++) {
+                let prepWord = thoughtObj[i].topics[j].toLocaleLowerCase();
+                if (tempList.indexOf(prepWord) === -1) {
+
+                    tempList.push(prepWord);
+
+                }
+            }
+
+
+
+
+
             topicsTitle = "<label>Topics:</label>";
             for (let j = 0; j < thoughtObj[i].topics.length; j++) {
                 cbtTopicStr = cbtTopicStr + `<span class="badge rounded-pill bg-secondary">${thoughtObj[i].topics[j]}</span>`;
             }
 
-            console.log("thoughtObj[i].topics: " + thoughtObj[i].topics);
+            // console.log("thoughtObj[i].topics: " + thoughtObj[i].topics);
         }
 
         thoughtStr = thoughtStr + "<li class='list-group-item' data-row='" + i + "' ><label><u> " + (i + 1) + ". Thought: </u>" + thoughtObj[i].automaticThought
@@ -142,12 +154,20 @@ function buildList(fromWhere) {
 
 
 
+
     populateEditMenus();
+    let preCk = document.getElementById("topicsListTarget").innerHTML;
+    if (preCk === "") {
+        for (let j = 0; j < tempList.length; j++) {
+            oneTopicStr = oneTopicStr + "<option value='" + tempList[j] + "'>" + tempList[j] + "</option>";
 
+        }
+    }
 
-
+    document.getElementById("topicsListTarget").innerHTML = oneTopicStr;
 
 }
+
 
 
 function downloadData() {
@@ -209,7 +229,7 @@ function buildJournalList(fromWhere) {
                 journalTopicStr = journalTopicStr + `<span class="badge rounded-pill bg-secondary">${journalObj[i].topics[j]}</span>`;
             }
 
-            console.log("journalObj[i].topics: " + journalObj[i].topics);
+
         }
 
 
