@@ -898,11 +898,11 @@ function addTopic(whichTopic) {
 
 }
 
-function fillTopic() {
+function fillTopic(whichFunc) {
 
     let whichTopic = document.getElementById("topicsListTarget").value;
     document.querySelector("[name='cbtTopic']").value = whichTopic;
-    // addTopic(localStorage.getItem("iHaveThoughtsSection"));
+    addTopic(whichFunc);
     document.getElementById("topicsListTarget").selectedIndex = 0;
 
 }
