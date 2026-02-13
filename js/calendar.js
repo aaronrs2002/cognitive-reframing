@@ -901,8 +901,8 @@ function addTopic(whichTopic) {
 function fillTopic() {
 
     let whichTopic = document.getElementById("topicsListTarget").value;
-    document.querySelector("[name='journalTopic']").value = whichTopic;
-    addTopic(localStorage.getItem("iHaveThoughtsSection"));
+    document.querySelector("[name='cbtTopic']").value = whichTopic;
+    // addTopic(localStorage.getItem("iHaveThoughtsSection"));
     document.getElementById("topicsListTarget").selectedIndex = 0;
 
 }
