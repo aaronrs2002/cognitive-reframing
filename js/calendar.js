@@ -98,7 +98,7 @@ function viewSubmission(dateOfSubmission) {
                     cbtTopicStr = cbtTopicStr + `<span class="badge rounded-pill bg-secondary"> ${thoughtObj[i].topics[j]}</span>`;
                 }
 
-                console.log("thoughtObj[i].topics: " + thoughtObj[i].topics);
+
             }
 
             if (tempObj[i].thoughtDateTime.indexOf(dateOfSubmission) !== -1) {

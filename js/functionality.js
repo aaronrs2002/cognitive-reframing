@@ -2,8 +2,8 @@
 
 let cbtTopics = [];
 let journalTopics = [];
-let oneTopicStr = "<option value='default'>Select previous topic<option>";
-let journalOneTopicStr = "<option value='default'>Select previous topic<option>";
+let oneTopicStr = "<option value='default'>Select previous topic</option>";
+let journalOneTopicStr = "<option value='default'>Select previous topic</option>";
 const cognDisOptions = ["All or Nothing (AKA Black and White)", "Overgeneralization", "Mental Filtering", "Disqualifying the Positive", "Jumping to Conclusions", "Magnification or Minimization", "Emotional Reasoning", "\"Should\" Statements", "Labeling and Mislabeling", "Personalization"]
 let activeFunc = "CBT Thought Process";
 
@@ -210,12 +210,6 @@ function buildJournalList(fromWhere) {
     for (let i = 0; i < journalObj.length; i++) {
 
 
-
-
-
-        let journalTopicStr = "";
-        let journalTopicsTitle = "";
-
         if (journalObj[i].topics !== undefined) {
 
 
@@ -278,7 +272,11 @@ function buildJournalList(fromWhere) {
     let preCk = document.getElementById("journalTopicsListTarget").innerHTML;
     if (preCk === "") {
         for (let j = 0; j < tempList.length; j++) {
-            journalOneTopicStr = journalOneTopicStr + "<option value='" + tempList[j] + "'>" + tempList[j] + "</option>";
+            if (tempList[j] !== "") {
+                console.log(j + "- tempList[j]: " + tempList[j])
+                journalOneTopicStr = journalOneTopicStr + "<option value='" + tempList[j] + "'>" + tempList[j] + "</option>";
+            }
+
 
         }
     }
