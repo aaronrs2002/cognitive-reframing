@@ -899,11 +899,18 @@ function addTopic(whichTopic) {
 }
 
 function fillTopic(whichFunc) {
+    if (whichFunc !== "Journal") {
+        let whichTopic = document.getElementById("topicsListTarget").value;
+        document.querySelector("[name='cbtTopic']").value = whichTopic;
+        addTopic(whichFunc);
+        document.getElementById("topicsListTarget").selectedIndex = 0;
+    } else {
+        let whichTopic = document.getElementById("journalTopicsListTarget").value;
+        document.querySelector("[name='journalTopic']").value = whichTopic;
+        addTopic(whichFunc);
+        document.getElementById("journalTopicsListTarget").selectedIndex = 0;
+    }
 
-    let whichTopic = document.getElementById("topicsListTarget").value;
-    document.querySelector("[name='cbtTopic']").value = whichTopic;
-    addTopic(whichFunc);
-    document.getElementById("topicsListTarget").selectedIndex = 0;
 
 }
 

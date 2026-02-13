@@ -2,6 +2,8 @@
 
 let cbtTopics = [];
 let journalTopics = [];
+let oneTopicStr = "<option value='default'>Select previous topic<option>";
+let journalOneTopicStr = "<option value='default'>Select previous topic<option>";
 const cognDisOptions = ["All or Nothing (AKA Black and White)", "Overgeneralization", "Mental Filtering", "Disqualifying the Positive", "Jumping to Conclusions", "Magnification or Minimization", "Emotional Reasoning", "\"Should\" Statements", "Labeling and Mislabeling", "Personalization"]
 let activeFunc = "CBT Thought Process";
 
@@ -83,10 +85,11 @@ function populateEditMenus() {
     }
     document.querySelector("select[name='journalDateList']").innerHTML = journalDateSrt;
 }
-let oneTopicStr = "<option value='default'>Select previous topic<option>";
-let tempList = [];
+
+
 
 function buildList(fromWhere) {
+    let tempList = [];
     document.getElementById("thoughtTarget").innerHTML = "";
     let thoughtStr = "";
 
@@ -200,11 +203,34 @@ function downloadData() {
 function buildJournalList(fromWhere) {
 
 
-
+    let tempList = [];
 
 
     let journalStr = "";
     for (let i = 0; i < journalObj.length; i++) {
+
+
+
+
+
+        let journalTopicStr = "";
+        let journalTopicsTitle = "";
+
+        if (journalObj[i].topics !== undefined) {
+
+
+
+            for (let j = 0; j < journalObj[i].topics.length; j++) {
+                let prepWord = journalObj[i].topics[j].toLocaleLowerCase();
+                if (tempList.indexOf(prepWord) === -1) {
+
+                    tempList.push(prepWord);
+
+                }
+            }
+
+
+        }
 
 
         let journalDateTime;
@@ -221,12 +247,12 @@ function buildJournalList(fromWhere) {
             console.log("Error: " + error)
 
         }
-        let journalTopicStr = "";
+        let cbtTopicStr = "";
         let topicsTitle = "";
         if (journalObj[i].topics !== undefined) {
             topicsTitle = "<label>Topics:</label>";
             for (let j = 0; j < journalObj[i].topics.length; j++) {
-                journalTopicStr = journalTopicStr + `<span class="badge rounded-pill bg-secondary">${journalObj[i].topics[j]}</span>`;
+                cbtTopicStr = cbtTopicStr + `<span class="badge rounded-pill bg-secondary">${journalObj[i].topics[j]}</span>`;
             }
 
 
@@ -241,13 +267,23 @@ function buildJournalList(fromWhere) {
 
         journalStr = journalStr + "<li class='list-group-item' data-row='" + i + "'><label><u> " + (i + 1) + ". Journal Title: " + journalObj[i].journalTitleSubmission
             + "</u></label><br/><p>" + journalObj[i].journalSubmission
-            + "</p>" + topicsTitle + "<div class='py-1'>" + journalTopicStr + "</div><i>Date Time: " + journalDateTime + "</i><hr/><button class='form-control btn btn-danger'  onClick=\"toggle('journal-" + i + "')\"> <i class='fas fa-trash'></i> Delete Journal " + (i + 1) + "</button><div  class='hide' data-toggle='journal-" + i + "' class='alert alert-info'><p>Are you sure you want to delete Journal number " + (1 + i) + "?</p><button class='btn btn-secondary' onClick=\"toggle('')\">No</button><button class='btn btn-danger'  onClick='deleteJournal(" + i + ")'>Yes</button></div></li>";
+            + "</p>" + topicsTitle + "<div class='py-1'>" + cbtTopicStr + "</div><i>Date Time: " + journalDateTime + "</i><hr/><button class='form-control btn btn-danger'  onClick=\"toggle('journal-" + i + "')\"> <i class='fas fa-trash'></i> Delete Journal " + (i + 1) + "</button><div  class='hide' data-toggle='journal-" + i + "' class='alert alert-info'><p>Are you sure you want to delete Journal number " + (1 + i) + "?</p><button class='btn btn-secondary' onClick=\"toggle('')\">No</button><button class='btn btn-danger'  onClick='deleteJournal(" + i + ")'>Yes</button></div></li>";
     }
 
     document.getElementById("journalSubmissionsTarget").innerHTML = journalStr;
 
     populateEditMenus();
     runMoodChart();
+
+    let preCk = document.getElementById("journalTopicsListTarget").innerHTML;
+    if (preCk === "") {
+        for (let j = 0; j < tempList.length; j++) {
+            journalOneTopicStr = journalOneTopicStr + "<option value='" + tempList[j] + "'>" + tempList[j] + "</option>";
+
+        }
+    }
+
+    document.getElementById("journalTopicsListTarget").innerHTML = journalOneTopicStr;
 
 
 }
@@ -475,12 +511,12 @@ function populateForEdit(whichObj) {
         }
 
         if (journalObj[selectedNum].topics !== undefined) {
-            let journalTopicStr = "";
+            let cbtTopicStr = "";
             for (let i = 0; i < journalObj[selectedNum].topics.length; i++) {
-                journalTopicStr = journalTopicStr + `<li class="list-group-item p-0"><button onClick="deleteTopic('Journal','${journalObj[selectedNum].topics[i]}')" class="btn btn-dark"><i class="fas fa-trash"></i> ${journalObj[selectedNum].topics[i]}</button></li>`;
+                cbtTopicStr = cbtTopicStr + `<li class="list-group-item p-0"><button onClick="deleteTopic('Journal','${journalObj[selectedNum].topics[i]}')" class="btn btn-dark"><i class="fas fa-trash"></i> ${journalObj[selectedNum].topics[i]}</button></li>`;
             }
-            journalTopics = journalObj[selectedNum].topics;
-            document.getElementById("journalTopicsTarget").innerHTML = journalTopicStr;
+            //journalTopics = journalObj[selectedNum].topics;
+            document.getElementById("journalTopicsTarget").innerHTML = cbtTopicStr;
         }
 
 
@@ -488,6 +524,7 @@ function populateForEdit(whichObj) {
     }
 
     if (whichObj === "thoughtObjDateList") {
+
 
         let selectedNum = document.querySelector("select[name='thoughtObjDateList']").value;
 
@@ -517,7 +554,7 @@ function populateForEdit(whichObj) {
 
 
         if (thoughtObj[selectedNum].topics !== undefined) {
-            cbtTopics = thoughtObj[selectedNum].topics;
+            //  cbtTopics = thoughtObj[selectedNum].topics;
 
 
             let cbtTopicStr = "";

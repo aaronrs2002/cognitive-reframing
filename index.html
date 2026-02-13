@@ -108,6 +108,9 @@
 
             <div class="col-md-12">
 
+                <label>Your previous topics</label>
+                <select class="form-control" id="journalTopicsListTarget" onChange="fillTopic('Journal')"></select>
+                <small><i>Create searchable topics for future reference.</i></small>
 
                 <div class="input-group my-3">
                     <input type="text" class="form-control" placeholder="Add Search Topic" name="journalTopic">
@@ -173,7 +176,7 @@
 
                 <label>Your previous topics</label>
                 <select class="form-control" id="topicsListTarget" onChange="fillTopic('CBT')"></select>
-
+                <small><i>Create searchable topics for future reference.</i></small>
                 <div class="input-group my-3">
                     <input type="text" class="form-control" placeholder="Add Search Topic" name="cbtTopic">
                     <button class="btn btn-outline-primary" onClick="addTopic('CBT')">Submit Topic</button>
