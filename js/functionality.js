@@ -497,11 +497,12 @@ function populateForEdit(whichObj) {
 
     if (whichObj === "journalDateList") {
 
+
         let selectedNum = document.querySelector("select[name='journalDateList']").value;
         if (selectedNum === "default") {
             return false;
         }
-
+        journalTopics = journalObj[selectedNum].topics;
         document.getElementById("journalInput").value = journalObj[selectedNum].journalSubmission;
         document.getElementById("journalTitle").value = journalObj[selectedNum].journalTitleSubmission;
         if (journalObj[selectedNum].mood) {
@@ -529,7 +530,7 @@ function populateForEdit(whichObj) {
         if (selectedNum === "default") {
             return false;
         }
-
+        cbtTopics = thoughtObj[selectedNum].topics;
         document.getElementById("automaticThought").value = thoughtObj[selectedNum].automaticThought;
         document.getElementById("rationalThought").value = thoughtObj[selectedNum].rationalThought;
         if (thoughtObj[selectedNum].mood) {
