@@ -156,11 +156,22 @@ iframe[title="YouTube video player"] {
 
 }
 
+
+/*start list css*/
+
+#journalSubmissionsTarget,
+#thoughtTarget {
+    max-height: 1000px;
+    overflow-y: auto;
+}
+
 @media (max-width: 768px) {
     iframe[title="YouTube video player"] {
         width: 300px !important;
         height: auto !important;
 
     }
+
+
 
 }
